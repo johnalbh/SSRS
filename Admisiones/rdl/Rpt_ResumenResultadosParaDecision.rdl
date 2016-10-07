@@ -2605,7 +2605,7 @@ ORDER BY P.Fechainicio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF( Fields!SumaEval.Value &gt; 0 , Round((Fields!CNJ.Value + Fields!JFC.Value + Fields!VRC.Value + Fields!REC.Value + Fields!SumaCor.Value ), 1) ,  "")</Value>
+                                  <Value>=IIF( Fields!SumaEval.Value &gt; 0 , Round((Fields!CNJ.Value + Fields!JFC.Value + Fields!VRC.Value + Fields!REC.Value + Fields!SumaCor.Value ) / Fields!SumaEval.Value, 1, MidpointRounding.AwayFromZero) ,  "")</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2647,7 +2647,6 @@ ORDER BY P.Fechainicio</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
