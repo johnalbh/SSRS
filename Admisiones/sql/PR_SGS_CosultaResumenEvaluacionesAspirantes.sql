@@ -17,7 +17,7 @@ EMPRESA:
 FECHA MODIFICACIÓN:
 ********************************************************************/
 
-CREATE PROCEDURE 
+ALTER PROCEDURE 
 	[dbo].[PR_SGS_ConsultarResumenEvaluacionesAspirantes]    
 	@fP_ProgramacionDecision  INT 
 AS   
@@ -297,7 +297,7 @@ BEGIN
 	, ResA.ResultadoEvaluacionVRC AS VRC
 	, ResA.ResultadoEvaluacionCOP AS COP
 	, ResA.ResultadoEvaluacionCOM AS COM
-	, FORMAT (IIF (ResA.ResultadoEvaluacionCOP = 0 OR ResA.ResultadoEvaluacionCOP IS NULL, ResA.ResultadoEvaluacionCOM, IIF (ResA.ResultadoEvaluacionCOM = 0 OR ResA.ResultadoEvaluacionCOM IS NULL, ResA.ResultadoEvaluacionCOP, (ResA.ResultadoEvaluacionCOP+ResA.ResultadoEvaluacionCOM)/2)), 'n1') AS SumaCor
+	, IIF (ResA.ResultadoEvaluacionCOP = 0 OR ResA.ResultadoEvaluacionCOP IS NULL, ResA.ResultadoEvaluacionCOM, IIF (ResA.ResultadoEvaluacionCOM = 0 OR ResA.ResultadoEvaluacionCOM IS NULL, ResA.ResultadoEvaluacionCOP, (ResA.ResultadoEvaluacionCOP+ResA.ResultadoEvaluacionCOM)/2)) AS SumaCor
 	, ResA.ResultadoEvaluacionEE  AS EE 
 	, UPPER(adm.Parentesco) AS Parentesco
 	FROM dbo.Aspirante asp
