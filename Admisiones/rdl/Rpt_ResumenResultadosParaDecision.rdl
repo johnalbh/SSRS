@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
+  <Description>Muestra resumen de los resultados de las evaluaciones.</Description>
+  <Author>John López Hernández</Author>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="SGS">
@@ -2915,7 +2917,7 @@ ORDER BY P.Fechainicio</CommandText>
             <Top>0.59457cm</Top>
             <Left>0.30878cm</Left>
             <Height>1.8cm</Height>
-            <Width>31.44276cm</Width>
+            <Width>31.44269cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -3052,7 +3054,7 @@ ORDER BY P.Fechainicio</CommandText>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.62533cm</Height>
+          <Height>1.50642cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -3090,7 +3092,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>0.43051cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.31479cm</Width>
@@ -3139,7 +3140,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>3.34943cm</Left>
               <Height>0.53827cm</Height>
               <Width>1.85702cm</Width>
@@ -3189,7 +3189,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>5.38284cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.94181cm</Width>
@@ -3239,7 +3238,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>8.50104cm</Left>
               <Height>0.53827cm</Height>
               <Width>3.23285cm</Width>
@@ -3289,7 +3287,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>11.94092cm</Left>
               <Height>0.46771cm</Height>
               <Width>1.90993cm</Width>
@@ -3339,7 +3336,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>14.06978cm</Left>
               <Height>0.46771cm</Height>
               <Width>4.31146cm</Width>
@@ -3389,7 +3385,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>18.55763cm</Left>
               <Height>0.46771cm</Height>
               <Width>4.04177cm</Width>
@@ -3439,7 +3434,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>26.5975cm</Left>
               <Height>0.52063cm</Height>
               <Width>3.70291cm</Width>
@@ -3489,7 +3483,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>17.42404cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.19093cm</Width>
@@ -3539,7 +3533,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>4.27763cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.96593cm</Width>
@@ -3589,7 +3583,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>7.61335cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.68521cm</Width>
@@ -3639,7 +3633,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>10.47495cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.00271cm</Width>
@@ -3689,7 +3683,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>0.43051cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.39959cm</Width>
@@ -3739,7 +3733,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>13.58349cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.66417cm</Width>
@@ -3789,7 +3783,6 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.28222cm</Top>
               <Left>22.93254cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.38031cm</Width>
@@ -3826,7 +3819,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>1.00542cm</Top>
+              <Top>0.68792cm</Top>
               <Left>21.14681cm</Left>
               <Height>0.6cm</Height>
               <Width>9.1536cm</Width>
@@ -4130,6 +4123,7 @@ uN7Z9SoooFcKKKKACiiigAooooAKKKKACiiigAooooAKKKKACv8AEG/4JO/8pTf+Caf/AGf/APBv/wBW
     </EmbeddedImage>
   </EmbeddedImages>
   <Language>es-CO</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>7078d6f3-cc81-450d-8a2e-a8381e83848e</rd:ReportID>
 </Report>
