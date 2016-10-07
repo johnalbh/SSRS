@@ -1,7 +1,7 @@
 USE [SGS];  
 GO  
 /********************************************************************
-NOMBRE:				dbo.PR_SGS_CosultaResumenEvaluacionesAspirantes.sql
+NOMBRE:				dbo.PR_SGS_ConsultarResumenEvaluacionesAspirantes.sql
 DESCRPCIÓN:			Creación Strored Procedures "Consulta Resumen Evaluaciones Aspirantes"
 AUTOR:				John Alberto López Hernández
 REQUERIMIENTO:		SP38 - Admisiones 
@@ -10,7 +10,7 @@ FECHA CREACIÓN:		07-10-2016
 PARÁMETROS ENTRADA:	No Aplica
 EXCEPCIONES:		No Aplica
 ---------------------------------------------------------------------
-MODIFICACIÓN: 
+MODIFICACIÓN:       
 AUTOR:
 REQUERIMIENTO:
 EMPRESA:
@@ -18,7 +18,8 @@ FECHA MODIFICACIÓN:
 ********************************************************************/
 
 CREATE PROCEDURE 
-	[dbo].[PR_SGS_CosultaResumenEvaluacionesAspirantes]    
+	[dbo].[PR_SGS_ConsultarResumenEvaluacionesAspirantes]    
+	@fP_ProgramacionDecision  INT 
 AS   
 BEGIN
 	DECLARE @Id_Programacion INT 
