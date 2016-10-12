@@ -21,7 +21,7 @@ REQUERIMIENTO:
 EMPRESA:
 FECHA MODIFICACIÓN:
 ********************************************************************/
-CREATE PROCEDURE 
+ALTER PROCEDURE 
 	 [dbo].[PR_SGS_Rpt_RegistroConsultaMedicaEstudiantes] 
 
         @pFechaInicio as DateTime
@@ -36,14 +36,14 @@ SELECT
 
 	 PR.PrimerApellido + ' ' + isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' ' + isNull(PR.SegundoNombre,'') AS NombreEstudiante
 	,EVL.Edad AS Edad
-	,EVL.ClasificacionTriage
-    ,EVL.HoraInicio
-    ,EVL.HoraFin
-	,EVL.FechaIngreso
-    ,PR.TipoIdentificacion
-    ,PR.NumeroIdentificacion
-    ,CR.Nombre
-    ,EVL.Edad
+	,EVL.ClasificacionTriage AS Triage
+    ,EVL.HoraInicio AS HoraInicio
+    ,EVL.HoraFin AS HoraFin
+	,EVL.FechaIngreso	AS FechaIngreso
+    ,PR.TipoIdentificacion	AS TipoIdentificacion
+    ,PR.NumeroIdentificacion AS NumeroIdentificaicon
+    ,CR.Nombre	AS Curso
+    ,EVL.Edad	AS EDAD
 	, isnull (STUFF(
     (SELECT  ', ' + cie.Descripcion
             FROM DIAGNOSTICO AS DG
@@ -51,7 +51,7 @@ SELECT
         ON DG.CODIGOCIE10=CIE.CODIGO 
             WHERE EVL.Id = DG.IdEvolucion
             FOR XML PATH ('')) , 1, 1, ''),'')  AS Diagnostico
-     ,EVL.SaleHacia                    
+     ,EVL.SaleHacia   as SaleHacia                 
   
 FROM ESTUDIANTE AS EST
 

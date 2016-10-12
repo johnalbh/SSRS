@@ -4,12 +4,12 @@ SET QUOTED_IDENTIFIER ON
 GO
 /********************************************************************
 NOMBRE:				dbo.PR_SGS_Rpt_RegistroConsultaMedicaEmpleados.sql
-DESCRPCIÓN:			Creación Strored Procedures "Consulta Listado General Vehículos"
+DESCRPCIÓN:			Creación Strored Procedures "Registro Consulta Medica Estudiantes"
 AUTOR:				John Alberto López Hernández
 REQUERIMIENTO:		SP38 - Servicio Médico
 EMPRESA:			Colegio San Jorge de Inglaterra
 FECHA CREACIÓN:		12/10/2016
-PARÁMETROS ENTRADA:	No Aplica
+PARÁMETROS ENTRADA:	@FechaInicio y @FechaFin
 EXCEPCIONES:		No Aplica
 ---------------------------------------------------------------------
 MODIFICACIÓN:
@@ -18,7 +18,7 @@ REQUERIMIENTO:
 EMPRESA:
 FECHA MODIFICACIÓN:
 ********************************************************************/
-alter PROCEDURE 
+CREATE PROCEDURE 
 	 [dbo].[PR_SGS_Rpt_RegistroConsultaMedicaEmpleados] 
 
         @pFechaInicio as DateTime
