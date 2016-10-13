@@ -40,8 +40,7 @@ SELECT
     ,EVL.HoraInicio AS HoraInicio
     ,EVL.HoraFin AS HoraFin
 	,EVL.FechaIngreso	AS FechaIngreso
-    ,PR.TipoIdentificacion	AS TipoIdentificacion
-    ,PR.NumeroIdentificacion AS NumeroIdentificaicon
+    ,PR.TipoIdentificacion + ' ' + PR.NumeroIdentificacion AS NumeroIdentificacion
     ,CR.Nombre	AS Curso
     ,EVL.Edad	AS EDAD
 	, isnull (STUFF(
@@ -85,9 +84,8 @@ WHERE
 
 
 ORDER BY 
-	EVL.FECHAINGRESO ASC, PR.PrimerApellido ASC
+	EVL.FECHAINGRESO ASC, CR.IdCurso ASC, PR.PrimerApellido ASC
 
 END
 GO
-
 
