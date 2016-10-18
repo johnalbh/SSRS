@@ -60,13 +60,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>20.5145mm</Width>
+                  <Width>13.63533mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25.01242mm</Width>
+                  <Width>23.6895mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>23.16033mm</Width>
+                  <Width>22.63116mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -316,7 +316,7 @@
             <Top>0.70556mm</Top>
             <Left>2.91042mm</Left>
             <Height>10.67709mm</Height>
-            <Width>68.68724mm</Width>
+            <Width>59.956mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -449,8 +449,9 @@
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </ChartAxisTitle>
+                    <LabelInterval>5</LabelInterval>
                     <ChartMajorGridLines>
-                      <Enabled>False</Enabled>
+                      <Enabled>True</Enabled>
                       <Style>
                         <Border>
                           <Color>Gainsboro</Color>
@@ -458,6 +459,7 @@
                       </Style>
                     </ChartMajorGridLines>
                     <ChartMinorGridLines>
+                      <Enabled>False</Enabled>
                       <Style>
                         <Border>
                           <Color>Gainsboro</Color>
@@ -526,6 +528,7 @@
                       </Style>
                     </ChartAxisTitle>
                     <ChartMajorGridLines>
+                      <Enabled>True</Enabled>
                       <Style>
                         <Border>
                           <Color>Gainsboro</Color>
@@ -533,6 +536,7 @@
                       </Style>
                     </ChartMajorGridLines>
                     <ChartMinorGridLines>
+                      <Enabled>True</Enabled>
                       <Style>
                         <Border>
                           <Color>Gainsboro</Color>
@@ -641,9 +645,9 @@
             </ChartNoDataMessage>
             <DataSetName>CifrasAdmisiones</DataSetName>
             <Top>0.70556mm</Top>
-            <Left>74.68447mm</Left>
-            <Height>91.31651mm</Height>
-            <Width>110.25302mm</Width>
+            <Left>65.95322mm</Left>
+            <Height>97.41957mm</Height>
+            <Width>118.98427mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -655,14 +659,14 @@
             </Style>
           </Chart>
         </ReportItems>
-        <Height>9.41035cm</Height>
+        <Height>9.9889cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>18.83708cm</Width>
+      <Width>18.81062cm</Width>
       <Page>
         <PageHeader>
           <Height>24.61181mm</Height>
@@ -759,7 +763,7 @@
               <Top>4.46617mm</Top>
               <Left>2.91042mm</Left>
               <Height>18.87312mm</Height>
-              <Width>182.02707mm</Width>
+              <Width>182.02709mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -774,7 +778,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>7.46125mm</Height>
+          <Height>12.48833mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>

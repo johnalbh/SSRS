@@ -1,6 +1,6 @@
 USE [SGS]
 GO
-/****** Object:  StoredProcedure [dbo].[PR_SGS_Rpt_CifrasAdmisiones]    Script Date: 13/10/2016 9:09:09 a. m. ******/
+/****** Object:  StoredProcedure [dbo].[PR_SGS_Rpt_CifrasAdmisiones]    Script Date: 18/10/2016 11:05:54 a. m. ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,6 +14,12 @@ EMPRESA:		    Colegio San Jorge de Inglaterra
 FECHA CREACIÓN:		14-09-2016
 PARÁMETROS ENTRADA:	@dP_Indicador: Indicador que se consulta. Puede tener los valores Preinsrito, Inscrito
 EXCEPCIONES:		No Aplica
+-----------------------------------------------------------------------
+MODIFICACIÓN:		Se hace un ajuste en los días, existía un error en el consecutivo de los números
+					El número 44 estaba como 34 y se estaba haciendo una doble inserción.
+AUTOR:				John López
+FECHA MODIFICACIÓN:	18-10-2016
+
 ********************************************************************/
 ALTER PROCEDURE 
 	[dbo].[PR_SGS_Rpt_CifrasAdmisiones]    
@@ -86,14 +92,14 @@ BEGIN
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (41);
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (42);
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (43);
-		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (34);
+		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (44);
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (45);
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (50);
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (55);
 		INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (60);
 END
 ELSE 
-		IF @sP_Indicador = 'Aprobado'
+		IF @sP_Indicador = 'AA'
 
 			BEGIN 
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (20);
@@ -116,7 +122,7 @@ ELSE
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (41);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (42);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (43);
-					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (34);
+					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (44);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (45);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (50);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (55);
@@ -134,7 +140,7 @@ ELSE
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (41);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (42);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (43);
-					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (34);
+					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (44);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (45);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (50);
 					INSERT INTO @TempCifrasHistAdmisiones ( Dia) VALUES (55);
@@ -173,3 +179,4 @@ FROM @TempCifrasHistAdmisiones
 ORDER BY Dia
 END
 
+select estado from EstadoAdmision group by estado
