@@ -5,7 +5,7 @@
     <DataSource Name="Rpt_Consulta_PresentacionColegio">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=limon.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source Rpt_Consulta_PresentacionColegio:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -105,7 +105,7 @@ WHERE
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>2.83105cm</Height>
+                  <Height>3.6248cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -596,7 +596,7 @@ WHERE
                                     </TablixCells>
                                   </TablixRow>
                                   <TablixRow>
-                                    <Height>0.84239cm</Height>
+                                    <Height>0.73656cm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
@@ -644,7 +644,7 @@ WHERE
                                                   <TextRun>
                                                     <Value>=Fields!Familia.Value</Value>
                                                     <Style>
-                                                      <FontSize>8pt</FontSize>
+                                                      <FontSize>7pt</FontSize>
                                                     </Style>
                                                   </TextRun>
                                                 </TextRuns>
@@ -875,10 +875,10 @@ WHERE
                               </TablixRowHierarchy>
                               <RepeatColumnHeaders>true</RepeatColumnHeaders>
                               <DataSetName>ConsultaEntrevista</DataSetName>
-                              <Top>0.82021cm</Top>
-                              <Left>0.03222cm</Left>
-                              <Height>1.9101cm</Height>
-                              <Width>19.92874cm</Width>
+                              <Top>1.69877cm</Top>
+                              <Left>0.03223cm</Left>
+                              <Height>1.80427cm</Height>
+                              <Width>19.92873cm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -906,8 +906,8 @@ WHERE
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox162</rd:DefaultName>
-                              <Top>0.03528cm</Top>
-                              <Left>0.16452cm</Left>
+                              <Top>0.91385cm</Top>
+                              <Left>0.03223cm</Left>
                               <Height>0.60854cm</Height>
                               <Width>6.5284cm</Width>
                               <ZIndex>1</ZIndex>
@@ -942,10 +942,10 @@ WHERE
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox162</rd:DefaultName>
-                              <Top>0.03528cm</Top>
-                              <Left>6.69292cm</Left>
+                              <Top>0.91385cm</Top>
+                              <Left>6.56063cm</Left>
                               <Height>0.60854cm</Height>
-                              <Width>6.5284cm</Width>
+                              <Width>5.81403cm</Width>
                               <ZIndex>2</ZIndex>
                               <Style>
                                 <Border>
@@ -972,11 +972,44 @@ WHERE
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox162</rd:DefaultName>
-                              <Top>0.03528cm</Top>
-                              <Left>13.22132cm</Left>
+                              <Top>0.91385cm</Top>
+                              <Left>12.37466cm</Left>
                               <Height>0.60854cm</Height>
-                              <Width>6.73964cm</Width>
+                              <Width>7.61854cm</Width>
                               <ZIndex>3</ZIndex>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="Textbox3">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Dilema: _________________________________________</Value>
+                                      <Style>
+                                        <FontSize>12pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox3</rd:DefaultName>
+                              <Top>0.03528cm</Top>
+                              <Left>4.03304cm</Left>
+                              <Height>0.70218cm</Height>
+                              <Width>11.77396cm</Width>
+                              <ZIndex>4</ZIndex>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1028,7 +1061,7 @@ WHERE
             <DataSetName>ConsultaEntrevista</DataSetName>
             <Top>0.14111cm</Top>
             <Left>0.25004cm</Left>
-            <Height>2.83105cm</Height>
+            <Height>3.6248cm</Height>
             <Width>20.25776cm</Width>
             <Style>
               <Border>
@@ -1037,13 +1070,13 @@ WHERE
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>1.18032in</Height>
+        <Height>1.6074in</Height>
         <Style />
       </Body>
       <Width>8.1944in</Width>
       <Page>
         <PageHeader>
-          <Height>3.31465cm</Height>
+          <Height>2.54735cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1053,8 +1086,8 @@ WHERE
                   <Source>Embedded</Source>
                   <Value>SGS_Blanco</Value>
                   <Sizing>FitProportional</Sizing>
-                  <Top>0.66146cm</Top>
-                  <Height>1.57157cm</Height>
+                  <Top>0.34396cm</Top>
+                  <Height>1.25407cm</Height>
                   <Width>6.86153cm</Width>
                   <Style>
                     <Border>
@@ -1069,7 +1102,8 @@ WHERE
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Proceso de Admisiones - Entrevistas Padres Nuevos</Value>
+                          <Value>
+Proceso de Admisiones - Entrevistas Padres Nuevos</Value>
                           <Style>
                             <FontSize>12pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -1083,7 +1117,7 @@ WHERE
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Dilema: ______________________</Value>
+                          <Value />
                           <Style>
                             <FontSize>12pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -1096,9 +1130,9 @@ WHERE
                     </Paragraph>
                   </Paragraphs>
                   <rd:DefaultName>Textbox13</rd:DefaultName>
-                  <Top>0.66146cm</Top>
+                  <Top>0.34396cm</Top>
                   <Left>7.42562cm</Left>
-                  <Height>1.57157cm</Height>
+                  <Height>1.25407cm</Height>
                   <Width>12.53534cm</Width>
                   <ZIndex>1</ZIndex>
                   <Style>
@@ -1115,8 +1149,8 @@ WHERE
               <KeepTogether>true</KeepTogether>
               <Top>0.52599cm</Top>
               <Left>0.25004cm</Left>
-              <Height>2.61226cm</Height>
-              <Width>20.25776cm</Width>
+              <Height>1.84496cm</Height>
+              <Width>20.28998cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1187,8 +1221,8 @@ WHERE
         <PageWidth>21.59cm</PageWidth>
         <LeftMargin>0.2cm</LeftMargin>
         <RightMargin>0.2cm</RightMargin>
-        <TopMargin>1cm</TopMargin>
-        <BottomMargin>2cm</BottomMargin>
+        <TopMargin>0.5cm</TopMargin>
+        <BottomMargin>0.5cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
