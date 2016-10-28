@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
-  <Description>Muestra resumen de los resultados de las evaluaciones.</Description>
-  <Author>John López Hernández</Author>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -23,8 +21,288 @@
             <Value>=Parameters!fP_ProgramacionDecision.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandType>StoredProcedure</CommandType>
-        <CommandText>PR_SGS_ConsultarResumenEvaluacionesAspirantes</CommandText>
+        <CommandText>DECLARE @Id_Programacion INT 
+, @SolicitudAdmision VARCHAR(200)
+, @AnioAdmision INT
+, @Profesional VARCHAR(5)
+, @Fonoaudiologia VARCHAR(5)
+, @Psicologia VARCHAR(5)
+, @TOcupacional VARCHAR(5)
+, @Economica VARCHAR(5)
+, @COM VARCHAR(5)
+, @COP VARCHAR(5)
+, @Rector VARCHAR(5)
+, @Consejeria VARCHAR(5)
+, @Vicerrector VARCHAR(5)
+, @JefeConsejeria VARCHAR(5)
+
+, @IndiceG VARCHAR(5)
+, @Cognicion VARCHAR(5)
+, @MotricidadF VARCHAR(5)
+, @LenguajeR VARCHAR(5)
+, @Memoria VARCHAR(5)
+, @VelocidadP VARCHAR(5)
+, @CoordinacionVM VARCHAR(5)
+, @MotricidadG VARCHAR(5)
+, @LenguajeEE VARCHAR(5)
+
+, @ContadoEval INT
+
+SELECT @SolicitudAdmision = prl.Descripcion , @AnioAdmision = prl.Id FROM dbo.PeriodoLectivo prl WHERE prl.AnioAdmision = 1
+
+SET @Profesional = 'PRO'
+SET @Fonoaudiologia = 'FO'
+SET @Psicologia = 'PSI'
+SET @TOcupacional = 'TO'
+SET @Economica = 'EE'
+SET @COM = 'COM'
+SET @COP = 'COP'
+SET @Rector = 'REC'
+SET @Consejeria = 'CNJ'
+SET @Vicerrector = 'VRC'
+SET @JefeConsejeria = 'JFC'
+SET @IndiceG = 'IG'
+SET @Cognicion = 'C'
+SET @MotricidadF = 'MF'
+SET @LenguajeR = 'LR'
+SET @Memoria = 'M'
+SET @VelocidadP = 'V'
+SET @CoordinacionVM = 'VM'
+SET @MotricidadG = 'MG'
+SET @LenguajeEE = 'LE-E'
+
+SET @ContadoEval = 0
+
+DECLARE @ResultadosEvaluaciones TABLE (
+		Evaluacion_Id SMALLINT
+		,ResultadoEvaluacionPRO DECIMAL(2, 1)
+		,ResultadoEvaluacionTO DECIMAL(2, 1)
+		,ResultadoEvaluacionFO DECIMAL(2, 1)
+		,ResultadoEvaluacionPSI DECIMAL(2, 1)
+		,ObservacionPRO VARCHAR(MAX)
+		,EvaluadorPRO VARCHAR(200)
+		,ObservacionTO VARCHAR(MAX)
+		,EvaluadorTO VARCHAR(200)
+		,ObservacionFO VARCHAR(MAX)
+		,EvaluadorFO VARCHAR(200)
+		,ObservacionPSI VARCHAR(MAX)
+		,EvaluadorPSI VARCHAR(200)
+		)
+
+	INSERT INTO @ResultadosEvaluaciones (Evaluacion_Id)
+	SELECT MAX(ASP.Id)
+	FROM Evaluacion AS ASP
+	WHERE EXISTS (SELECT 1 FROM Admision D WHERE D.FechaDecision = @fP_ProgramacionDecision AND ASP.CODIGO = D.CODIGO)
+	GROUP BY Codigo
+	
+	UPDATE @ResultadosEvaluaciones
+    SET ResultadoEvaluacionPRO = C.Calificacion, ObservacionPRO=C.Observacion,EvaluadorPRO=C.Evaluador
+    FROM @ResultadosEvaluaciones AS A
+    INNER JOIN DetalleEvaluacion AS B ON A.Evaluacion_Id = B.IdEvaluacion
+    INNER JOIN CalificacionAspiranteEmpleado AS C ON C.DetalleEvaluacionId = B.Id    
+    WHERE C.TipoCalificacion = @Profesional
+
+	UPDATE @ResultadosEvaluaciones
+	SET ResultadoEvaluacionTO = C.Calificacion,ObservacionTO=C.Observacion,EvaluadorTO=C.Evaluador
+	FROM @ResultadosEvaluaciones AS A
+	INNER JOIN DetalleEvaluacion AS B ON A.Evaluacion_Id = B.IdEvaluacion
+	INNER JOIN CalificacionAspiranteEmpleado AS C ON C.DetalleEvaluacionId = B.Id 
+	WHERE C.TipoCalificacion = @TOcupacional
+
+	UPDATE @ResultadosEvaluaciones
+	SET ResultadoEvaluacionFO = C.Calificacion,ObservacionFO=C.Observacion,EvaluadorFO=C.Evaluador
+	FROM @ResultadosEvaluaciones AS A
+	INNER JOIN DetalleEvaluacion AS B ON A.Evaluacion_Id = B.IdEvaluacion
+	INNER JOIN CalificacionAspiranteEmpleado AS C ON C.DetalleEvaluacionId = B.Id 
+	WHERE C.TipoCalificacion = @Fonoaudiologia
+	
+	
+	UPDATE @ResultadosEvaluaciones
+	SET ResultadoEvaluacionPSI = B.Calificacion,ObservacionPSI=B.ObservacionGeneral,EvaluadorPSI=B.Evaluador
+	FROM @ResultadosEvaluaciones AS A
+	INNER JOIN EvaluacionPSI AS B ON A.Evaluacion_Id = B.EvaluacionId	
+	
+
+
+	DECLARE @ResultadosEvaluaciones2 Table  
+( Codigo int,
+  Evaluacion_Id smallint,
+  ResultadoEvaluacionIGPT smallint,
+  ResultadoEvaluacionCPT smallint,
+  ResultadoEvaluacionMFPT smallint,
+  ResultadoEvaluacionLRPT smallint,  
+  ResultadoEvaluacionMEPT smallint,
+  ResultadoEvaluacionVPT smallint,
+  ResultadoEvaluacionVMPT SMALLINT,
+  ResultadoEvaluacionMGPT SMALLINT,
+  ResultadoEvaluacionLEEPT smallint
+)
+
+INSERT INTO @ResultadosEvaluaciones2 (Codigo,Evaluacion_Id)
+ SELECT asp.Codigo , asp.Id  from Evaluacion asp
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionIGPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @IndiceG 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionCPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @Cognicion 
+
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionMFPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @MotricidadF 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionLRPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @LenguajeR 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionMEPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @Memoria 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionVPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @VelocidadP 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionVMPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @CoordinacionVM 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionMGPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @MotricidadG 
+
+UPDATE @ResultadosEvaluaciones2 SET ResultadoEvaluacionLEEPT = B.PuntuacionTipica
+FROM @ResultadosEvaluaciones2  AS A
+INNER JOIN ValorAspecto AS B
+ON A.Evaluacion_Id = B.Evaluacion_Id
+INNER JOIN Aspecto C
+ON B.Aspecto_Id = C.Id
+WHERE C.Abreviatura = @LenguajeEE 
+
+DECLARE 
+@ResultadosEvaluacionesPadre Table  ( Codigo int,
+  ResultadoEvaluacionCOP Decimal(18,1),
+  ResultadoEvaluacionCOM Decimal(18,1),
+  ResultadoEvaluacionEE Decimal(18,1),
+  ResultadoEvaluacionCNJ Decimal(18,1),
+  ResultadoEvaluacionJFC Decimal(18,1),
+  ResultadoEvaluacionREC Decimal(18,1),
+  ResultadoEvaluacionVRC Decimal(18,1),
+  ResultadoEvaluacionI Decimal(18,1) ) 
+
+INSERT INTO @ResultadosEvaluacionesPadre (Codigo)
+ SELECT adm.Codigo from Admision adm
+
+UPDATE @ResultadosEvaluacionesPadre SET ResultadoEvaluacionCOP = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @COP
+
+UPDATE @ResultadosEvaluacionesPadre SET ResultadoEvaluacionCOM = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @COM
+
+UPDATE @ResultadosEvaluacionesPadre SET  ResultadoEvaluacionEE = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @Economica
+
+UPDATE @ResultadosEvaluacionesPadre SET ResultadoEvaluacionCNJ = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @Consejeria
+
+UPDATE @ResultadosEvaluacionesPadre SET ResultadoEvaluacionJFC = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @JefeConsejeria
+
+UPDATE @ResultadosEvaluacionesPadre SET ResultadoEvaluacionREC = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @Rector
+
+UPDATE @ResultadosEvaluacionesPadre SET ResultadoEvaluacionVRC = B.Calificacion
+FROM @ResultadosEvaluacionesPadre  AS A
+INNER JOIN CalificacionPadresEmpleado AS B
+ON A.Codigo = B.Admision_Codigo
+WHERE B.TipoCalificacion = @Vicerrector
+
+SELECT 'RESUMEN DE RESULTADOS DE EVALUACIÓN DE ASPIRANTES' AS Evento
+,'Admisiones para el Período '+ @SolicitudAdmision  AS Periodo
+, UPPER(RTRIM(LTRIM(asp.Apellidos)) + ' ' + RTRIM(LTRIM(asp.Nombres))) AS NombreAspirante
+, ISNULL(CONVERT(VARCHAR,((ResVal.ResultadoEvaluacionCPT + ResVal.ResultadoEvaluacionMFPT + ResVal.ResultadoEvaluacionLRPT + ResVal.ResultadoEvaluacionMEPT + ResVal.ResultadoEvaluacionVPT + ResVal.ResultadoEvaluacionVMPT))),0) AS SumaPT
+, ResVal.ResultadoEvaluacionIGPT AS IG
+, ResVal.ResultadoEvaluacionCPT AS C                                   
+, ResVal.ResultadoEvaluacionMFPT AS MF
+, Resval.ResultadoEvaluacionLRPT AS LR
+, ResVal.ResultadoEvaluacionMEPT AS M
+, ResVal.ResultadoEvaluacionVPT AS V
+, ResVal.ResultadoEvaluacionVMPT AS VM
+, ResVal.ResultadoEvaluacionMGPT AS MG
+, ResVal.ResultadoEvaluacionLEEPT AS LEE
+, ResMR.ResultadoEvaluacionPRO AS PRO
+, ResMR.ResultadoEvaluacionTO AS TOC
+, ResMR.ResultadoEvaluacionFO AS FO
+, ResMR.ResultadoEvaluacionPSI AS PSI
+, IIF (ResA.ResultadoEvaluacionCNJ &lt;&gt; NULL OR ResA.ResultadoEvaluacionCNJ &lt;&gt; 0 , @ContadoEval + 1 , @ContadoEval + 0) + IIF (ResA.ResultadoEvaluacionJFC &lt;&gt; NULL OR ResA.ResultadoEvaluacionJFC &lt;&gt; 0 , @ContadoEval + 1 , @ContadoEval + 0) + IIF (ResA.ResultadoEvaluacionREC &lt;&gt; NULL OR ResA.ResultadoEvaluacionREC &lt;&gt; 0 , @ContadoEval + 1 , @ContadoEval + 0) + IIF (ResA.ResultadoEvaluacionVRC &lt;&gt; NULL OR ResA.ResultadoEvaluacionVRC &lt;&gt; 0 , @ContadoEval + 1 , @ContadoEval + 0) AS SumaEval
+, ResA.ResultadoEvaluacionCNJ AS CNJ
+, ResA.ResultadoEvaluacionJFC AS JFC
+, ResA.ResultadoEvaluacionREC AS REC
+, ResA.ResultadoEvaluacionVRC AS VRC
+, ResA.ResultadoEvaluacionCOP AS COP
+, ResA.ResultadoEvaluacionCOM AS COM
+, ResA.ResultadoEvaluacionEE  AS EE 
+, UPPER(adm.Parentesco) AS Parentesco
+FROM dbo.Aspirante asp
+INNER JOIN dbo.Admision adm ON adm.Aspirante_TipoDocumento = asp.TipoDocumento AND adm.Aspirante_Identificacion = asp.Identificacion
+INNER JOIN dbo.Evaluacion EvaP ON EvaP.Codigo = adm.Codigo
+INNER JOIN @ResultadosEvaluaciones2 ResVal ON adm.Codigo=ResVal.Codigo AND EvaP.Id=ResVal.Evaluacion_Id
+INNER JOIN @ResultadosEvaluaciones ResMR ON EvaP.Id = ResMR.Evaluacion_Id
+INNER JOIN @ResultadosEvaluacionesPadre ResA ON ResA.Codigo = adm.Codigo
+ORDER BY SumaPT DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="Evento">
@@ -122,10 +400,6 @@
         <Field Name="REC">
           <DataField>REC</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="SumaCor">
-          <DataField>SumaCor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="COM">
           <DataField>COM</DataField>
@@ -257,26 +531,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox2</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -314,26 +584,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -371,26 +637,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox12</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -438,26 +700,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox30</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -503,26 +761,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox36</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -565,26 +819,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -622,26 +872,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -679,26 +925,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -736,26 +978,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -793,26 +1031,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -850,26 +1084,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox74</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -907,26 +1137,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox75</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -964,26 +1190,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox76</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1021,26 +1243,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox77</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1078,26 +1296,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1135,26 +1349,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1192,26 +1402,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox6</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1249,26 +1455,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1306,26 +1508,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox79</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1363,26 +1561,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1420,26 +1614,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox80</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1477,26 +1667,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1534,26 +1720,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox38</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1591,26 +1773,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox41</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1648,26 +1826,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1705,26 +1879,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox85</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1766,26 +1936,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1821,26 +1987,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>NombreAspirante</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1877,26 +2039,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Textbox28</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1930,26 +2088,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>IG</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -1983,26 +2137,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>C</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2036,26 +2186,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>MF</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2089,26 +2235,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>LR</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2142,26 +2284,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>M</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2195,26 +2333,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>V</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2248,26 +2382,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>VM</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2301,26 +2431,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>LEE</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2354,26 +2480,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>MG</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2407,26 +2529,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>PRO</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2460,26 +2578,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>FO1</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2513,26 +2627,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>TOC</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2566,26 +2676,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>PSI</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2607,7 +2713,7 @@ ORDER BY P.Fechainicio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=IIF( Fields!SumaEval.Value &gt; 0 , Round((Fields!CNJ.Value + Fields!JFC.Value + Fields!VRC.Value + Fields!REC.Value + Fields!SumaCor.Value ) / Fields!SumaEval.Value, 1, MidpointRounding.AwayFromZero) ,  "")</Value>
+                                  <Value>=IIF( Fields!SumaEval.Value &gt; 0 , Round((Fields!CNJ.Value + Fields!JFC.Value + Fields!VRC.Value + Fields!REC.Value ) / Fields!SumaEval.Value , 1) ,  "")</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2619,26 +2725,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>SumaEval</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2672,26 +2774,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>COP1</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2725,26 +2823,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>COM</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2778,26 +2872,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>EE</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2833,26 +2923,22 @@ ORDER BY P.Fechainicio</CommandText>
                           <rd:DefaultName>Parentesco</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>Silver</Color>
+                              <Color>Gray</Color>
                               <Style>Solid</Style>
                             </Border>
                             <TopBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </TopBorder>
                             <BottomBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </BottomBorder>
                             <LeftBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </LeftBorder>
                             <RightBorder>
-                              <Color>Silver</Color>
                               <Style>Solid</Style>
                               <Width>1pt</Width>
                             </RightBorder>
@@ -2909,12 +2995,9 @@ ORDER BY P.Fechainicio</CommandText>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <RepeatColumnHeaders>true</RepeatColumnHeaders>
             <RepeatRowHeaders>true</RepeatRowHeaders>
-            <FixedColumnHeaders>true</FixedColumnHeaders>
-            <FixedRowHeaders>true</FixedRowHeaders>
             <DataSetName>ResultadosParaDecision</DataSetName>
-            <Top>0.59457cm</Top>
+            <Top>0.29668cm</Top>
             <Left>0.30878cm</Left>
             <Height>1.8cm</Height>
             <Width>31.44269cm</Width>
@@ -2925,127 +3008,141 @@ ORDER BY P.Fechainicio</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>1.1407in</Height>
+        <Height>0.89491in</Height>
         <Style />
       </Body>
       <Width>12.65073in</Width>
       <Page>
         <PageHeader>
-          <Height>3.08703cm</Height>
+          <Height>4.14412cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Textbox Name="txtPaginaWebCorreo">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Fecha de Toma Decisión: </Value>
-                      <Style>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=First(Fields!Fecha.Value, "FechasDisponibles")</Value>
-                      <Style>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
+            <Rectangle Name="Rectangle1">
+              <ReportItems>
+                <Image Name="LogoSGS">
+                  <Source>Embedded</Source>
+                  <Value>logoOficialSGSMed2</Value>
+                  <Sizing>FitProportional</Sizing>
+                  <Top>8.35709mm</Top>
+                  <Left>2.70675mm</Left>
+                  <Height>18mm</Height>
+                  <Width>95.39662mm</Width>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
                   </Style>
-                </Paragraph>
-              </Paragraphs>
-              <Top>1.92972cm</Top>
-              <Left>10.94182cm</Left>
-              <Height>0.6cm</Height>
-              <Width>20.61395cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-              </Style>
-            </Textbox>
-            <Textbox Name="txtInfoDireccionPBX">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!Periodo.Value, "ResultadosParaDecision")</Value>
+                </Image>
+                <Textbox Name="txtPaginaWebCorreo">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Fecha de Toma Decisión: </Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>=Parameters!fP_ProgramacionDecision.Label</Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
                       <Style>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
+                        <TextAlign>Center</TextAlign>
                       </Style>
-                    </TextRun>
-                  </TextRuns>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>2.03571cm</Top>
+                  <Left>10.79674cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>20.61395cm</Width>
+                  <ZIndex>1</ZIndex>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
                   </Style>
-                </Paragraph>
-              </Paragraphs>
-              <Top>1.32972cm</Top>
-              <Left>10.94182cm</Left>
-              <Height>0.6cm</Height>
-              <Width>20.61395cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <VerticalAlign>Middle</VerticalAlign>
-              </Style>
-            </Textbox>
-            <Textbox Name="txtSolicitudAdmision">
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=First(Fields!Evento.Value, "ResultadosParaDecision")</Value>
+                </Textbox>
+                <Textbox Name="txtInfoDireccionPBX">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!Periodo.Value, "ResultadosParaDecision")</Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
                       <Style>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
+                        <TextAlign>Center</TextAlign>
                       </Style>
-                    </TextRun>
-                  </TextRuns>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>1.43571cm</Top>
+                  <Left>10.79674cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>20.61395cm</Width>
+                  <ZIndex>2</ZIndex>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
                   </Style>
-                </Paragraph>
-              </Paragraphs>
-              <Top>0.72972cm</Top>
-              <Left>10.94182cm</Left>
-              <Height>0.6cm</Height>
-              <Width>20.61395cm</Width>
-              <ZIndex>2</ZIndex>
+                </Textbox>
+                <Textbox Name="txtSolicitudAdmision">
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>=First(Fields!Evento.Value, "ResultadosParaDecision")</Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <Top>0.83571cm</Top>
+                  <Left>10.79674cm</Left>
+                  <Height>0.6cm</Height>
+                  <Width>20.61395cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <VerticalAlign>Middle</VerticalAlign>
+                  </Style>
+                </Textbox>
+              </ReportItems>
+              <KeepTogether>true</KeepTogether>
+              <Top>0.5735cm</Top>
+              <Left>0.21905cm</Left>
+              <Height>3.23571cm</Height>
+              <Width>31.41069cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
-                <VerticalAlign>Middle</VerticalAlign>
               </Style>
-            </Textbox>
-            <Image Name="LogoSGS">
-              <Source>Embedded</Source>
-              <Value>logoOficialSGSMed2</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>7.83595mm</Top>
-              <Left>4.30505mm</Left>
-              <Height>16.33083mm</Height>
-              <Width>95.39662mm</Width>
-              <ZIndex>3</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Image>
+            </Rectangle>
           </ReportItems>
           <Style>
             <Border>
@@ -3054,7 +3151,7 @@ ORDER BY P.Fechainicio</CommandText>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>1.50642cm</Height>
+          <Height>1.86316cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -3092,6 +3189,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>0.43051cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.31479cm</Width>
@@ -3140,6 +3238,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>3.34943cm</Left>
               <Height>0.53827cm</Height>
               <Width>1.85702cm</Width>
@@ -3189,6 +3288,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>5.38284cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.94181cm</Width>
@@ -3238,6 +3338,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>8.50104cm</Left>
               <Height>0.53827cm</Height>
               <Width>3.23285cm</Width>
@@ -3287,6 +3388,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>11.94092cm</Left>
               <Height>0.46771cm</Height>
               <Width>1.90993cm</Width>
@@ -3336,6 +3438,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>14.06978cm</Left>
               <Height>0.46771cm</Height>
               <Width>4.31146cm</Width>
@@ -3385,6 +3488,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>18.55763cm</Left>
               <Height>0.46771cm</Height>
               <Width>4.04177cm</Width>
@@ -3434,6 +3538,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>26.5975cm</Left>
               <Height>0.52063cm</Height>
               <Width>3.70291cm</Width>
@@ -3483,7 +3588,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>17.42404cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.19093cm</Width>
@@ -3533,7 +3638,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>4.27763cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.96593cm</Width>
@@ -3583,7 +3688,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>7.61335cm</Left>
               <Height>0.46771cm</Height>
               <Width>2.68521cm</Width>
@@ -3633,7 +3738,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>10.47495cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.00271cm</Width>
@@ -3683,7 +3788,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>0.43051cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.39959cm</Width>
@@ -3733,7 +3838,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>13.58349cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.66417cm</Width>
@@ -3783,6 +3888,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox86</rd:DefaultName>
+              <Top>0.28222cm</Top>
               <Left>22.93254cm</Left>
               <Height>0.46771cm</Height>
               <Width>3.38031cm</Width>
@@ -3819,7 +3925,7 @@ ORDER BY P.Fechainicio</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.68792cm</Top>
+              <Top>1.00542cm</Top>
               <Left>21.14681cm</Left>
               <Height>0.6cm</Height>
               <Width>9.1536cm</Width>
@@ -4123,7 +4229,6 @@ uN7Z9SoooFcKKKKACiiigAooooAKKKKACiiigAooooAKKKKACv8AEG/4JO/8pTf+Caf/AGf/APBv/wBW
     </EmbeddedImage>
   </EmbeddedImages>
   <Language>es-CO</Language>
-  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>7078d6f3-cc81-450d-8a2e-a8381e83848e</rd:ReportID>
 </Report>
