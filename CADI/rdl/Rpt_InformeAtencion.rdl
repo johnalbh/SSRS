@@ -58,8 +58,12 @@
           <DataField>NombreTipoNovedad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
+        <Field Name="Materia">
+          <DataField>Materia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Especialidad">
+          <DataField>Especialidad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Curso">
@@ -424,14 +428,14 @@
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="NombreMateria">
+                                          <Textbox Name="Materia">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!NombreMateria.Value</Value>
+                                                    <Value>=Fields!Materia.Value</Value>
                                                     <Style>
                                                       <FontSize>7pt</FontSize>
                                                     </Style>
@@ -442,7 +446,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>NombreMateria</rd:DefaultName>
+                                            <rd:DefaultName>Materia</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Color>LightGrey</Color>
@@ -519,7 +523,7 @@
                               <Top>4.18396mm</Top>
                               <Left>63.74855mm</Left>
                               <Height>7.40833mm</Height>
-                              <Width>53.50289mm</Width>
+                              <Width>50.85706mm</Width>
                               <ZIndex>1</ZIndex>
                               <Style>
                                 <Border>
@@ -557,9 +561,9 @@
                               </Paragraphs>
                               <rd:DefaultName>Textbox16</rd:DefaultName>
                               <Top>4.18396mm</Top>
-                              <Left>119.01533mm</Left>
+                              <Left>116.3695mm</Left>
                               <Height>7.40833mm</Height>
-                              <Width>37.72193mm</Width>
+                              <Width>37.97145mm</Width>
                               <ZIndex>2</ZIndex>
                               <Style>
                                 <Border>
@@ -571,35 +575,33 @@
                                 <PaddingBottom>2pt</PaddingBottom>
                               </Style>
                             </Textbox>
-                            <Textbox Name="Textbox2">
+                            <Textbox Name="Especialidad">
                               <CanGrow>true</CanGrow>
                               <KeepTogether>true</KeepTogether>
                               <Paragraphs>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Especialidad</Value>
+                                      <Value>Especialidad:</Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>: </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Parameters!Especialidad.Label</Value>
-                                      <Style />
+                                      <Value>=First(Fields!Especialidad.Value)</Value>
+                                      <Style>
+                                        <FontWeight>Normal</FontWeight>
+                                      </Style>
                                     </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
                               </Paragraphs>
-                              <rd:DefaultName>Textbox2</rd:DefaultName>
+                              <rd:DefaultName>Especialidad</rd:DefaultName>
                               <Top>4.18396mm</Top>
-                              <Left>158.50115mm</Left>
+                              <Left>156.10484mm</Left>
                               <Height>7.40833mm</Height>
-                              <Width>41.62235mm</Width>
+                              <Width>44.01866mm</Width>
                               <ZIndex>3</ZIndex>
                               <Style>
                                 <Border>
@@ -686,7 +688,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>37.53908mm</Height>
+        <Height>41.10139mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -812,36 +814,6 @@
               <Left>96.70208mm</Left>
               <Height>6.35mm</Height>
               <Width>107.94999mm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox3">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value />
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>7.03793mm</Top>
-              <Left>10.81617mm</Left>
-              <Height>7.0379mm</Height>
-              <Width>40.10182mm</Width>
-              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
