@@ -46,28 +46,28 @@
           <DataField>NombrePaciente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NombreNovedad">
-          <DataField>NombreNovedad</DataField>
+        <Field Name="NumeroSesion">
+          <DataField>NumeroSesion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Edad">
           <DataField>Edad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NombreTipoNovedad">
-          <DataField>NombreTipoNovedad</DataField>
+        <Field Name="TipoSesion">
+          <DataField>TipoSesion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Materia">
           <DataField>Materia</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Especialidad">
-          <DataField>Especialidad</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Descripcion">
           <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Especialidades">
+          <DataField>Especialidades</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Curso">
@@ -146,7 +146,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>33.3375mm</Height>
+                  <Height>22.77457mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -156,24 +156,134 @@
                               <TablixBody>
                                 <TablixColumns>
                                   <TablixColumn>
-                                    <Width>23.34818mm</Width>
+                                    <Width>23.66676mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>25.84142mm</Width>
+                                    <Width>26.16mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>34.35593mm</Width>
+                                    <Width>34.67451mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>79.99343mm</Width>
+                                    <Width>80.31201mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>35.46381mm</Width>
+                                    <Width>35.78239mm</Width>
                                   </TablixColumn>
                                 </TablixColumns>
                                 <TablixRows>
                                   <TablixRow>
-                                    <Height>10.42457mm</Height>
+                                    <Height>6.35278mm</Height>
+                                    <TablixCells>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox3">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Nombre: </Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value>=Fields!NombrePaciente.Value</Value>
+                                                    <Style>
+                                                      <FontWeight>Normal</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox3</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                          <ColSpan>3</ColSpan>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell />
+                                      <TablixCell />
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox7">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Edad:</Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value xml:space="preserve"> </Value>
+                                                    <Style />
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value>=Fields!Edad.Value</Value>
+                                                    <Style />
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value xml:space="preserve">                           </Value>
+                                                    <Style />
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value>Curso: </Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value xml:space="preserve"> </Value>
+                                                    <Style />
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value>=Fields!Curso.Value</Value>
+                                                    <Style />
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox7</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                          <ColSpan>2</ColSpan>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell />
+                                    </TablixCells>
+                                  </TablixRow>
+                                  <TablixRow>
+                                    <Height>10.77735mm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
@@ -363,7 +473,7 @@
                                     </TablixCells>
                                   </TablixRow>
                                   <TablixRow>
-                                    <Height>5.29167mm</Height>
+                                    <Height>5.64445mm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
@@ -402,14 +512,14 @@
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="NombreNovedad">
+                                          <Textbox Name="NumeroSesion">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!NombreNovedad.Value</Value>
+                                                    <Value>=Fields!NumeroSesion.Value</Value>
                                                     <Style>
                                                       <FontSize>7pt</FontSize>
                                                     </Style>
@@ -420,7 +530,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>NombreNovedad</rd:DefaultName>
+                                            <rd:DefaultName>NumeroSesion</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Color>LightGrey</Color>
@@ -437,14 +547,14 @@
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="NombreTipoNovedad">
+                                          <Textbox Name="TipoSesion">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!NombreTipoNovedad.Value</Value>
+                                                    <Value>=Fields!TipoSesion.Value</Value>
                                                     <Style>
                                                       <FontSize>7pt</FontSize>
                                                     </Style>
@@ -455,7 +565,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>NombreTipoNovedad</rd:DefaultName>
+                                            <rd:DefaultName>TipoSesion</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Color>LightGrey</Color>
@@ -560,140 +670,25 @@
                                     <RepeatOnNewPage>true</RepeatOnNewPage>
                                   </TablixMember>
                                   <TablixMember>
+                                    <KeepWithGroup>After</KeepWithGroup>
+                                    <RepeatOnNewPage>true</RepeatOnNewPage>
+                                  </TablixMember>
+                                  <TablixMember>
                                     <Group Name="Details" />
                                   </TablixMember>
                                 </TablixMembers>
                               </TablixRowHierarchy>
                               <DataSetName>Consulta_Atencion</DataSetName>
-                              <Top>14.81666mm</Top>
-                              <Left>1.12073mm</Left>
-                              <Height>15.71624mm</Height>
-                              <Width>199.00277mm</Width>
+                              <Top>0mm</Top>
+                              <Left>0mm</Left>
+                              <Height>22.77457mm</Height>
+                              <Width>200.59568mm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
                                 </Border>
                               </Style>
                             </Tablix>
-                            <Textbox Name="Textbox17">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Edad:</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Edad.Value</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox16</rd:DefaultName>
-                              <Top>4.18396mm</Top>
-                              <Left>86.23813mm</Left>
-                              <Height>7.40833mm</Height>
-                              <Width>40.49688mm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Textbox Name="Textbox18">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Curso: </Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!Curso.Value</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox16</rd:DefaultName>
-                              <Top>4.18396mm</Top>
-                              <Left>158.14187mm</Left>
-                              <Height>7.40833mm</Height>
-                              <Width>41.98163mm</Width>
-                              <ZIndex>2</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Textbox Name="Textbox16">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Nombre: </Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombrePaciente.Value</Value>
-                                      <Style>
-                                        <FontWeight>Normal</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style />
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox16</rd:DefaultName>
-                              <Top>4.18396mm</Top>
-                              <Left>1.12073mm</Left>
-                              <Height>7.40833mm</Height>
-                              <Width>77.99946mm</Width>
-                              <ZIndex>3</ZIndex>
-                              <DataElementName>Consulta_Atencion</DataElementName>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
                           </ReportItems>
                           <KeepTogether>true</KeepTogether>
                           <Style>
@@ -721,8 +716,8 @@
             <DataSetName>Consulta_Atencion</DataSetName>
             <Top>1.76389mm</Top>
             <Left>4.05639mm</Left>
-            <Height>33.3375mm</Height>
-            <Width>200.59569mm</Width>
+            <Height>22.77457mm</Height>
+            <Width>200.59568mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -730,7 +725,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>37.39722mm</Height>
+        <Height>26.39054mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -846,7 +841,7 @@
                   <Top>5.99722mm</Top>
                   <Left>8.01785cm</Left>
                   <Height>19.36396mm</Height>
-                  <Width>119.71161mm</Width>
+                  <Width>120.88937mm</Width>
                   <ZIndex>1</ZIndex>
                   <Style>
                     <Border>
@@ -957,11 +952,6 @@
     </ReportParameter>
     <ReportParameter Name="NumeroIdentificacion">
       <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>1014871474</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>Numero Identificacion</Prompt>
     </ReportParameter>
     <ReportParameter Name="Especialidad">

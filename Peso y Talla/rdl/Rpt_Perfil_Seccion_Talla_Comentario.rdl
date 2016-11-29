@@ -116,7 +116,9 @@ select * from @TempDatos;</CommandText>
     <DataSet Name="Consulta_TallaComentario">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>select * from dominio where Dominio = 'TallaComentario'</CommandText>
+        <CommandText>select * from dominio where Dominio = 'TallaComentario'
+order by Criterio</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="Dominio">
@@ -817,7 +819,7 @@ order by IdSeccion</CommandText>
     </ReportParameter>
     <ReportParameter Name="Talla_Comentario">
       <DataType>String</DataType>
-      <Prompt>Talla Comentario</Prompt>
+      <Prompt>Talla</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Consulta_TallaComentario</DataSetName>

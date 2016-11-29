@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=amarillo.cloudapp.net,57500</ConnectString>
+        <ConnectString>Data Source=naranja.cloudapp.net,57500</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -141,6 +141,54 @@ from Calendario</CommandText>
         <Field Name="NumeroCiclo">
           <DataField>NumeroCiclo</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Rutas">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Jornada">
+            <Value>=Parameters!Jornada.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select 
+	* 
+From 
+	busruta 
+where 
+	FechaCalendario = '1900-01-01' and
+	DominioJornada = @Jornada</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="IdBusRuta">
+          <DataField>IdBusRuta</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="IdBus">
+          <DataField>IdBus</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
+        <Field Name="DominioNombreRuta">
+          <DataField>DominioNombreRuta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DominioJornada">
+          <DataField>DominioJornada</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoIdentificacionAsistente">
+          <DataField>TipoIdentificacionAsistente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumeroIdentificacionAsistente">
+          <DataField>NumeroIdentificacionAsistente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FechaCalendario">
+          <DataField>FechaCalendario</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1190,6 +1238,13 @@ from Calendario</CommandText>
     <ReportParameter Name="Ruta">
       <DataType>String</DataType>
       <Prompt>Ruta</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Rutas</DataSetName>
+          <ValueField>DominioNombreRuta</ValueField>
+          <LabelField>DominioNombreRuta</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>

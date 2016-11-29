@@ -13,11 +13,14 @@ FECHA CREACIÓN:		11/11/2016
 PARÁMETROS ENTRADA:	No Aplica
 EXCEPCIONES:		No Aplica
 ---------------------------------------------------------------------
-MODIFICACIÓN:
-AUTOR:
+MODIFICACIÓN:       Se realiza un ajuste en el join con la tabla dominio
+					agregando la llamae de valor con descripción para que 
+					solo se muestre "EspecialidadCADI", se hace con el campo
+					TNM.Categoria para no quemar la palabra.
+AUTOR:				John Alberto López		
 REQUERIMIENTO:
 EMPRESA:
-FECHA MODIFICACIÓN:
+FECHA MODIFICACIÓN:	21/11/2016
 ********************************************************************/
 ALTER PROCEDURE 
 	 [dbo].[PR_SGS_Rpt_InformeAtencionCADI] 
@@ -44,12 +47,16 @@ SELECT
 CONVERT (VARCHAR(10),NVM.Fecha1,110) AS FechaSesion
 ,PR.PrimerApellido + ' ' + isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' ' + isNull(PR.SegundoNombre,'')  AS NombrePaciente
 ,[dbo].[F_SGS_CalcularEdadAniosMeses] (PR.FechaNacimiento) AS Edad
-,NVM.NombreNovedad AS NombreNovedad
-,TNM.Nombre	AS NombreTipoNovedad
+,NVM.NombreNovedad AS NumeroSesion
+,TNM.Nombre	AS TipoSesion
 ,CR.Nombre AS Curso
-,MAT.Nombre AS Descripcion
+,MAT.Nombre AS Materia
+,NVM.Descripcion AS Descripcion 
+,DOM.Descripcion AS Especialidades
+
 
 FROM NovedadMedica  AS NVM
+
 INNER JOIN PersonaNovedadMedica AS PNM 
 ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 
@@ -105,15 +112,16 @@ LEFT JOIN Materia AS MAT
 
 INNER JOIN DOMINIO DOM 
 	ON NVM.ValorDominio = DOM.Valor
+	AND DOM.Dominio = TNM.Categoria
 
+INNER JOIN @Especialidades AS ESPE
+	ON NVM.ValorDominio = ESPE.IdEspecialidad
 
 WHERE 
 	TNMP.IdPestaniaDashboard =  9
 	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
 	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
 	AND NVM.Fecha1 BETWEEN @FechaInicio AND @FechaFin
-	AND NVM.ValorDominio = @Especialidad
 
 END
 GO
-

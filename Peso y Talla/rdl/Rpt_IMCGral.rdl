@@ -481,7 +481,7 @@ order by idCurso</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Desviacion</Value>
+                                  <Value>Desviación</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1058,10 +1058,9 @@ order by idCurso</CommandText>
     <ReportParameter Name="Aniolectivo">
       <DataType>Integer</DataType>
       <DefaultValue>
-        <DataSetReference>
-          <DataSetName>Periodo_Lectivo</DataSetName>
-          <ValueField>Id</ValueField>
-        </DataSetReference>
+        <Values>
+          <Value>2</Value>
+        </Values>
       </DefaultValue>
       <Prompt>Año Lectivo:</Prompt>
       <ValidValues>

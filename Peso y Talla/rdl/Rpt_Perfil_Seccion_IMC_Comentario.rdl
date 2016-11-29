@@ -117,7 +117,7 @@ select * from @TempDatos;</CommandText>
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <CommandText>select * from dominio where Dominio = 'IMCComentario'
-</CommandText>
+order by Criterio</CommandText>
       </Query>
       <Fields>
         <Field Name="Dominio">
@@ -805,7 +805,7 @@ order by IdSeccion</CommandText>
     </ReportParameter>
     <ReportParameter Name="IMC_Comentario">
       <DataType>String</DataType>
-      <Prompt>IMC Comentario</Prompt>
+      <Prompt>IMC</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Consulta_IMCComentario</DataSetName>
