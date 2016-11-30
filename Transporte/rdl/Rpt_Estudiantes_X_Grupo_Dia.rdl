@@ -17,171 +17,26 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@dP_Fecha">
-            <Value>=Parameters!dP_Fecha.Value</Value>
+          <QueryParameter Name="@dp_Fecha">
+            <Value>=Parameters!dp_Fecha.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>/************************************************************************        
-NOMBRE DEL PROGRAMA:	Consulta de Sesiones de Grupos por Semana         
-DESCRIPCIÓN:			Devuelve un listado de todas las sesiones que tiene un estudiante una semana dada.
-						Retorna curso, Apellidos y nombres del estudiante, y los nombres de los grupos en columnas para cada uno de los días de la semana (Lu a Sa)
-PARÁMETROS DE ENTRADA: 	@dP_Fecha: Fecha. Corresponde a un día cualquiera de la semana que se consulta. La semana va de domingo a Sábado
-PARÁMETROS DE SALIDA:   No aplica.  
-RESULTADO:				Listado con las siguientes columnas: 
-						Curso, Apellidos, Nombres,Lunes,Martes,Miercoles,Jueves,Viernes,Sabado
-						La consulta se entrega ordenada por curso y luego alfabéticamente por apellidos y nombres del estudiante			
-CÓDIGOS DE ERROR:		No existen códigos de excepción Personalizados.  
--------------------------------------------------------------------------  
-CREACIÓN:
-REQUERIMIENTO:			Reportes de Transporte
-AUTOR:					LLamprea
-EMPRESA:				Saint George´s School  
-FECHA DE CREACIÓN:		2016-08-27
--------------------------------------------------------------------------
-************************************************************************/
-
-/********************************************************************
-Busca el lunes de la semana seleccionada. La semana comienza en Domingo
-********************************************************************/
-DECLARE @d_Lunes DATE = DATEADD (d , 2 - DATEpart(weekday, @dP_Fecha)  , @dP_Fecha );
-
-/********************************************************************
-Consulta todos los estudiantes del año activo con su curso
-********************************************************************/
-SELECT 
-	  C.Nombre AS Curso
-	, P.PrimerApellido + ' ' + isnull (P.SegundoApellido, '') AS Apellidos
-	, P.PrimerNombre + ' ' + isnull (P.SegundoNombre, '') AS Nombres
-/********************************************************************
-Concatena todos los grupos con sesión el lunes
-********************************************************************/
-, isnull (STUFF(
-         (SELECT DISTINCT ', ' + nombre
-       	  FROM Grupo AS G2 WITH(NOLOCK)
-			INNER JOIN Sesion AS S2 WITH(NOLOCK) ON 
-					G2.ID = S2.IdGrupo 
-				AND S2.Fecha = @d_Lunes 
-			INNER JOIN dbo.GrupoEstudiante AS GE WITH(NOLOCK) ON 
-				GE.IdGrupo = G2.Id 
-          WHERE 
-				GE.numeroidentificacionestudiante = E.NumeroIdentificacion 
-			AND GE.TipoIdentificacionEstudiante = E.TipoIdentificacion
-          FOR XML PATH (''))
-          , 1, 1, ''),'')  AS Lunes
-/********************************************************************
-Concatena todos los grupos con sesión el martes
-********************************************************************/
-, isnull (STUFF(
-         (SELECT DISTINCT ', ' + nombre
-       	  FROM Grupo AS G2 WITH(NOLOCK)
-			INNER JOIN Sesion AS S2 WITH(NOLOCK) ON 
-				G2.ID = S2.IdGrupo 
-			AND S2.Fecha = DATEADD (d , 1 , @d_Lunes ) 
-		INNER JOIN dbo.GrupoEstudiante AS GE WITH(NOLOCK) ON 
-				GE.IdGrupo = G2.Id 
-          WHERE 
-				GE.numeroidentificacionestudiante = E.NumeroIdentificacion 
-			AND GE.TipoIdentificacionEstudiante = E.TipoIdentificacion
-          FOR XML PATH (''))
-          , 1, 1, ''),'')  AS Martes
-/********************************************************************
-Concatena todos los grupos con sesión el miercoles
-********************************************************************/
-, isnull (STUFF(
-         (SELECT DISTINCT ', ' + nombre
-       	  FROM Grupo AS G2 WITH(NOLOCK)
-			INNER JOIN Sesion AS S2 WITH(NOLOCK) ON 
-				G2.ID = S2.IdGrupo 
-			AND S2.Fecha = DATEADD (d , 2 , @d_Lunes ) 
-			INNER JOIN dbo.GrupoEstudiante AS GE WITH(NOLOCK) ON 
-				GE.IdGrupo = G2.Id 
-          WHERE 
-				GE.numeroidentificacionestudiante = E.NumeroIdentificacion 
-			AND GE.TipoIdentificacionEstudiante = E.TipoIdentificacion
-          FOR XML PATH (''))
-          , 1, 1, ''),'')  AS Miercoles
-/********************************************************************
-Concatena todos los grupos con sesión el jueves
-********************************************************************/
-, isnull (STUFF(
-         (SELECT DISTINCT ', ' + nombre
-       	  FROM Grupo AS G2 WITH(NOLOCK)
-			INNER JOIN Sesion AS S2 WITH(NOLOCK) ON 
-					G2.ID = S2.IdGrupo 
-				AND S2.Fecha = DATEADD (d , 3 , @d_Lunes ) 
-			INNER JOIN dbo.GrupoEstudiante AS GE WITH(NOLOCK) ON 
-				GE.IdGrupo = G2.Id 
-          WHERE 
-				GE.numeroidentificacionestudiante = E.NumeroIdentificacion 
-			AND GE.TipoIdentificacionEstudiante = E.TipoIdentificacion
-          FOR XML PATH (''))
-          , 1, 1, ''),'')  AS Jueves
-/********************************************************************
-Concatena todos los grupos con sesión el viernes
-********************************************************************/
-, isnull (STUFF(
-         (SELECT DISTINCT ', ' + nombre
-       	  FROM Grupo AS G2 WITH(NOLOCK)
-			INNER JOIN Sesion AS S2 WITH(NOLOCK) ON 
-					G2.ID = S2.IdGrupo 
-				AND S2.Fecha = DATEADD (d , 4 , @d_Lunes ) 
-			INNER JOIN dbo.GrupoEstudiante AS GE WITH(NOLOCK) ON 
-				GE.IdGrupo = G2.Id 
-          WHERE 
-				GE.numeroidentificacionestudiante = E.NumeroIdentificacion 
-			AND GE.TipoIdentificacionEstudiante = E.TipoIdentificacion
-          FOR XML PATH (''))
-          , 1, 1, ''),'')  AS Viernes
-/********************************************************************
-Concatena todos los grupos con sesión el sabado
-********************************************************************/
-, isnull (STUFF(
-         (SELECT DISTINCT ', ' + nombre
-       	  FROM Grupo AS G2 WITH(NOLOCK)
-			INNER JOIN Sesion AS S2 WITH(NOLOCK) ON 
-					G2.ID = S2.IdGrupo 
-				AND S2.Fecha = DATEADD (d , 5 , @d_Lunes ) 
-			INNER JOIN dbo.GrupoEstudiante AS GE WITH(NOLOCK) ON 
-				GE.IdGrupo = G2.Id 
-          WHERE 
-				GE.numeroidentificacionestudiante = E.NumeroIdentificacion 
-			AND GE.TipoIdentificacionEstudiante = E.TipoIdentificacion
-          FOR XML PATH (''))
-          , 1, 1, ''),'')  AS Sabado
-FROM 
-	Estudiante E
-INNER JOIN dbo.Persona AS P WITH(NOLOCK) ON 
-		E.TipoIdentificacion = P.TipoIdentificacion
-	AND E.NumeroIdentificacion = P.NumeroIdentificacion 
-	AND E.TipoIdentificacion = P.TipoIdentificacion
-INNER JOIN dbo.EstudianteCurso AS EC WITH(NOLOCK) ON 
-		E.TipoIdentificacion = EC.TipoIdentificacionEstudiante
-	AND E.NumeroIdentificacion = EC.NumeroIdentificacionEstudiante
-INNER JOIN dbo.Curso AS C WITH(NOLOCK) ON 
-	EC.IdCurso = C.IdCurso
-INNER JOIN dbo.PeriodoLectivo AS PL WITH(NOLOCK) ON 
-	C.AnioAcademico = PL.Id AND PL.AnioActivo = 1
-GROUP BY  
-	  C.idCurso
-	, C.Nombre
-	, C.Nombre
-	, P.PrimerApellido + ' ' + isnull (P.SegundoApellido, '')
-	, P.PrimerNombre + ' ' + isnull (P.SegundoNombre, '')
-	, E.NumeroIdentificacion
-	, E.TipoIdentificacion
-ORDER BY 
-		C.idCurso
-	, P.PrimerApellido + ' ' + isnull (P.SegundoApellido, '')
-	, P.PrimerNombre + ' ' + isnull (P.SegundoNombre, '')
-</CommandText>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_Grupo_Estudiantes_x_dia</CommandText>
       </Query>
       <Fields>
-        <Field Name="Apellidos">
-          <DataField>Apellidos</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Curso">
           <DataField>Curso</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Apellidos">
+          <DataField>Apellidos</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Nombres">
@@ -228,6 +83,76 @@ where AnioActivo=1</CommandText>
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="Sección">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>select  * from seccion</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SeleCt* From Nivel where idSeccion = @Seccion</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="IdNivel">
+          <DataField>IdNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Calendario">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>DECLARE
+	 @FechaInicio DATE,
+	 @FechaFin Date
+
+SELECT @FechaInicio = FechaInicioPeriodo, @FechaFin = FechaFinPeriodo FROM PeriodoLectivo WHERE AnioActivo = 1
+
+SELECT CONVERT (VARCHAR (70),CONVERT (VARCHAR(20),Fecha,106)+'  - ' + CONVERT(VARCHAR(20),DATEADD (DAY, 5, Fecha),106))
+ AS Nombre,
+ Fecha FROM Calendario 
+WHERE NombreDia = 'Lunes' 
+
+AND Fecha BETWEEN @FechaInicio AND @FechaFin
+</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fecha">
+          <DataField>Fecha</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -264,7 +189,7 @@ where AnioActivo=1</CommandText>
                   <Width>28mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>28mm</Width>
+                  <Width>25.35417mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -442,6 +367,7 @@ where AnioActivo=1</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -514,6 +440,7 @@ where AnioActivo=1</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -586,6 +513,7 @@ where AnioActivo=1</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -669,7 +597,6 @@ where AnioActivo=1</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -801,6 +728,7 @@ where AnioActivo=1</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -871,6 +799,7 @@ where AnioActivo=1</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -941,6 +870,7 @@ where AnioActivo=1</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1018,7 +948,7 @@ where AnioActivo=1</CommandText>
             <Top>2.96685mm</Top>
             <Left>2.0496mm</Left>
             <Height>12.7mm</Height>
-            <Width>256.25996mm</Width>
+            <Width>253.61413mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1026,119 +956,148 @@ where AnioActivo=1</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>20.60574mm</Height>
+        <Height>18.48907mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>262.36367mm</Width>
+      <Width>257.86575mm</Width>
       <Page>
         <PageHeader>
-          <Height>26.82875mm</Height>
+          <Height>17.56833mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Textbox Name="ReportTitle">
-              <CanGrow>true</CanGrow>
+            <Rectangle Name="Rectangle1">
+              <ReportItems>
+                <Textbox Name="ReportTitle">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Reporte Sesiones de Grupos por Semana </Value>
+                          <Style>
+                            <FontSize>14pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>Semana del: </Value>
+                          <Style>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>=Parameters!dp_Fecha.Label</Value>
+                          <Style>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                            <Format>d 'de' MMMM 'de' yyyy</Format>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>  Periodo Lectivo: </Value>
+                          <Style>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>=First(Fields!descripcion.Value, "PeriodoLectivo")</Value>
+                          <Style>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value xml:space="preserve">  </Value>
+                          <Style>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value xml:space="preserve">      </Value>
+                          <Style>
+                            <FontSize>11pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value xml:space="preserve"> </Value>
+                          <Style>
+                            <FontSize>12pt</FontSize>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
+                  <rd:DefaultName>ReportTitle</rd:DefaultName>
+                  <Top>0.35278mm</Top>
+                  <Left>9.10469cm</Left>
+                  <Height>13.2468mm</Height>
+                  <Width>162.80274mm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Image Name="LogoSGS">
+                  <Source>Embedded</Source>
+                  <Value>logoOficialSGSMed2</Value>
+                  <Sizing>FitProportional</Sizing>
+                  <Top>0mm</Top>
+                  <Left>1.02302mm</Left>
+                  <Height>13.59958mm</Height>
+                  <Width>88.25996mm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Image>
+              </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Reporte Sesiones de Grupos por Semana </Value>
-                      <Style>
-                        <FontSize>16pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Año Lectivo: </Value>
-                      <Style>
-                        <FontSize>11pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=First(Fields!descripcion.Value, "PeriodoLectivo")</Value>
-                      <Style>
-                        <FontSize>11pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value xml:space="preserve">  </Value>
-                      <Style>
-                        <FontSize>11pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value xml:space="preserve">      </Value>
-                      <Style>
-                        <FontSize>11pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value xml:space="preserve"> </Value>
-                      <Style>
-                        <FontSize>12pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
-              <rd:DefaultName>ReportTitle</rd:DefaultName>
-              <Top>2.99861mm</Top>
-              <Left>11.27887cm</Left>
-              <Height>22.33083mm</Height>
-              <Width>144.46249mm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Image Name="LogoSGS">
-              <Source>Embedded</Source>
-              <Value>logoOficialSGSMed2</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>2.64583mm</Top>
-              <Left>2.83714mm</Left>
-              <Height>22.33083mm</Height>
-              <Width>105.80158mm</Width>
-              <ZIndex>1</ZIndex>
+              <Top>0.762mm</Top>
+              <Left>1.02658mm</Left>
+              <Height>14.55208mm</Height>
+              <Width>254.63714mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
               </Style>
-            </Image>
+            </Rectangle>
           </ReportItems>
           <Style>
             <Border>
@@ -1176,8 +1135,8 @@ where AnioActivo=1</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>0mm</Top>
-              <Left>129.45749mm</Left>
+              <Top>0.35278mm</Top>
+              <Left>126.81166mm</Left>
               <Height>6.35mm</Height>
               <Width>128.85207mm</Width>
               <Style>
@@ -1209,9 +1168,39 @@ where AnioActivo=1</CommandText>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="dP_Fecha">
+    <ReportParameter Name="dp_Fecha">
       <DataType>DateTime</DataType>
-      <Prompt>Seleccione Fecha:</Prompt>
+      <Prompt>Semana del: </Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Calendario</DataSetName>
+          <ValueField>Fecha</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>Integer</DataType>
+      <Prompt>Seccion</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Sección</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>IdNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>
