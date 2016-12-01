@@ -13,12 +13,12 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Estudiantes_X_Grupo_Dia">
+    <DataSet Name="Grupo_X_Dia">
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@dp_Fecha">
-            <Value>=Parameters!dp_Fecha.Value</Value>
+            <Value>=Parameters!dP_Fecha.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@Seccion">
             <Value>=Parameters!Seccion.Value</Value>
@@ -31,43 +31,47 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>PR_SGS_Rpt_Grupo_Estudiantes_x_dia</CommandText>
+        <CommandText>PR_SGS_Rpt_RegistroInscripcionGrupoEstudiante</CommandText>
       </Query>
       <Fields>
-        <Field Name="Curso">
-          <DataField>Curso</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Apellidos">
           <DataField>Apellidos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Curso">
+          <DataField>Curso</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Nombres">
           <DataField>Nombres</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Lunes">
-          <DataField>Lunes</DataField>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Martes">
-          <DataField>Martes</DataField>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Miercoles">
-          <DataField>Miercoles</DataField>
+        <Field Name="Grupo">
+          <DataField>Grupo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Jueves">
-          <DataField>Jueves</DataField>
+        <Field Name="FechaInicio">
+          <DataField>FechaInicio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Viernes">
-          <DataField>Viernes</DataField>
+        <Field Name="FechaFin">
+          <DataField>FechaFin</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Sabado">
-          <DataField>Sabado</DataField>
+        <Field Name="Profesor">
+          <DataField>Profesor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Inactivo">
+          <DataField>Inactivo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -86,10 +90,10 @@ where AnioActivo=1</CommandText>
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="Sección">
+    <DataSet Name="Seccion">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>select  * from seccion</CommandText>
+        <CommandText>Select * from Seccion</CommandText>
       </Query>
       <Fields>
         <Field Name="IdSeccion">
@@ -110,46 +114,16 @@ where AnioActivo=1</CommandText>
             <Value>=Parameters!Seccion.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>Select idNivel, Nombre From Nivel where idSeccion = @Seccion
-</CommandText>
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion = @Seccion</CommandText>
       </Query>
       <Fields>
-        <Field Name="IdNivel">
+        <Field Name="idNivel">
           <DataField>idNivel</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="Nombre">
           <DataField>Nombre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
-    <DataSet Name="Calendario">
-      <Query>
-        <DataSourceName>SGS</DataSourceName>
-        <CommandText>DECLARE
-	 @FechaInicio DATE,
-	 @FechaFin Date
-
-SELECT @FechaInicio = FechaInicioPeriodo, @FechaFin = FechaFinPeriodo FROM PeriodoLectivo WHERE AnioActivo = 1
-
-SELECT CONVERT (VARCHAR (70),CONVERT (VARCHAR(20),Fecha,106)+'  - ' + CONVERT(VARCHAR(20),DATEADD (DAY, 5, Fecha),106))
- AS Nombre,
- Fecha FROM Calendario 
-WHERE NombreDia = 'Lunes' 
-
-AND Fecha BETWEEN @FechaInicio AND @FechaFin
-</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Nombre">
-          <DataField>Nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Fecha">
-          <DataField>Fecha</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -164,8 +138,7 @@ AND Fecha BETWEEN @FechaInicio AND @FechaFin
         <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
 INNER JOIN PERIODOLECTIVO AS PL
 ON CR.AnioAcademico = PL.Id
-WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
-</CommandText>
+WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)</CommandText>
       </Query>
       <Fields>
         <Field Name="IdCurso">
@@ -187,34 +160,37 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.48138mm</Width>
+                  <Width>8.80453mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>33.47183mm</Width>
+                  <Width>31.29706mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>29.65675mm</Width>
+                  <Width>26.00542mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>18.65mm</Width>
+                  <Width>20.03294mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>28mm</Width>
+                  <Width>20.44917mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>28mm</Width>
+                  <Width>17.53875mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>28mm</Width>
+                  <Width>45.50804mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>28mm</Width>
+                  <Width>18.02694mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>28mm</Width>
+                  <Width>17.00957mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>25.35417mm</Width>
+                  <Width>36.64167mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>13.8875mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -331,152 +307,6 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox22">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Curso</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox22</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox4">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Lunes</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox4</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox7">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Martes</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox7</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox9">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Miercoles</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox9</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="Textbox10">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -484,7 +314,7 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Jueves</Value>
+                                  <Value>Seccion</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -513,43 +343,6 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox11">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Viernes</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox11</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="Textbox12">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -557,7 +350,7 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Sabado</Value>
+                                  <Value>Nivel</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -570,6 +363,222 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox12</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox14">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Curso</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox15">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Grupo</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox15</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox16">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Fecha Inicio</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox18">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Fecha Fin</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox18</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox28">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Profesor</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox28</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox30">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Inactivo</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox30</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -598,7 +607,7 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=RowNumber("Estudiantes_X_Grupo_Dia")</Value>
+                                  <Value>=RowNumber("Grupo_X_Dia")</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -694,6 +703,76 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Seccion">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Seccion.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Seccion</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Nivel1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Nivel.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Nivel1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Curso">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -729,14 +808,14 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Lunes">
+                        <Textbox Name="Grupo">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Lunes.Value</Value>
+                                  <Value>=Fields!Grupo.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -747,43 +826,7 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Lunes</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Martes">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Martes.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Martes</rd:DefaultName>
+                          <rd:DefaultName>Grupo</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -800,14 +843,14 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Miercoles">
+                        <Textbox Name="FechaInicio">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Miercoles.Value</Value>
+                                  <Value>=Fields!FechaInicio.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -818,43 +861,7 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Miercoles</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Jueves">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Jueves.Value</Value>
-                                  <Style>
-                                    <FontSize>8pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Jueves</rd:DefaultName>
+                          <rd:DefaultName>FechaInicio</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -871,14 +878,14 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Viernes">
+                        <Textbox Name="FechaFin">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Viernes.Value</Value>
+                                  <Value>=Fields!FechaFin.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -889,13 +896,12 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Viernes</rd:DefaultName>
+                          <rd:DefaultName>FechaFin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -907,14 +913,14 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Sabado">
+                        <Textbox Name="Profesor">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Sabado.Value</Value>
+                                  <Value>=Fields!Profesor.Value</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                   </Style>
@@ -925,7 +931,42 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Sabado</rd:DefaultName>
+                          <rd:DefaultName>Profesor</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Inactivo">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Inactivo.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Inactivo</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -956,6 +997,7 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -969,11 +1011,11 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>Estudiantes_X_Grupo_Dia</DataSetName>
+            <DataSetName>Grupo_X_Dia</DataSetName>
             <Top>2.96685mm</Top>
             <Left>2.0496mm</Left>
             <Height>12.7mm</Height>
-            <Width>253.61413mm</Width>
+            <Width>255.20159mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -981,148 +1023,119 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>18.48907mm</Height>
+        <Height>20.60574mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>257.86575mm</Width>
+      <Width>259.76165mm</Width>
       <Page>
         <PageHeader>
-          <Height>17.56833mm</Height>
+          <Height>26.82875mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Rectangle Name="Rectangle1">
-              <ReportItems>
-                <Textbox Name="ReportTitle">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Reporte Sesiones de Grupos por Semana </Value>
-                          <Style>
-                            <FontSize>14pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Semana del: </Value>
-                          <Style>
-                            <FontSize>11pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Parameters!dp_Fecha.Label</Value>
-                          <Style>
-                            <FontSize>11pt</FontSize>
-                            <FontWeight>Normal</FontWeight>
-                            <Format>d 'de' MMMM 'de' yyyy</Format>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>  Periodo Lectivo: </Value>
-                          <Style>
-                            <FontSize>11pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=First(Fields!descripcion.Value, "PeriodoLectivo")</Value>
-                          <Style>
-                            <FontSize>11pt</FontSize>
-                            <FontWeight>Normal</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value xml:space="preserve">  </Value>
-                          <Style>
-                            <FontSize>11pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value xml:space="preserve">      </Value>
-                          <Style>
-                            <FontSize>11pt</FontSize>
-                            <FontWeight>Normal</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value xml:space="preserve"> </Value>
-                          <Style>
-                            <FontSize>12pt</FontSize>
-                            <FontWeight>Normal</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
-                  <rd:DefaultName>ReportTitle</rd:DefaultName>
-                  <Top>0.35278mm</Top>
-                  <Left>9.10469cm</Left>
-                  <Height>13.2468mm</Height>
-                  <Width>162.80274mm</Width>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-                <Image Name="LogoSGS">
-                  <Source>Embedded</Source>
-                  <Value>logoOficialSGSMed2</Value>
-                  <Sizing>FitProportional</Sizing>
-                  <Top>0mm</Top>
-                  <Left>1.02302mm</Left>
-                  <Height>13.59958mm</Height>
-                  <Width>88.25996mm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                  </Style>
-                </Image>
-              </ReportItems>
+            <Textbox Name="ReportTitle">
+              <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
-              <Top>0.762mm</Top>
-              <Left>1.02658mm</Left>
-              <Height>14.55208mm</Height>
-              <Width>254.63714mm</Width>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Reporte Consulta de Grupos Inscritos por Día</Value>
+                      <Style>
+                        <FontSize>16pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Año Lectivo: </Value>
+                      <Style>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=First(Fields!descripcion.Value, "PeriodoLectivo")</Value>
+                      <Style>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">  </Value>
+                      <Style>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve">      </Value>
+                      <Style>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value xml:space="preserve"> </Value>
+                      <Style>
+                        <FontSize>12pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
+              <rd:DefaultName>ReportTitle</rd:DefaultName>
+              <Top>2.99861mm</Top>
+              <Left>11.27887cm</Left>
+              <Height>22.33083mm</Height>
+              <Width>144.46249mm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Image Name="LogoSGS">
+              <Source>Embedded</Source>
+              <Value>logoOficialSGSMed2</Value>
+              <Sizing>FitProportional</Sizing>
+              <Top>2.64583mm</Top>
+              <Left>2.83714mm</Left>
+              <Height>22.33083mm</Height>
+              <Width>105.80158mm</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
               </Style>
-            </Rectangle>
+            </Image>
           </ReportItems>
           <Style>
             <Border>
@@ -1160,8 +1173,8 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>0.35278mm</Top>
-              <Left>126.81166mm</Left>
+              <Top>0mm</Top>
+              <Left>129.45749mm</Left>
               <Height>6.35mm</Height>
               <Width>128.85207mm</Width>
               <Style>
@@ -1193,23 +1206,16 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="dp_Fecha">
+    <ReportParameter Name="dP_Fecha">
       <DataType>DateTime</DataType>
-      <Prompt>Semana del: </Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>Calendario</DataSetName>
-          <ValueField>Fecha</ValueField>
-          <LabelField>Nombre</LabelField>
-        </DataSetReference>
-      </ValidValues>
+      <Prompt>Seleccione Fecha:</Prompt>
     </ReportParameter>
     <ReportParameter Name="Seccion">
       <DataType>Integer</DataType>
       <Prompt>Seccion</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>Sección</DataSetName>
+          <DataSetName>Seccion</DataSetName>
           <ValueField>IdSeccion</ValueField>
           <LabelField>Nombre</LabelField>
         </DataSetReference>
@@ -1220,14 +1226,14 @@ WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@Nivel)
       <DefaultValue>
         <DataSetReference>
           <DataSetName>Nivel</DataSetName>
-          <ValueField>IdNivel</ValueField>
+          <ValueField>idNivel</ValueField>
         </DataSetReference>
       </DefaultValue>
       <Prompt>Nivel</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Nivel</DataSetName>
-          <ValueField>IdNivel</ValueField>
+          <ValueField>idNivel</ValueField>
           <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>

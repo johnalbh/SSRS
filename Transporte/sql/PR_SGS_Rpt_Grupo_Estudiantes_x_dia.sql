@@ -19,30 +19,30 @@ AUTOR:					LLamprea
 EMPRESA:				Saint George´s School  
 FECHA DE CREACIÓN:		2016-08-27
 -------------------------------------------------------------------------
-MODIFICACIÓN:			Inserción de parametro de Sección.
-REQUERIMIENTO:			Inserción de parametro por sección para que sea más fácil la organización.
+REQUERIMIENTO:			Inserción de parametros Sección, Nivel, Curso opcionales. 
+MODIFICACIÓN:			Se hace la inserción de parametros Sección, Nivel, Curso opcionales
+						añadiendo, parametros multivalues con selección de todos los elementos 
+						por default.
 AUTOR:					John Alberto López Hernández
 EMPRESA:				Saint George´s School  
 FECHA DE CREACIÓN:		2016-11-30
 -------------------------------------------------------------------------
-
-
 ************************************************************************/
 ALTER PROCEDURE  [dbo].[PR_SGS_Rpt_Grupo_Estudiantes_x_dia] 
 
 		 @dp_Fecha DATE		
 		,@Seccion INT
 		,@Nivel VARCHAR(60)
+		,@Curso VARCHAR (60)
 AS
 BEGIN
-DECLARE @Niveles TABLE 
+DECLARE @Cursos TABLE 
 	(
-		IdNiveles varchar(60)
+		IdCursoSeleccionado varchar(60)
 	)
-INSERT INTO @Niveles
-
-SELECT NIV.Valor AS Nivel
-FROM F_SGS_Split(@Nivel, ',') AS NIV
+INSERT INTO @Cursos
+SELECT CR.Valor 
+FROM F_SGS_Split(@Curso, ',') AS CR
 
 /********************************************************************
 Busca el lunes de la semana seleccionada. La semana comienza en Domingo
@@ -153,34 +153,21 @@ Concatena todos los grupos con sesión el sabado
           FOR XML PATH (''))
           , 1, 1, ''),'')  AS Sabado
 FROM 
-	Estudiante E
-INNER JOIN dbo.Persona AS P WITH(NOLOCK) ON 
-		E.TipoIdentificacion = P.TipoIdentificacion
-	AND E.NumeroIdentificacion = P.NumeroIdentificacion 
-	AND E.TipoIdentificacion = P.TipoIdentificacion
-INNER JOIN dbo.EstudianteCurso AS EC WITH(NOLOCK) ON 
-		E.TipoIdentificacion = EC.TipoIdentificacionEstudiante
-	AND E.NumeroIdentificacion = EC.NumeroIdentificacionEstudiante
-INNER JOIN dbo.Curso AS C WITH(NOLOCK) ON 
-	EC.IdCurso = C.IdCurso
 
-INNER JOIN NIVEL AS NV WITH(NOLOCK)
-ON C.IdNivel = NV.IdNivel 
+Estudiante AS E
+	INNER JOIN dbo.Persona AS P WITH(NOLOCK) 
+		ON 	E.TipoIdentificacion = P.TipoIdentificacion
+		AND E.NumeroIdentificacion = P.NumeroIdentificacion 
+		AND E.TipoIdentificacion = P.TipoIdentificacion
+	INNER JOIN dbo.EstudianteCurso AS EC WITH(NOLOCK) 
+		ON 	E.TipoIdentificacion = EC.TipoIdentificacionEstudiante
+		AND E.NumeroIdentificacion = EC.NumeroIdentificacionEstudiante
+	INNER JOIN dbo.Curso AS C WITH(NOLOCK) 
+		ON  EC.IdCurso = C.IdCurso
+	INNER JOIN @Cursos AS CURS
+		ON C.IdCurso = CURS.IdCursoSeleccionado
 
-INNER JOIN SECCION AS SEC WITH(NOLOCK)
-ON NV.IdSeccion = sec.IdSeccion
-
-INNER JOIN dbo.PeriodoLectivo AS PL WITH(NOLOCK) ON 
-	C.AnioAcademico = PL.Id AND PL.AnioActivo = 1
-
-INNER JOIN @Niveles AS NIVE
-	ON NV.IdNivel = NIVE.IdNiveles
-
-WHERE 
-	
-	SEC.IdSeccion = @Seccion
-
-	GROUP BY  
+GROUP BY  
 	  C.idCurso
 	, C.Nombre
 	, C.Nombre
@@ -195,3 +182,4 @@ ORDER BY
 
 END
 GO
+

@@ -6,6 +6,7 @@
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
         <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS_FUN</ConnectString>
+        <Prompt>Specify a user name and password for data source SGS_FUN:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>49565c04-1d6e-4c56-9c04-2218b33184f6</rd:DataSourceID>
@@ -1384,7 +1385,7 @@ Peso (Kg)</Value>
             <Top>1.76389mm</Top>
             <Left>2.86204mm</Left>
             <Height>15.2541mm</Height>
-            <Width>253.50402mm</Width>
+            <Width>253.50403mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

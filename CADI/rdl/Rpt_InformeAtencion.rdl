@@ -581,6 +581,7 @@
                                               <PaddingBottom>2pt</PaddingBottom>
                                             </Style>
                                           </Textbox>
+                                          <rd:Selected>true</rd:Selected>
                                         </CellContents>
                                       </TablixCell>
                                       <TablixCell>
@@ -823,7 +824,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>31.19112mm</Height>
+        <Height>75.9057mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -922,7 +923,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>10.63624mm</Height>
+          <Height>84.71957mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
