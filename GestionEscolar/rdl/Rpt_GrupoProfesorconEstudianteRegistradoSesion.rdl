@@ -43,6 +43,10 @@
           <DataField>Curso</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="NombreProfesor">
+          <DataField>NombreProfesor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="PeriodoLectivo">
@@ -97,12 +101,12 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>191.47636mm</Width>
+                  <Width>200.39757mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>47.625mm</Height>
+                  <Height>23.28333mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -112,18 +116,18 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                               <TablixBody>
                                 <TablixColumns>
                                   <TablixColumn>
-                                    <Width>18.07986mm</Width>
+                                    <Width>11.67766mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>96.13194mm</Width>
+                                    <Width>129.41726mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>61.20693mm</Width>
+                                    <Width>59.30265mm</Width>
                                   </TablixColumn>
                                 </TablixColumns>
                                 <TablixRows>
                                   <TablixRow>
-                                    <Height>13.22917mm</Height>
+                                    <Height>5.82084mm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
@@ -134,11 +138,13 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value />
+                                                    <Value>No.</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
-                                                <Style />
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox39</rd:DefaultName>
@@ -147,6 +153,8 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
+                                              <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                              <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
                                               <PaddingTop>2pt</PaddingTop>
@@ -165,10 +173,14 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <TextRuns>
                                                   <TextRun>
                                                     <Value>Nombre Estudiante</Value>
-                                                    <Style />
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
                                                   </TextRun>
                                                 </TextRuns>
-                                                <Style />
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox41</rd:DefaultName>
@@ -177,6 +189,8 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
+                                              <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                              <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
                                               <PaddingTop>2pt</PaddingTop>
@@ -195,10 +209,14 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <TextRuns>
                                                   <TextRun>
                                                     <Value>Curso</Value>
-                                                    <Style />
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
                                                   </TextRun>
                                                 </TextRuns>
-                                                <Style />
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox43</rd:DefaultName>
@@ -207,6 +225,8 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
+                                              <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                              <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
                                               <PaddingTop>2pt</PaddingTop>
@@ -233,7 +253,9 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
-                                                <Style />
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox40</rd:DefaultName>
@@ -242,6 +264,7 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
                                               <PaddingTop>2pt</PaddingTop>
@@ -263,7 +286,9 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
-                                                <Style />
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>NombreEstudiante</rd:DefaultName>
@@ -272,6 +297,7 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
                                               <PaddingTop>2pt</PaddingTop>
@@ -293,7 +319,9 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
-                                                <Style />
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Curso</rd:DefaultName>
@@ -302,6 +330,7 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                                 <Color>LightGrey</Color>
                                                 <Style>Solid</Style>
                                               </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
                                               <PaddingLeft>2pt</PaddingLeft>
                                               <PaddingRight>2pt</PaddingRight>
                                               <PaddingTop>2pt</PaddingTop>
@@ -332,10 +361,10 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                 </TablixMembers>
                               </TablixRowHierarchy>
                               <DataSetName>EstudiantesSesionGrupo</DataSetName>
-                              <Top>16.40417mm</Top>
-                              <Left>7.14375mm</Left>
-                              <Height>19.05mm</Height>
-                              <Width>175.41874mm</Width>
+                              <Top>8.90764mm</Top>
+                              <Left>0mm</Left>
+                              <Height>11.64167mm</Height>
+                              <Width>200.39756mm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -350,7 +379,9 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                   <TextRuns>
                                     <TextRun>
                                       <Value>Nombre Grupo: </Value>
-                                      <Style />
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
                                     </TextRun>
                                     <TextRun>
                                       <Value>=Fields!NombreGrupo.Value</Value>
@@ -361,11 +392,48 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox46</rd:DefaultName>
-                              <Top>1.85208mm</Top>
-                              <Left>93.66251mm</Left>
+                              <Top>0mm</Top>
+                              <Left>91.0469mm</Left>
                               <Height>8.20208mm</Height>
-                              <Width>72.49582mm</Width>
+                              <Width>109.35067mm</Width>
                               <ZIndex>1</ZIndex>
+                              <Style>
+                                <Border>
+                                  <Style>None</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                            <Textbox Name="Textbox7">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha Sesión: </Value>
+                                      <Style />
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Parameters!FechaSesion.Value</Value>
+                                      <Style>
+                                        <FontWeight>Normal</FontWeight>
+                                        <Format>D</Format>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox7</rd:DefaultName>
+                              <Top>0.35278mm</Top>
+                              <Left>0.52917mm</Left>
+                              <Height>7.54591mm</Height>
+                              <Width>90.16495mm</Width>
+                              <ZIndex>2</ZIndex>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -418,10 +486,10 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>EstudiantesSesionGrupo</DataSetName>
-            <Top>4.36034mm</Top>
-            <Left>8.36652mm</Left>
-            <Height>47.625mm</Height>
-            <Width>191.47637mm</Width>
+            <Top>0mm</Top>
+            <Left>1.02658mm</Left>
+            <Height>23.28333mm</Height>
+            <Width>200.39756mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -429,14 +497,14 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>138.34532mm</Height>
+        <Height>24.3099mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>205.67866mm</Width>
+      <Width>203.03283mm</Width>
       <Page>
         <PageHeader>
           <Height>17.56833mm</Height>
@@ -452,9 +520,9 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Reporte Sesiones de Grupos por Semana </Value>
+                          <Value>Reporte Estudiantes Inscritos en una Sesión de Grupo</Value>
                           <Style>
-                            <FontSize>14pt</FontSize>
+                            <FontSize>12pt</FontSize>
                             <FontWeight>Bold</FontWeight>
                           </Style>
                         </TextRun>
@@ -466,14 +534,31 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Semana del:   Periodo Lectivo:   </Value>
+                          <Value> Profesor:</Value>
                           <Style>
-                            <FontSize>11pt</FontSize>
                             <FontWeight>Bold</FontWeight>
                           </Style>
                         </TextRun>
                         <TextRun>
-                          <Value xml:space="preserve">      </Value>
+                          <Value xml:space="preserve"> </Value>
+                          <Style>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>=First(Fields!NombreProfesor.Value, "EstudiantesSesionGrupo")</Value>
+                          <Style>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value xml:space="preserve"> </Value>
+                          <Style>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value xml:space="preserve">  </Value>
                           <Style>
                             <FontSize>11pt</FontSize>
                             <FontWeight>Normal</FontWeight>
@@ -502,9 +587,9 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                   <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
                   <rd:DefaultName>ReportTitle</rd:DefaultName>
                   <Top>0.35278mm</Top>
-                  <Left>9.10469cm</Left>
+                  <Left>7.74649cm</Left>
                   <Height>13.2468mm</Height>
-                  <Width>107.76941mm</Width>
+                  <Width>121.35138mm</Width>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -522,7 +607,7 @@ WHERE DOMINIO ='TipoDocumento'</CommandText>
                   <Top>0mm</Top>
                   <Left>1.02302mm</Left>
                   <Height>13.59958mm</Height>
-                  <Width>88.25996mm</Width>
+                  <Width>75.03079mm</Width>
                   <ZIndex>1</ZIndex>
                   <Style>
                     <Border>
