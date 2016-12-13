@@ -17,28 +17,21 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
+          <QueryParameter Name="@idP_Seccion">
+            <Value>=Parameters!idP_Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@IdP_PeriodoLectivo">
+            <Value>=Parameters!IdP_PeriodoLectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@idP_Nivel">
+            <Value>=Parameters!idP_Nivel.Value</Value>
+          </QueryParameter>
           <QueryParameter Name="@idP_Curso">
             <Value>=Parameters!idP_Curso.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@idP_Toma">
-            <Value>=Parameters!idP_Toma.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@Aniolectivo">
-            <Value>=Parameters!Aniolectivo.Value</Value>
-          </QueryParameter>
         </QueryParameters>
-        <CommandText>select p.genero, d.descripcion as Desviacion, com.descripcion as comentario, c.Nombre as Curso, per.descripcion as PeriodoLectivo, tom.Descripcion as Toma, count(*)
-from curso c left join EstudiantePesoTalla ept on c.IdCurso = ept.IdCurso
-right join dominio d on d.dominio = 'TallaDesviacion' and d.Valor = ept.TipoTalla
-right join dominio com on com.dominio = 'TallaComentario' and com.Valor = ept.TipoTalla
-left join persona p on p.TipoIdentificacion = ept.TipoIdentificacion and p.NumeroIdentificacion = ept.NumeroIdentificacion
-left join periodolectivo per on per.Id = ept.IdanioAcademico
-left join Dominio tom on tom.Valor = ept.IdToma and tom.Dominio = 'TomaPesoTalla'
-where c.IdCurso = @idP_Curso
-and ept.IdanioAcademico= @Aniolectivo
-and idtoma = @idP_Toma
-group by p.genero, TipoTalla, d.criterio , d.Descripcion, com.Descripcion, c.Nombre, per.Descripcion, tom.Descripcion
-order by p.genero desc, d.criterio</CommandText>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_PerfilTalla</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -58,6 +51,10 @@ order by p.genero desc, d.criterio</CommandText>
           <DataField>PeriodoLectivo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="comentario">
           <DataField>comentario</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -66,38 +63,13 @@ order by p.genero desc, d.criterio</CommandText>
           <DataField>Toma</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Curso">
           <DataField>Curso</DataField>
           <rd:UserDefined>true</rd:UserDefined>
-        </Field>
-      </Fields>
-    </DataSet>
-    <DataSet Name="Consulta_IMCComentario">
-      <Query>
-        <DataSourceName>SGS</DataSourceName>
-        <CommandText>select * from dominio where Dominio = 'IMCComentario'
-</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Dominio">
-          <DataField>Dominio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Valor">
-          <DataField>Valor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Criterio">
-          <DataField>Criterio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Activo">
-          <DataField>Activo</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -132,43 +104,26 @@ order by p.genero desc, d.criterio</CommandText>
     <DataSet Name="Curso">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>select * from Curso</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@idP_Nivel">
+            <Value>=Parameters!idP_Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@IdP_PeriodoLectivo">
+            <Value>=Parameters!IdP_PeriodoLectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE PL.ID = @IdP_PeriodoLectivo AND CR.IdNivel in (@idP_Nivel)</CommandText>
       </Query>
       <Fields>
         <Field Name="IdCurso">
           <DataField>IdCurso</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="IdNivel">
-          <DataField>IdNivel</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="Nombre">
           <DataField>Nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoDocumentoDirector">
-          <DataField>TipoDocumentoDirector</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="NumeroDocumentoDirector">
-          <DataField>NumeroDocumentoDirector</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AnioAcademico">
-          <DataField>AnioAcademico</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Observaciones">
-          <DataField>Observaciones</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="UsuarioLog">
-          <DataField>UsuarioLog</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Estado">
-          <DataField>Estado</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -212,6 +167,43 @@ order by anioinicial</CommandText>
         <Field Name="FechaFinPeriodo">
           <DataField>FechaFinPeriodo</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>Select * From Seccion</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@idP_Seccion">
+            <Value>=Parameters!idP_Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion = @idP_Seccion</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1094,14 +1086,9 @@ order by anioinicial</CommandText>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="Aniolectivo">
-      <DataType>String</DataType>
-      <DefaultValue>
-        <Values>
-          <Value>2</Value>
-        </Values>
-      </DefaultValue>
-      <Prompt>Año Lectivo:</Prompt>
+    <ReportParameter Name="IdP_PeriodoLectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Id P Periodo Lectivo</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Periodo_Lectivo</DataSetName>
@@ -1110,20 +1097,50 @@ order by anioinicial</CommandText>
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
-    <ReportParameter Name="idP_Toma">
-      <DataType>String</DataType>
-      <Prompt>Selección Toma </Prompt>
+    <ReportParameter Name="idP_Seccion">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>id P Seccion</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>Toma</DataSetName>
-          <ValueField>Valor</ValueField>
-          <LabelField>Descripcion</LabelField>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
+    <ReportParameter Name="idP_Nivel">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>id P Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
     <ReportParameter Name="idP_Curso">
       <DataType>String</DataType>
-      <Prompt>Curso</Prompt>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>id P Curso</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Curso</DataSetName>
@@ -1131,6 +1148,7 @@ order by anioinicial</CommandText>
           <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>
