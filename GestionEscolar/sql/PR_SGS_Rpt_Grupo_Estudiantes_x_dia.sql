@@ -3,7 +3,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 /************************************************************************        
-NOMBRE DEL PROGRAMA:	[dbo].[PR_SGS_Rpt_Grupo_Estudiantes_x_dia]        
+NOMBRE DEL PROGRAMA:	[dbo].[PR_SGS_Rpt_SesionesGrupoEstudiantesSemana]        
 DESCRIPCIÓN:			Devuelve un listado de todas las sesiones que tiene un estudiante una semana dada.
 						Retorna curso, Apellidos y nombres del estudiante, y los nombres de los grupos en columnas para cada uno de los días de la semana (Lu a Sa)
 PARÁMETROS DE ENTRADA: 	@dP_Fecha: Fecha. Corresponde a un día cualquiera de la semana que se consulta. La semana va de domingo a Sábado
@@ -28,7 +28,7 @@ EMPRESA:				Saint George´s School
 FECHA DE CREACIÓN:		2016-11-30
 -------------------------------------------------------------------------
 ************************************************************************/
-ALTER PROCEDURE  [dbo].[PR_SGS_Rpt_Grupo_Estudiantes_x_dia] 
+CREATE PROCEDURE  [dbo].[PR_SGS_Rpt_SesionesGrupoEstudiantesSemana] 
 
 		 @dp_Fecha DATE		
 		,@Seccion INT
