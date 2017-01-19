@@ -224,10 +224,17 @@ WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Fecha:  05 de Agosto 2016</Value>
+                                  <Value>Fecha:  </Value>
                                   <Style>
                                     <FontSize>12pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Globals!ExecutionTime</Value>
+                                  <Style>
+                                    <FontSize>12pt</FontSize>
+                                    <Format>d/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1460,7 +1467,7 @@ WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>8.90908cm</Height>
+        <Height>8.93554cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
