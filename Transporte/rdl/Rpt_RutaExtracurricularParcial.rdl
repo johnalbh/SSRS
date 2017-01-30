@@ -799,7 +799,7 @@ WHERE
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Usuarios regulares que toman el servicio</Value>
+                                      <Value>Usuarios que toman el servicio</Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
