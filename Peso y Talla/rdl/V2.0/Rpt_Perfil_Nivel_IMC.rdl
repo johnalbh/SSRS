@@ -13,7 +13,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Perfil_Global_Talla">
+    <DataSet Name="Perfil_Global_IMC">
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
@@ -30,11 +30,11 @@
             <Value>=Parameters!idP_Nivel.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@idP_Curso">
-            <Value>=Parameters!idP_Curso.Value</Value>
+            <Value>0</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>PR_SGS_Rpt_GraficasPerfilTalla</CommandText>
+        <CommandText>PR_SGS_Rpt_GraficasPerfilIMC</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -42,8 +42,8 @@
           <DataField>SiglaGenero</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TallaComentario">
-          <DataField>TallaComentario</DataField>
+        <Field Name="IMCComentario">
+          <DataField>IMCComentario</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Generos">
@@ -174,93 +174,6 @@ Select 0, 'Global'</CommandText>
         <Field Name="Nombre">
           <DataField>Nombre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
-    <DataSet Name="Curso">
-      <Query>
-        <DataSourceName>SGS</DataSourceName>
-        <QueryParameters>
-          <QueryParameter Name="@idp_PeriodoLectivo">
-            <Value>=Parameters!idp_PeriodoLectivo.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@idP_Nivel">
-            <Value>=Parameters!idP_Nivel.Value</Value>
-          </QueryParameter>
-        </QueryParameters>
-        <CommandText>SELECT * FROM CURSO AS CR 
-INNER JOIN PERIODOLECTIVO AS PL ON
-CR.AnioAcademico = PL.Id
-WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="IdCurso">
-          <DataField>IdCurso</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="IdNivel">
-          <DataField>IdNivel</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Nombre">
-          <DataField>Nombre</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TipoDocumentoDirector">
-          <DataField>TipoDocumentoDirector</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="NumeroDocumentoDirector">
-          <DataField>NumeroDocumentoDirector</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AnioAcademico">
-          <DataField>AnioAcademico</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Observaciones">
-          <DataField>Observaciones</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="UsuarioLog">
-          <DataField>UsuarioLog</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Estado">
-          <DataField>Estado</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="AnioInicial">
-          <DataField>AnioInicial</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="AnioFinal">
-          <DataField>AnioFinal</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="AnioActivo">
-          <DataField>AnioActivo</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="AnioAdmision">
-          <DataField>AnioAdmision</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-        <Field Name="FechaInicioPeriodo">
-          <DataField>FechaInicioPeriodo</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="FechaFinPeriodo">
-          <DataField>FechaFinPeriodo</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -677,7 +590,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!NumeroRegistros.Value, "Perfil_Global_Talla")</Value>
+                                  <Value>=Sum(Fields!NumeroRegistros.Value, "Perfil_Global_IMC")</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -728,7 +641,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>Perfil_Global_Talla</DataSetName>
+            <DataSetName>Perfil_Global_IMC</DataSetName>
             <Top>2.82222mm</Top>
             <Left>5.02709mm</Left>
             <Height>17.47083mm</Height>
@@ -991,7 +904,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
             </ChartLegends>
             <ChartTitles>
               <ChartTitle Name="Default">
-                <Caption>Perfil Talla Nivel</Caption>
+                <Caption>Perfil IMC de un Nivel</Caption>
                 <Style>
                   <BackgroundGradientType>None</BackgroundGradientType>
                   <FontWeight>Bold</FontWeight>
@@ -1016,7 +929,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                 <VerticalAlign>Top</VerticalAlign>
               </Style>
             </ChartNoDataMessage>
-            <DataSetName>Perfil_Global_Talla</DataSetName>
+            <DataSetName>Perfil_Global_IMC</DataSetName>
             <Top>23.37153mm</Top>
             <Left>5.02709mm</Left>
             <Height>70.99653mm</Height>
@@ -1067,14 +980,14 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Curso: </Value>
+                      <Value>Nivel: </Value>
                       <Style>
                         <FontSize>14pt</FontSize>
                         <FontWeight>Normal</FontWeight>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=Parameters!idP_Curso.Label</Value>
+                      <Value>=Parameters!idP_Nivel.Label</Value>
                       <Style>
                         <FontSize>14pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -1334,17 +1247,6 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
         <DataSetReference>
           <DataSetName>Nivel</DataSetName>
           <ValueField>idNivel</ValueField>
-          <LabelField>Nombre</LabelField>
-        </DataSetReference>
-      </ValidValues>
-    </ReportParameter>
-    <ReportParameter Name="idP_Curso">
-      <DataType>String</DataType>
-      <Prompt>Curso:</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>Curso</DataSetName>
-          <ValueField>IdCurso</ValueField>
           <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>

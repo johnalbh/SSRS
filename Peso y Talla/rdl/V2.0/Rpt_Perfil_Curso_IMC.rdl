@@ -13,7 +13,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="Perfil_Global_Talla">
+    <DataSet Name="Perfil_Global_IMC">
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
@@ -34,7 +34,7 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>PR_SGS_Rpt_GraficasPerfilTalla</CommandText>
+        <CommandText>PR_SGS_Rpt_GraficasPerfilIMC</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -42,8 +42,8 @@
           <DataField>SiglaGenero</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TallaComentario">
-          <DataField>TallaComentario</DataField>
+        <Field Name="IMCComentario">
+          <DataField>IMCComentario</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Generos">
@@ -677,7 +677,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!NumeroRegistros.Value, "Perfil_Global_Talla")</Value>
+                                  <Value>=Sum(Fields!NumeroRegistros.Value, "Perfil_Global_IMC")</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -728,7 +728,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>Perfil_Global_Talla</DataSetName>
+            <DataSetName>Perfil_Global_IMC</DataSetName>
             <Top>2.82222mm</Top>
             <Left>5.02709mm</Left>
             <Height>17.47083mm</Height>
@@ -991,7 +991,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
             </ChartLegends>
             <ChartTitles>
               <ChartTitle Name="Default">
-                <Caption>Perfil Talla Nivel</Caption>
+                <Caption>Perfil Curso IMC</Caption>
                 <Style>
                   <BackgroundGradientType>None</BackgroundGradientType>
                   <FontWeight>Bold</FontWeight>
@@ -1016,7 +1016,7 @@ WHERE CR.AnioAcademico = @idp_PeriodoLectivo and CR.idNivel in (@idP_Nivel)</Com
                 <VerticalAlign>Top</VerticalAlign>
               </Style>
             </ChartNoDataMessage>
-            <DataSetName>Perfil_Global_Talla</DataSetName>
+            <DataSetName>Perfil_Global_IMC</DataSetName>
             <Top>23.37153mm</Top>
             <Left>5.02709mm</Left>
             <Height>70.99653mm</Height>
