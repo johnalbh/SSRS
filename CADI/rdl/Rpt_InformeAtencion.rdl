@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=limon.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -17,20 +17,20 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
+          <QueryParameter Name="@idP_TipoIdentificacion">
+            <Value>=Parameters!idP_TipoIdentificacion.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@idP_NumeroIdentificacion">
+            <Value>=Parameters!idP_NumeroIdentificacion.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@FechaInicio">
-            <Value>=Parameters!FechaInicio.Value</Value>
+          <QueryParameter Name="@idP_FechaInicio">
+            <Value>=Parameters!idP_FechaInicio.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@FechaFin">
-            <Value>=Parameters!FechaFin.Value</Value>
+          <QueryParameter Name="@idP_FechaFin">
+            <Value>=Parameters!idP_FechaFin.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@Especialidad">
-            <Value>=Parameters!Especialidad.Value</Value>
+          <QueryParameter Name="@idP_Especialidad">
+            <Value>=Parameters!idP_Especialidad.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -46,24 +46,24 @@
           <DataField>NombrePaciente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroSesion">
-          <DataField>NumeroSesion</DataField>
+        <Field Name="NombreNovedad">
+          <DataField>NombreNovedad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Edad">
           <DataField>Edad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TipoSesion">
-          <DataField>TipoSesion</DataField>
+        <Field Name="NombreTipoNovedad">
+          <DataField>NombreTipoNovedad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Descripcion">
           <DataField>Descripcion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Especialidades">
-          <DataField>Especialidades</DataField>
+        <Field Name="Especialidad">
+          <DataField>Especialidad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Materia">
@@ -79,7 +79,8 @@
     <DataSet Name="TipoDocumento">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM DOMINIO WHERE DOMINIO = 'TipoDocumento' </CommandText>
+        <CommandText>SELECT * FROM DOMINIO WHERE DOMINIO = 'TipoDocumento' Order by  criterio asc</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="Dominio">
@@ -107,7 +108,8 @@
     <DataSet Name="EspecialidadCADI">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM DOMINIO WHERE Dominio = 'EspecialidadCADI'</CommandText>
+        <CommandText>SELECT * FROM DOMINIO WHERE Dominio = 'EspecialidadCADI' </CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="Dominio">
@@ -146,7 +148,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>29.10417mm</Height>
+                  <Height>25.92917mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -156,13 +158,13 @@
                               <TablixBody>
                                 <TablixColumns>
                                   <TablixColumn>
-                                    <Width>49.94369mm</Width>
+                                    <Width>37.37855mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>42.79994mm</Width>
+                                    <Width>51.49431mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>39.62494mm</Width>
+                                    <Width>43.59369mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
                                     <Width>68.22707mm</Width>
@@ -181,18 +183,16 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Nombre Paciente:</Value>
+                                                    <Value>Nombre Paciente: </Value>
                                                     <Style>
-                                                      <FontWeight>Bold</FontWeight>
+                                                      <FontWeight>Normal</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value xml:space="preserve"> </Value>
-                                                    <Style />
-                                                  </TextRun>
-                                                  <TextRun>
                                                     <Value>=Fields!NombrePaciente.Value</Value>
-                                                    <Style />
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
@@ -227,7 +227,7 @@
                                                   <TextRun>
                                                     <Value>Curso:</Value>
                                                     <Style>
-                                                      <FontWeight>Bold</FontWeight>
+                                                      <FontWeight>Normal</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
@@ -236,7 +236,9 @@
                                                   </TextRun>
                                                   <TextRun>
                                                     <Value>=Fields!Curso.Value</Value>
-                                                    <Style />
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
@@ -269,7 +271,7 @@
                                                   <TextRun>
                                                     <Value>Especialidad:</Value>
                                                     <Style>
-                                                      <FontWeight>Bold</FontWeight>
+                                                      <FontWeight>Normal</FontWeight>
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
@@ -277,8 +279,10 @@
                                                     <Style />
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Fields!Especialidades.Value</Value>
-                                                    <Style />
+                                                    <Value>=Parameters!idP_Especialidad.Label(0)</Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
@@ -369,7 +373,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Numero Sesion</Value>
+                                                    <Value>Número de Sesion</Value>
                                                     <Style>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
@@ -581,19 +585,18 @@
                                               <PaddingBottom>2pt</PaddingBottom>
                                             </Style>
                                           </Textbox>
-                                          <rd:Selected>true</rd:Selected>
                                         </CellContents>
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="NumeroSesion">
+                                          <Textbox Name="NombreNovedad">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!NumeroSesion.Value</Value>
+                                                    <Value>=Fields!NombreNovedad.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -602,7 +605,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>NumeroSesion</rd:DefaultName>
+                                            <rd:DefaultName>NombreNovedad</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Color>Silver</Color>
@@ -639,14 +642,14 @@
                                       </TablixCell>
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="TipoSesion">
+                                          <Textbox Name="NombreTipoNovedad">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>=Fields!TipoSesion.Value</Value>
+                                                    <Value>=Fields!NombreTipoNovedad.Value</Value>
                                                     <Style />
                                                   </TextRun>
                                                 </TextRuns>
@@ -655,7 +658,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>TipoSesion</rd:DefaultName>
+                                            <rd:DefaultName>NombreTipoNovedad</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Color>Silver</Color>
@@ -768,11 +771,12 @@
                                   </TablixMember>
                                 </TablixMembers>
                               </TablixRowHierarchy>
+                              <NoRowsMessage>No se encontraron registros de esta Especialidad para este estudiante.</NoRowsMessage>
                               <DataSetName>Consulta_Atencion</DataSetName>
                               <Top>0mm</Top>
                               <Left>0mm</Left>
                               <Height>24.87084mm</Height>
-                              <Width>200.59564mm</Width>
+                              <Width>200.69362mm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -803,7 +807,7 @@
                 <TablixMember>
                   <Group Name="Especialidades">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!Especialidades.Value</GroupExpression>
+                      <GroupExpression>=Fields!Especialidad.Value</GroupExpression>
                     </GroupExpressions>
                     <PageBreak>
                       <BreakLocation>Between</BreakLocation>
@@ -815,7 +819,7 @@
             <DataSetName>Consulta_Atencion</DataSetName>
             <Top>2.08695mm</Top>
             <Left>3.95844mm</Left>
-            <Height>29.10417mm</Height>
+            <Height>25.92917mm</Height>
             <Width>200.69363mm</Width>
             <Style>
               <Border>
@@ -824,7 +828,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>75.9057mm</Height>
+        <Height>28.54528mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -834,7 +838,7 @@
       <Width>207.52503mm</Width>
       <Page>
         <PageHeader>
-          <Height>24.71207mm</Height>
+          <Height>21.80165mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -844,7 +848,7 @@
                   <Source>Embedded</Source>
                   <Value>logoOficialSGSMed2</Value>
                   <Sizing>FitProportional</Sizing>
-                  <Top>0.75493mm</Top>
+                  <Top>0mm</Top>
                   <Left>0mm</Left>
                   <Height>15.64923mm</Height>
                   <Width>84.14727mm</Width>
@@ -875,9 +879,41 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Informe de Atención de 10/11/2016 a 10/10/2016 </Value>
+                          <Value>Informe de Atención de </Value>
+                          <Style>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>=Parameters!idP_FechaInicio.Value</Value>
                           <Style>
                             <FontWeight>Bold</FontWeight>
+                            <Format>d</Format>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value xml:space="preserve"> </Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>a</Value>
+                          <Style>
+                            <FontWeight>Normal</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value xml:space="preserve"> </Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                          </Style>
+                        </TextRun>
+                        <TextRun>
+                          <Value>=Parameters!idP_FechaFin.Value</Value>
+                          <Style>
+                            <FontWeight>Bold</FontWeight>
+                            <Format>d</Format>
                           </Style>
                         </TextRun>
                       </TextRuns>
@@ -889,7 +925,7 @@
                   <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
                   <rd:DefaultName>ReportTitle</rd:DefaultName>
                   <Top>0mm</Top>
-                  <Left>8.86479cm</Left>
+                  <Left>8.87458cm</Left>
                   <Height>16.40416mm</Height>
                   <Width>111.94777mm</Width>
                   <ZIndex>1</ZIndex>
@@ -906,9 +942,9 @@
               </ReportItems>
               <KeepTogether>true</KeepTogether>
               <Top>3.937mm</Top>
-              <Left>4.05639mm</Left>
-              <Height>17.68826mm</Height>
-              <Width>200.59569mm</Width>
+              <Left>3.95844mm</Left>
+              <Height>16.40416mm</Height>
+              <Width>200.69364mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -923,7 +959,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>84.71957mm</Height>
+          <Height>7.46125mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -934,7 +970,13 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Fecha y Hora de Generación del Reporte: 10 de Octubre de 2016 3:57 ppm</Value>
+                      <Value>Fecha y Hora de Generación del Reporte: </Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -946,8 +988,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>2.27543mm</Top>
-              <Left>96.70208mm</Left>
+              <Top>0.35278mm</Top>
+              <Left>3.95844mm</Left>
               <Height>6.35mm</Height>
               <Width>107.94999mm</Width>
               <Style>
@@ -981,17 +1023,9 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="FechaInicio">
-      <DataType>DateTime</DataType>
-      <Prompt>Fecha Inicio</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="FechaFin">
-      <DataType>DateTime</DataType>
-      <Prompt>Fecha Fin</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="TipoIdentificacion">
+    <ReportParameter Name="idP_TipoIdentificacion">
       <DataType>String</DataType>
-      <Prompt>Tipo Identificacion</Prompt>
+      <Prompt>Tipo Identificacion:</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>TipoDocumento</DataSetName>
@@ -1000,13 +1034,21 @@
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
-    <ReportParameter Name="NumeroIdentificacion">
+    <ReportParameter Name="idP_NumeroIdentificacion">
       <DataType>String</DataType>
-      <Prompt>Numero Identificacion</Prompt>
+      <Prompt>Número Identificación:</Prompt>
     </ReportParameter>
-    <ReportParameter Name="Especialidad">
+    <ReportParameter Name="idP_FechaInicio">
+      <DataType>DateTime</DataType>
+      <Prompt>Fecha Inicio:</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="idP_FechaFin">
+      <DataType>DateTime</DataType>
+      <Prompt>Fecha Fin:</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="idP_Especialidad">
       <DataType>String</DataType>
-      <Prompt>Especialidad</Prompt>
+      <Prompt>Especialidad:</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>EspecialidadCADI</DataSetName>

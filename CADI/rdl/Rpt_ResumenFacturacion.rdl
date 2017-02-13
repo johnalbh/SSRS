@@ -2,10 +2,10 @@
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="Naranja">
+    <DataSource Name="Limon">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=limon.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -15,7 +15,7 @@
   <DataSets>
     <DataSet Name="FacturacionCADI">
       <Query>
-        <DataSourceName>Naranja</DataSourceName>
+        <DataSourceName>Limon</DataSourceName>
         <QueryParameters>
           <QueryParameter Name="@FechaInicio">
             <Value>=Parameters!FechaInicio.Value</Value>
@@ -67,36 +67,36 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>43.17519mm</Width>
+                  <Width>48.73041mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>20.13164mm</Width>
+                  <Width>19.85549mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>15.97383mm</Width>
+                  <Width>15.69768mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>21.57221mm</Width>
+                  <Width>14.79985mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>17.07429mm</Width>
+                  <Width>9.48338mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>20.24929mm</Width>
+                  <Width>19.97314mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>20.51387mm</Width>
+                  <Width>20.23772mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.98543mm</Width>
+                  <Width>19.70928mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>21.91995mm</Width>
+                  <Width>21.6438mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>13.99415mm</Height>
+                  <Height>13.59727mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -197,6 +197,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -377,6 +378,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -413,6 +415,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -425,7 +428,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>5.33193mm</Height>
+                  <Height>4.93506mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -521,6 +524,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -696,6 +700,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -733,6 +738,7 @@
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
                             <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -763,191 +769,103 @@
               <TablixMembers>
                 <TablixMember>
                   <KeepWithGroup>After</KeepWithGroup>
+                  <RepeatOnNewPage>true</RepeatOnNewPage>
                 </TablixMember>
                 <TablixMember>
                   <Group Name="Details" />
+                  <KeepTogether>true</KeepTogether>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>FacturacionCADI</DataSetName>
-            <Top>3.88056mm</Top>
-            <Left>4.05639mm</Left>
-            <Height>19.32608mm</Height>
-            <Width>200.59573mm</Width>
+            <Top>19.1402mm</Top>
+            <Left>0mm</Left>
+            <Height>18.53233mm</Height>
+            <Width>190.13074mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="Textbox8">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>BIENESTAR ESTUDIANTIL 
+ CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Reporte de Facturación de </Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!FechaInicio.Value</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Format>d/MM/yyyy</Format>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value> a </Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!FechaFin.Value</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                      <Format>d/MM/yyyy</Format>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>0mm</Top>
+            <Left>0mm</Left>
+            <Height>14.65718mm</Height>
+            <Width>190.13074mm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>24.79614mm</Height>
+        <Height>41.90586mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>209.8809mm</Width>
+      <Width>193.47674mm</Width>
       <Page>
-        <PageHeader>
-          <Height>32.91415mm</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
-          <PrintOnLastPage>true</PrintOnLastPage>
-          <ReportItems>
-            <Rectangle Name="Rectangle2">
-              <ReportItems>
-                <Image Name="LogoSGS">
-                  <Source>Embedded</Source>
-                  <Value>logoOficialSGSMed2</Value>
-                  <Sizing>FitProportional</Sizing>
-                  <Top>5.02708mm</Top>
-                  <Left>0mm</Left>
-                  <Height>17.68826mm</Height>
-                  <Width>81.23686mm</Width>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                  </Style>
-                </Image>
-                <Textbox Name="ReportTitle">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>BIENESTAR ESTUDIANTIL 
- CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Reporte de Facturación de </Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Parameters!FechaInicio.Value</Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                            <Format>d/MM/yyyy</Format>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value> a </Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Parameters!FechaFin.Value</Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                            <Format>d/MM/yyyy</Format>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
-                  <rd:DefaultName>ReportTitle</rd:DefaultName>
-                  <Top>5.02708mm</Top>
-                  <Left>8.19424cm</Left>
-                  <Height>17.68826mm</Height>
-                  <Width>118.65331mm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-              </ReportItems>
-              <KeepTogether>true</KeepTogether>
-              <Top>7.37658mm</Top>
-              <Left>4.05639mm</Left>
-              <Height>22.71534mm</Height>
-              <Width>200.59573mm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Rectangle>
-          </ReportItems>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </PageHeader>
-        <PageFooter>
-          <Height>8.94584mm</Height>
-          <PrintOnFirstPage>true</PrintOnFirstPage>
-          <PrintOnLastPage>true</PrintOnLastPage>
-          <ReportItems>
-            <Textbox Name="ExecutionTime">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>Fecha y Hora de Generación del Reporte: </Value>
-                      <Style>
-                        <FontSize>8pt</FontSize>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=Globals!ExecutionTime</Value>
-                      <Style />
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>0mm</Top>
-              <Left>96.70212mm</Left>
-              <Height>6.35mm</Height>
-              <Width>107.94999mm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-          </ReportItems>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </PageFooter>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
         <InteractiveHeight>27.94cm</InteractiveHeight>
