@@ -279,7 +279,7 @@
                                                     <Style />
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value>=Parameters!idP_Especialidad.Label(0)</Value>
+                                                    <Value>=Fields!Especialidad.Value</Value>
                                                     <Style>
                                                       <FontWeight>Bold</FontWeight>
                                                     </Style>
