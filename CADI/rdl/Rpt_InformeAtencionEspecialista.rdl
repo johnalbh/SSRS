@@ -74,6 +74,14 @@
           <DataField>Materia</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="DiaAcademico">
+          <DataField>DiaAcademico</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumeroCiclo">
+          <DataField>NumeroCiclo</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="TipoDocumento">
@@ -141,12 +149,12 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>200.59568mm</Width>
+                  <Width>204.65209mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>22.77457mm</Height>
+                  <Height>24.89123mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -156,28 +164,86 @@
                               <TablixBody>
                                 <TablixColumns>
                                   <TablixColumn>
-                                    <Width>23.66676mm</Width>
+                                    <Width>18.63968mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>26.16mm</Width>
+                                    <Width>15.84125mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>34.67451mm</Width>
+                                    <Width>31.20194mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
                                     <Width>80.31201mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>35.78239mm</Width>
+                                    <Width>23.73846mm</Width>
+                                  </TablixColumn>
+                                  <TablixColumn>
+                                    <Width>18.65mm</Width>
+                                  </TablixColumn>
+                                  <TablixColumn>
+                                    <Width>16.26875mm</Width>
                                   </TablixColumn>
                                 </TablixColumns>
                                 <TablixRows>
                                   <TablixRow>
-                                    <Height>6.35278mm</Height>
+                                    <Height>8.46944mm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
                                           <Textbox Name="Textbox3">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Curso:</Value>
+                                                    <Style>
+                                                      <FontWeight>Normal</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value xml:space="preserve"> </Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value xml:space="preserve"> </Value>
+                                                    <Style />
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value>=Fields!Curso.Value</Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox3</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                          <ColSpan>2</ColSpan>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell />
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox17">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -201,7 +267,7 @@
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox3</rd:DefaultName>
+                                            <rd:DefaultName>Textbox17</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -213,14 +279,13 @@
                                               <PaddingBottom>2pt</PaddingBottom>
                                             </Style>
                                           </Textbox>
-                                          <ColSpan>3</ColSpan>
+                                          <ColSpan>2</ColSpan>
                                         </CellContents>
                                       </TablixCell>
                                       <TablixCell />
-                                      <TablixCell />
                                       <TablixCell>
                                         <CellContents>
-                                          <Textbox Name="Textbox7">
+                                          <Textbox Name="Textbox15">
                                             <CanGrow>true</CanGrow>
                                             <KeepTogether>true</KeepTogether>
                                             <Paragraphs>
@@ -239,38 +304,16 @@
                                                     </Style>
                                                   </TextRun>
                                                   <TextRun>
-                                                    <Value xml:space="preserve">                    </Value>
+                                                    <Value xml:space="preserve">  </Value>
                                                     <Style />
-                                                  </TextRun>
-                                                  <TextRun>
-                                                    <Value>       Curso:</Value>
-                                                    <Style>
-                                                      <FontWeight>Normal</FontWeight>
-                                                    </Style>
-                                                  </TextRun>
-                                                  <TextRun>
-                                                    <Value xml:space="preserve"> </Value>
-                                                    <Style>
-                                                      <FontWeight>Bold</FontWeight>
-                                                    </Style>
-                                                  </TextRun>
-                                                  <TextRun>
-                                                    <Value xml:space="preserve"> </Value>
-                                                    <Style />
-                                                  </TextRun>
-                                                  <TextRun>
-                                                    <Value>=Fields!Curso.Value</Value>
-                                                    <Style>
-                                                      <FontWeight>Bold</FontWeight>
-                                                    </Style>
                                                   </TextRun>
                                                 </TextRuns>
                                                 <Style>
-                                                  <TextAlign>Center</TextAlign>
+                                                  <TextAlign>Left</TextAlign>
                                                 </Style>
                                               </Paragraph>
                                             </Paragraphs>
-                                            <rd:DefaultName>Textbox7</rd:DefaultName>
+                                            <rd:DefaultName>Textbox15</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Style>None</Style>
@@ -282,14 +325,15 @@
                                               <PaddingBottom>2pt</PaddingBottom>
                                             </Style>
                                           </Textbox>
-                                          <ColSpan>2</ColSpan>
+                                          <ColSpan>3</ColSpan>
                                         </CellContents>
                                       </TablixCell>
+                                      <TablixCell />
                                       <TablixCell />
                                     </TablixCells>
                                   </TablixRow>
                                   <TablixRow>
-                                    <Height>7.60235mm</Height>
+                                    <Height>10.77734mm</Height>
                                     <TablixCells>
                                       <TablixCell>
                                         <CellContents>
@@ -437,7 +481,6 @@
                                               <PaddingBottom>2pt</PaddingBottom>
                                             </Style>
                                           </Textbox>
-                                          <rd:Selected>true</rd:Selected>
                                         </CellContents>
                                       </TablixCell>
                                       <TablixCell>
@@ -462,6 +505,80 @@
                                               </Paragraph>
                                             </Paragraphs>
                                             <rd:DefaultName>Textbox6</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Color>LightGrey</Color>
+                                                <Style>Solid</Style>
+                                              </Border>
+                                              <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox5">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Dia Academico</Value>
+                                                    <Style>
+                                                      <FontSize>9pt</FontSize>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox5</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Color>LightGrey</Color>
+                                                <Style>Solid</Style>
+                                              </Border>
+                                              <BackgroundColor>WhiteSmoke</BackgroundColor>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox10">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Numero Ciclo</Value>
+                                                    <Style>
+                                                      <FontSize>9pt</FontSize>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox10</rd:DefaultName>
                                             <Style>
                                               <Border>
                                                 <Color>LightGrey</Color>
@@ -657,12 +774,84 @@
                                           </Textbox>
                                         </CellContents>
                                       </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="DiaAcademico">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>=Fields!DiaAcademico.Value</Value>
+                                                    <Style>
+                                                      <FontSize>7pt</FontSize>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>DiaAcademico</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Color>LightGrey</Color>
+                                                <Style>Solid</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="NumeroCiclo">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>=Fields!NumeroCiclo.Value</Value>
+                                                    <Style>
+                                                      <FontSize>7pt</FontSize>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Center</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>NumeroCiclo</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Color>LightGrey</Color>
+                                                <Style>Solid</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
                                     </TablixCells>
                                   </TablixRow>
                                 </TablixRows>
                               </TablixBody>
                               <TablixColumnHierarchy>
                                 <TablixMembers>
+                                  <TablixMember />
+                                  <TablixMember />
                                   <TablixMember />
                                   <TablixMember />
                                   <TablixMember />
@@ -689,8 +878,8 @@
                               <DataSetName>Consulta_Atencion</DataSetName>
                               <Top>0mm</Top>
                               <Left>0mm</Left>
-                              <Height>19.59958mm</Height>
-                              <Width>200.59567mm</Width>
+                              <Height>24.89123mm</Height>
+                              <Width>204.65209mm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -723,9 +912,9 @@
             </TablixRowHierarchy>
             <DataSetName>Consulta_Atencion</DataSetName>
             <Top>1.76389mm</Top>
-            <Left>4.05639mm</Left>
-            <Height>22.77457mm</Height>
-            <Width>200.59568mm</Width>
+            <Left>3.175mm</Left>
+            <Height>24.89123mm</Height>
+            <Width>204.65209mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -733,146 +922,132 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>26.39054mm</Height>
+        <Height>28.24262mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>207.16271mm</Width>
+      <Width>211.66039mm</Width>
       <Page>
         <PageHeader>
-          <Height>32.2968mm</Height>
+          <Height>24.62388mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Rectangle Name="Rectangle2">
-              <ReportItems>
-                <Image Name="LogoSGS">
-                  <Source>Embedded</Source>
-                  <Value>logoOficialSGSMed2</Value>
-                  <Sizing>FitProportional</Sizing>
-                  <Top>5.99722mm</Top>
-                  <Left>0mm</Left>
-                  <Height>19.36396mm</Height>
-                  <Width>67.9195mm</Width>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                  </Style>
-                </Image>
-                <Textbox Name="ReportTitle">
-                  <CanGrow>true</CanGrow>
-                  <KeepTogether>true</KeepTogether>
-                  <Paragraphs>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>BIENESTAR ESTUDIANTIL 
- CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Informe de Atención de </Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Parameters!idP_FechaInicio.Value</Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                            <Format>d/MM/yyyy</Format>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value> a </Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Parameters!idP_FechaFin.Value</Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                            <Format>d/MM/yyyy</Format>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value> para Especialista</Value>
-                          <Style>
-                            <FontSize>9pt</FontSize>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                    <Paragraph>
-                      <TextRuns>
-                        <TextRun>
-                          <Value>Especialidad: </Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                        <TextRun>
-                          <Value>=Parameters!idP_Especialidad.Label</Value>
-                          <Style>
-                            <FontWeight>Bold</FontWeight>
-                          </Style>
-                        </TextRun>
-                      </TextRuns>
-                      <Style>
-                        <TextAlign>Center</TextAlign>
-                      </Style>
-                    </Paragraph>
-                  </Paragraphs>
-                  <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
-                  <rd:DefaultName>ReportTitle</rd:DefaultName>
-                  <Top>5.99722mm</Top>
-                  <Left>6.96834cm</Left>
-                  <Height>19.36396mm</Height>
-                  <Width>131.38449mm</Width>
-                  <ZIndex>1</ZIndex>
-                  <Style>
-                    <Border>
-                      <Style>None</Style>
-                    </Border>
-                    <PaddingLeft>2pt</PaddingLeft>
-                    <PaddingRight>2pt</PaddingRight>
-                    <PaddingTop>2pt</PaddingTop>
-                    <PaddingBottom>2pt</PaddingBottom>
-                  </Style>
-                </Textbox>
-              </ReportItems>
-              <KeepTogether>true</KeepTogether>
-              <Top>3.937mm</Top>
-              <Left>3.5842mm</Left>
-              <Height>27.30146mm</Height>
-              <Width>201.06789mm</Width>
+            <Image Name="LogoSGS">
+              <Source>Embedded</Source>
+              <Value>logoOficialSGSMed2</Value>
+              <Sizing>FitProportional</Sizing>
+              <Top>3.82059mm</Top>
+              <Left>3.30414mm</Left>
+              <Height>19.36396mm</Height>
+              <Width>71.85649mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
                 </Border>
               </Style>
-            </Rectangle>
+            </Image>
+            <Textbox Name="ReportTitle">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>BIENESTAR ESTUDIANTIL 
+ CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Informe de Atención de </Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!idP_FechaInicio.Value</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                        <Format>d/MM/yyyy</Format>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> a </Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!idP_FechaFin.Value</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                        <Format>d/MM/yyyy</Format>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> para Especialista</Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Especialidad: </Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!idP_Especialidad.Label</Value>
+                      <Style>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
+              <rd:DefaultName>ReportTitle</rd:DefaultName>
+              <Top>3.82059mm</Top>
+              <Left>7.65717cm</Left>
+              <Height>19.36396mm</Height>
+              <Width>131.38449mm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -912,7 +1087,7 @@
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
               <Top>0.70556mm</Top>
               <Left>4.05639mm</Left>
-              <Height>6.35mm</Height>
+              <Height>7.54945mm</Height>
               <Width>107.94999mm</Width>
               <Style>
                 <Border>
