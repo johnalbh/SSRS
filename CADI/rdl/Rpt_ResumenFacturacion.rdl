@@ -52,8 +52,16 @@
           <DataField>SesionesFacturar</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="CancelaraCon">
+          <DataField>CancelaraCon</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="ValorAFacturar">
           <DataField>ValorAFacturar</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CancelaraSin">
+          <DataField>CancelaraSin</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -67,31 +75,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>48.73041mm</Width>
+                  <Width>49.61235mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.85549mm</Width>
+                  <Width>20.73743mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>15.69768mm</Width>
+                  <Width>16.57962mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>14.79985mm</Width>
+                  <Width>20.17971mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>9.48338mm</Width>
+                  <Width>16.18616mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.97314mm</Width>
+                  <Width>20.85508mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>20.23772mm</Width>
+                  <Width>21.11966mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.70928mm</Width>
+                  <Width>20.59122mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>21.6438mm</Width>
+                  <Width>22.52574mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -606,14 +614,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox290">
+                        <Textbox Name="CancelaraSin">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!CancelaraSin.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -624,7 +632,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox290</rd:DefaultName>
+                          <rd:DefaultName>CancelaraSin</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -641,14 +649,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox286">
+                        <Textbox Name="CancelaraCon">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!CancelaraCon.Value</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -659,7 +667,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox286</rd:DefaultName>
+                          <rd:DefaultName>CancelaraCon</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -781,7 +789,7 @@
             <Top>19.1402mm</Top>
             <Left>0mm</Left>
             <Height>18.53233mm</Height>
-            <Width>190.13074mm</Width>
+            <Width>208.387mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -844,7 +852,7 @@
             <Top>0mm</Top>
             <Left>0mm</Left>
             <Height>14.65718mm</Height>
-            <Width>190.13074mm</Width>
+            <Width>208.387mm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -864,7 +872,7 @@
           </Border>
         </Style>
       </Body>
-      <Width>193.47674mm</Width>
+      <Width>211.46841mm</Width>
       <Page>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
