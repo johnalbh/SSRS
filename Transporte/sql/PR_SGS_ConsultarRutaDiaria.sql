@@ -33,7 +33,6 @@ AUTOR: JOHN ALBERTO LÓPEZ HERNÁNDEZ
 FECHA MODIFICACIÓN 06 Marzo de 2016
 ********************************************************************/
 
-
 ALTER PROCEDURE 
 	[dbo].[PR_SGS_ConsultarRutaDiaria]    
 (

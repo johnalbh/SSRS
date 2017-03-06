@@ -27,7 +27,9 @@ FROM
 	BUSRUTA
 WHERE 
 	FECHACALENDARIO = '1900-01-01'
-	AND DOMINIOJORNADA= @Jornada</CommandText>
+	AND DOMINIOJORNADA= @Jornada
+ORDER BY
+	CONVERT(INT,DominioNombreRuta)ASC</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
