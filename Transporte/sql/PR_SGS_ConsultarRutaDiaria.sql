@@ -21,7 +21,18 @@ AUTOR: Luisa Lamprea
 REQUERIMIENTO:  Error: muestra auxiliar incorrecta en el reporte
 EMPRESA: Saint George's School
 FECHA MODIFICACIÓN: 21-09-2016
+--------------------------------------------------------------------
+MODIFICACIÓN: Se agrega un LEFT JOIN, con solicitud de transporte y 
+tipo de de Solicitud de transporte, para sacar la columna temporal 
+o permatener y poder en el filtro del reporte agregar la condición que
+solo muetsre los pernantes, para que en los cambios de domiclio, no se 
+muestre como un cambio 
+de paradero.
+
+AUTOR: JOHN ALBERTO LÓPEZ HERNÁNDEZ
+FECHA MODIFICACIÓN 06 Marzo de 2016
 ********************************************************************/
+
 
 ALTER PROCEDURE 
 	[dbo].[PR_SGS_ConsultarRutaDiaria]    
