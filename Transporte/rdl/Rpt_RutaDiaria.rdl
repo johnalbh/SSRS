@@ -171,6 +171,14 @@ WHERE
           <DataField>RutaReporte</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Temporal">
+          <DataField>Temporal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FechaServicio">
+          <DataField>FechaServicio</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
   </DataSets>
@@ -3629,11 +3637,18 @@ WHERE
                                     <FilterValue DataType="Integer">0</FilterValue>
                                   </FilterValues>
                                 </Filter>
+                                <Filter>
+                                  <FilterExpression>=Fields!Temporal.Value</FilterExpression>
+                                  <Operator>Equal</Operator>
+                                  <FilterValues>
+                                    <FilterValue DataType="Integer">1</FilterValue>
+                                  </FilterValues>
+                                </Filter>
                               </Filters>
                               <Top>75.05448mm</Top>
                               <Left>0.08015mm</Left>
                               <Height>16.13959mm</Height>
-                              <Width>195.67185mm</Width>
+                              <Width>195.67187mm</Width>
                               <ZIndex>9</ZIndex>
                               <Visibility>
                                 <Hidden>=IIf (CountRows() &gt; 0, false, true)</Hidden>
