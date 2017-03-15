@@ -8,21 +8,18 @@ DESCRIPCIÓN:			SP para la construcción del reporte de Historia Clínica
 						del modulo de Servicio Médico
 PARAMETRO ENTRADA:		@idP_TipoDocumentoPersona = Tipo Documetno de Persona
 						@ndP_NumeroDocumentoPersona = Número Documento de Persona
-RESULTADO:				Listado con las siguientes columnas: 
-						
-						La consulta se entrega ordenada alfabéticamente por apellidos y nombres del estudiante y por nombre del grupo	
+ESULTADO:				
 CREACIÓN 
-REQUERIMIENTO:			Reportes de Transporte
+REQUERIMIENTO:			Reporte de Servicio Médico
 AUTOR:					John Alberto López Hernández
 EMPRESA:				Saint George´s School  
-FECHA DE CREACIÓN:		2016-12-05
+FECHA DE CREACIÓN:		2017-03-13
 ----------------------------------------------------------------------------
 ****************************************************************************/
+ALTER PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
 
-CREATE PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
-
-	 @idP_TipoDocumentoPersona varchar(30) = 'CC'
-	,@ndP_NumeroDocumentoPersona varchar(50) = '1022347504'
+	 @idP_TipoDocumentoPersona varchar(30)
+	,@ndP_NumeroDocumentoPersona varchar(50)
 
 AS BEGIN 
 
