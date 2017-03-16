@@ -24,7 +24,7 @@ ALTER PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
 AS BEGIN 
 
   SET NOCOUNT ON
-  DECLARE @EsEstudiante AS bit;
+  DECLARE @EsEstudiante AS bit;		
   DECLARE @AnioAcademicoActual AS int;
   DECLARE @Seccion AS int;
   DECLARE @TipoHorario AS int;
@@ -57,8 +57,7 @@ AS BEGIN
       ,dbo.F_SGS_CalcularEdadAniosMeses(PR.FechaNacimiento) AS Edad
 	  ,ISNULL(PR.PrimerApellido, ' ') AS PrimerApellido
 	  ,ISNULL(PR.SegundoApellido, ' ') AS SegundoApellido
-      ,ISNULL(PR.PrimerNombre, ' ')  AS PrimerNombre
-	  ,ISNULL(PR.SegundoNombre, ' ')  AS SegundoNombre
+      ,ISNULL(PR.PrimerNombre, ' ') + ' ' + ISNULL(PR.SegundoNombre, ' ')  AS NombreCompleto
       ,NAC.Descripcion AS LugarNacimiento
 	  ,CUR.IdCurso
       ,CUR.Nombre AS NombreCurso
