@@ -16,7 +16,7 @@ EMPRESA:				Saint George´s School
 FECHA DE CREACIÓN:		2017-03-13
 ----------------------------------------------------------------------------
 ****************************************************************************/
-ALTER PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
+CREATE PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
 
 	 @idP_TipoDocumentoPersona varchar(30)
 	,@ndP_NumeroDocumentoPersona varchar(50)
