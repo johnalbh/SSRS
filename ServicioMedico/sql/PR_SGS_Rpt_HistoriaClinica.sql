@@ -147,3 +147,5 @@ AS BEGIN
 		AND PR.NumeroIdentificacion = @ndP_NumeroDocumentoPersona
 
 END 
+
+
