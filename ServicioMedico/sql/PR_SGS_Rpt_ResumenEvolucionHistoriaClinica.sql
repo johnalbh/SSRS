@@ -115,13 +115,15 @@ SELECT
 		ELSE CONVERT(VARCHAR(30),EV.EstOsteomuscular )
 		END AS EstOsteomuscular
 	,EV.ObsOsteomuscular AS ObsOsteomuscular
+	/** Revisión Por órganos **/
 	,CASE
-		WHEN EV.EstAnexoPielOrgano= 'NR' THEN CONVERT(VARCHAR(30),'No Referenciado')
-		WHEN EV.EstAnexoPielOrgano   = 'RF' THEN CONVERT(VARCHAR(30),'Referenciado')
+		WHEN EV.EstAnexoPielOrgano = 'NR' THEN CONVERT(VARCHAR(30),'No Referenciado')
+		WHEN EV.EstAnexoPielOrgano = 'NM' THEN CONVERT(VARCHAR(30),'Normal')
+		WHEN EV.EstAnexoPielOrgano = 'NE' THEN CONVERT(VARCHAR(30),'No Explorado')
+		WHEN EV.EstAnexoPielOrgano = 'AN' THEN CONVERT(VARCHAR(30),'Anormal')
 		ELSE CONVERT(VARCHAR(30),EV.EstAnexoPielOrgano )
 		END AS EstAnexoPielOrgano
 	,EV.ObsAnexoPielOrgano AS ObsAnexoPielOrgano 
-	/** Revisión Por órganos **/
 	,CASE
 		WHEN EV.EstAspectoGeneral = 'NR' THEN CONVERT(VARCHAR(30),'No Referenciado')
 		WHEN EV.EstAspectoGeneral = 'NM' THEN CONVERT(VARCHAR(30),'Normal')

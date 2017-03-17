@@ -16,9 +16,9 @@ EMPRESA:				Saint George´s School
 FECHA DE CREACIÓN:		2017-03-13
 ----------------------------------------------------------------------------
 ****************************************************************************/
-CREATE PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
+ALTER PROCEDURE dbo.PR_SGS_Rpt_HistoriaClinica
 
-	 @idP_TipoDocumentoPersona varchar(30)
+	 @idP_TipoDocumentoPersona varchar(30) 
 	,@ndP_NumeroDocumentoPersona varchar(50)
 
 AS BEGIN 
@@ -51,7 +51,7 @@ AS BEGIN
 /* Cuando la persona que se busca es un Estudiante */
 	SELECT	
 
-       PR.TipoIdentificacion
+       DOC.Descripcion AS TipoDocumento
       ,PR.NumeroIdentificacion
       ,LEFT(CONVERT(varchar, PR.FechaNacimiento, 120), 10) AS FechaNac
       ,dbo.F_SGS_CalcularEdadAniosMeses(PR.FechaNacimiento) AS Edad
@@ -92,6 +92,9 @@ AS BEGIN
 		INNER JOIN INFORMACIONMEDICA AS IM ON
 			PR.TipoIdentificacion = IM.TipoIdentificacion
 			AND PR.NumeroIdentificacion = IM.NumeroIdentificacion
+		INNER JOIN Dominio AS DOC ON
+			DOC.Dominio = 'TipoDocumento'
+			AND DOC.Valor = PR.TipoIdentificacion
 		INNER JOIN Dominio AS DOM ON
 			DOM.Dominio = 'EPS'
 			AND DOM.Valor = IM.IdEPS
@@ -115,8 +118,7 @@ AS BEGIN
 	  ,dbo.F_SGS_CalcularEdadAniosMeses(PR.FechaNacimiento) AS Edad
 	  ,ISNULL(PR.PrimerApellido, ' ') AS PrimerApellido
 	  ,ISNULL(PR.SegundoApellido, ' ') AS SegundoApellido
-      ,ISNULL(PR.PrimerNombre, ' ')  AS PrimerNombre
-	  ,ISNULL(PR.SegundoNombre, ' ')  AS SegundoNombre
+      ,ISNULL(PR.PrimerNombre, ' ') + ' ' + ISNULL(PR.SegundoNombre, ' ')  AS NombreCompleto
       ,NAC.Descripcion AS LugarNacimiento
       ,PR.Celular
       ,PR.Genero
@@ -133,6 +135,9 @@ AS BEGIN
 		  ON PR.LugarExpedicion = CIU.Id
 		INNER JOIN Nacionalidad AS NAC
 		  ON PR.PaisNacimiento = NAC.Codigo
+		INNER JOIN Dominio AS DOC ON
+			DOC.Dominio = 'TipoDocumento'
+			AND DOC.Valor = PR.TipoIdentificacion
 		LEFT JOIN INFORMACIONMEDICA AS IM ON
 			PR.TipoIdentificacion = IM.TipoIdentificacion
 			AND PR.NumeroIdentificacion = IM.NumeroIdentificacion
@@ -143,9 +148,8 @@ AS BEGIN
 			DOM.Dominio = 'MedicinaPrepagada' 		
 			AND DOM.Valor = IM.IdMedicinaPrepagada
     WHERE 
-		PR.TipoIdentificacion = @idP_TipoDocumentoPersona
-		AND PR.NumeroIdentificacion = @ndP_NumeroDocumentoPersona
+		PR.TipoIdentificacion = 'cc'
+		AND PR.NumeroIdentificacion = '1022347504'
 
 END 
-
 
