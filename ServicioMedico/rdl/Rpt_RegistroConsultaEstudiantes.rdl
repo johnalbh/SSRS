@@ -23,6 +23,18 @@
           <QueryParameter Name="@pFechaFin">
             <Value>=Parameters!pFechaFin.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@idP_Seccion">
+            <Value>=Parameters!idP_Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@idp_PeriodoLectivo">
+            <Value>=Parameters!idp_PeriodoLectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@idP_Nivel">
+            <Value>=Parameters!idP_Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@idP_Curso">
+            <Value>=Parameters!idP_Curso.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>PR_SGS_Rpt_RegistroConsultaMedicaEstudiantes</CommandText>
@@ -77,10 +89,16 @@
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>Select * From Periodolectivo where AnioActivo = 'True'</CommandText>
+        <CommandText>select * 
+from periodolectivo
+where AnioActivo=1</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Id">
           <DataField>Id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -92,10 +110,6 @@
         <Field Name="AnioFinal">
           <DataField>AnioFinal</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="AnioActivo">
           <DataField>AnioActivo</DataField>
@@ -112,6 +126,72 @@
         <Field Name="FechaFinPeriodo">
           <DataField>FechaFinPeriodo</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>select  * from seccion
+UNION
+Select 0, 'Global' from seccion</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@idP_Nivel">
+            <Value>=Parameters!idP_Nivel.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre 
+FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@idP_Nivel)
+Order By CR.idCurso</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@idP_Seccion">
+            <Value>=Parameters!idP_Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion = @idP_Seccion
+</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1588,11 +1668,57 @@
   <ReportParameters>
     <ReportParameter Name="pFechaInicio">
       <DataType>DateTime</DataType>
-      <Prompt>Fecha Inicio:</Prompt>
+      <Prompt>p Fecha Inicio</Prompt>
     </ReportParameter>
     <ReportParameter Name="pFechaFin">
       <DataType>DateTime</DataType>
-      <Prompt>Fecha Fin:</Prompt>
+      <Prompt>p Fecha Fin</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="idp_PeriodoLectivo">
+      <DataType>String</DataType>
+      <Prompt>idp Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="idP_Seccion">
+      <DataType>Integer</DataType>
+      <Prompt>Sección:</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="idP_Nivel">
+      <DataType>String</DataType>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="idP_Curso">
+      <DataType>String</DataType>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>
