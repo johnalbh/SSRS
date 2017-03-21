@@ -133,8 +133,7 @@ where AnioActivo=1</CommandText>
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <CommandText>select  * from seccion
-UNION
-Select 0, 'Global' from seccion</CommandText>
+</CommandText>
       </Query>
       <Fields>
         <Field Name="IdSeccion">
@@ -160,7 +159,8 @@ FROM CURSO AS CR
 INNER JOIN PERIODOLECTIVO AS PL
 ON CR.AnioAcademico = PL.Id
 WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@idP_Nivel)
-Order By CR.idCurso</CommandText>
+Order By CR.idCurso
+</CommandText>
       </Query>
       <Fields>
         <Field Name="IdCurso">
@@ -181,7 +181,7 @@ Order By CR.idCurso</CommandText>
             <Value>=Parameters!idP_Seccion.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>Select idNivel, Nombre From Nivel where idSeccion = @idP_Seccion
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@idP_Seccion)
 </CommandText>
       </Query>
       <Fields>
@@ -1686,7 +1686,7 @@ Order By CR.idCurso</CommandText>
       </ValidValues>
     </ReportParameter>
     <ReportParameter Name="idP_Seccion">
-      <DataType>Integer</DataType>
+      <DataType>String</DataType>
       <Prompt>Sección:</Prompt>
       <ValidValues>
         <DataSetReference>
@@ -1695,6 +1695,7 @@ Order By CR.idCurso</CommandText>
           <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
     <ReportParameter Name="idP_Nivel">
       <DataType>String</DataType>
