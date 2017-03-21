@@ -23,14 +23,68 @@ FECHA MODIFICACIÓN:
 ********************************************************************/
 ALTER PROCEDURE 
 	 [dbo].[PR_SGS_Rpt_RegistroConsultaMedicaEstudiantes] 
-
-        @pFechaInicio as DateTime
-       ,@pFechaFin as  DateTime
+		 @pFechaInicio as DateTime
+		,@pFechaFin as  DateTime
+		,@idp_PeriodoLectivo VARCHAR (50)
+		,@idP_Seccion INT 
+		,@idP_Nivel VARCHAR (60) 
+		,@idP_Curso VARCHAR (60)
 AS
 BEGIN
+DECLARE @Cursos TABLE 
+	(
+		 IdCursoSeleccionado VARCHAR(60)
+	)
+
+-- Condición que permite evaluar Si selecciono un curso
+IF @idP_Curso  <> 0
+
+	INSERT INTO @Cursos 
+	
+	SELECT CR.Valor 
+	FROM F_SGS_Split(@idP_Curso, ',') AS CR
+-- Condición para que se inserten todos los cursos de un nivel.
+ELSE IF @idP_Nivel <> 0
+
+	INSERT INTO @Cursos 
+	SELECT 
+		idCurso AS Curso
+	FROM 
+		Curso 
+	WHERE 
+	AnioAcademico = @idp_PeriodoLectivo and idNivel = @idP_Nivel
+-- Condición para que se inserten todos los cursos de una sección.
+ELSE IF @idP_Seccion <> 0 
+		
+	INSERT INTO @Cursos SELECT 
+	 idCurso AS Curso
+	FROM Curso AS CR
+
+	INNER JOIN Nivel AS NV ON
+	CR.IdNivel = NV.IdNivel
+	
+	INNER JOIN SECCION AS SEC ON 
+	NV.IdSeccion = SEC.IdSeccion
+		
+	WHERE CR.AnioAcademico = @idp_PeriodoLectivo and NV.IdSeccion = @idP_Seccion
+
+-- Inserte todos los cursos de un periodo lectivo.
+ELSE 
+
+	INSERT INTO @Cursos 
+
+	SELECT 
+	  CR.idCurso AS Curso
+	FROM Curso AS CR
+	WHERE CR.AnioAcademico = @idp_PeriodoLectivo
+-- Tabla temporal para almacenar los cursos 
+
+
 DECLARE 
-        @FechaInicio as Date =   Convert( Date, @pFechaInicio)
-       ,@FechaFin as  Date =  Convert( Date, @pFechaFin)
+        @FechaInicio AS Date = Convert( Date, @pFechaInicio)
+       ,@FechaFin AS Date = Convert( Date, @pFechaFin)
+
+
 
 SELECT 
 
@@ -78,6 +132,9 @@ FROM ESTUDIANTE AS EST
 	INNER JOIN PERIODOLECTIVO AS PL
 	ON PL.FechaInicioPeriodo <= EVL.FechaIngreso AND EVL.FechaIngreso <= PL.FechaFinPeriodo  and
 	CR.AnioAcademico = PL.Id
+		
+	INNER JOIN @Cursos AS CURS
+	ON CR.IdCurso = CURS.IdCursoSeleccionado
        
 WHERE 
 	EVL.FechaIngreso BETWEEN @FechaInicio AND @FechaFin              
@@ -88,4 +145,3 @@ ORDER BY
 
 END
 GO
-
