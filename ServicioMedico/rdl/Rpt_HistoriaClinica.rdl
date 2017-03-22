@@ -2449,7 +2449,7 @@ Order by Criterio</CommandText>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>7.5875mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3581,7 +3581,7 @@ Order by Criterio</CommandText>
             <DataSetName>AntecedentesPatologicos</DataSetName>
             <Top>68.84702mm</Top>
             <Left>3.15237mm</Left>
-            <Height>49.14377mm</Height>
+            <Height>50.73127mm</Height>
             <Width>205.67523mm</Width>
             <ZIndex>2</ZIndex>
             <Visibility>
@@ -3606,12 +3606,12 @@ Order by Criterio</CommandText>
                   <Width>53.05919mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>57.97643mm</Width>
+                  <Width>57.66125mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>8.59896mm</Height>
+                  <Height>7.5875mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -3995,10 +3995,10 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesTraumaticos</DataSetName>
-            <Top>118.7623mm</Top>
-            <Left>2.83714mm</Left>
-            <Height>32.81667mm</Height>
-            <Width>205.99041mm</Width>
+            <Top>120.3498mm</Top>
+            <Left>3.15231mm</Left>
+            <Height>31.80521mm</Height>
+            <Width>205.67523mm</Width>
             <ZIndex>3</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -4301,8 +4301,8 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesFarmacologicos</DataSetName>
-            <Top>151.99786mm</Top>
-            <Left>2.83714mm</Left>
+            <Top>153.32078mm</Top>
+            <Left>2.83711mm</Left>
             <Height>21.875mm</Height>
             <Width>205.99043mm</Width>
             <ZIndex>5</ZIndex>
@@ -4334,12 +4334,12 @@ Order by Criterio</CommandText>
                   <Width>29.05686mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>49.49867mm</Width>
+                  <Width>49.1835mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>10.84792mm</Height>
+                  <Height>7.5875mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -5777,10 +5777,10 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesFamiliares</DataSetName>
-            <Top>174.48743mm</Top>
-            <Left>2.83714mm</Left>
-            <Height>58.66876mm</Height>
-            <Width>205.9904mm</Width>
+            <Top>176.07493mm</Top>
+            <Left>3.15231mm</Left>
+            <Height>55.40834mm</Height>
+            <Width>205.67523mm</Width>
             <ZIndex>6</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -5804,12 +5804,12 @@ Order by Criterio</CommandText>
                   <Width>45.08758mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>61.25438mm</Width>
+                  <Width>60.93918mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>5.82083mm</Height>
+                  <Height>7.5875mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -6244,10 +6244,10 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesQuirurgicos</DataSetName>
-            <Top>234.01869mm</Top>
-            <Left>2.83714mm</Left>
-            <Height>30.96458mm</Height>
-            <Width>205.99043mm</Width>
+            <Top>232.43119mm</Top>
+            <Left>3.15231mm</Left>
+            <Height>32.73125mm</Height>
+            <Width>205.67523mm</Width>
             <ZIndex>7</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -6276,7 +6276,7 @@ Order by Criterio</CommandText>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>7.5875mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -6988,9 +6988,9 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesGinecologicos</DataSetName>
-            <Top>266.03326mm</Top>
+            <Top>266.29785mm</Top>
             <Left>3.15227mm</Left>
-            <Height>39.70417mm</Height>
+            <Height>41.29167mm</Height>
             <Width>205.67527mm</Width>
             <ZIndex>8</ZIndex>
             <Visibility>
@@ -7015,12 +7015,12 @@ Order by Criterio</CommandText>
                   <Width>31.3032mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>75.03875mm</Width>
+                  <Width>74.72355mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>6.87917mm</Height>
+                  <Height>7.5875mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -7388,10 +7388,10 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesHospitalarios</DataSetName>
-            <Top>306.24994mm</Top>
-            <Left>2.83714mm</Left>
-            <Height>24.96459mm</Height>
-            <Width>205.99043mm</Width>
+            <Top>313.12911mm</Top>
+            <Left>3.15231mm</Left>
+            <Height>25.67292mm</Height>
+            <Width>205.67523mm</Width>
             <ZIndex>9</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -7421,7 +7421,7 @@ Order by Criterio</CommandText>
                   <Width>34.21284mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>31.48883mm</Width>
+                  <Width>31.17366mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -12533,10 +12533,10 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Evoluciones</DataSetName>
-            <Top>331.91452mm</Top>
-            <Left>2.83714mm</Left>
+            <Top>339.58744mm</Top>
+            <Left>3.15227mm</Left>
             <Height>291.92189mm</Height>
-            <Width>205.9904mm</Width>
+            <Width>205.67523mm</Width>
             <ZIndex>10</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -12548,17 +12548,17 @@ Order by Criterio</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>623.83641mm</Height>
+        <Height>632.30308mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>212.25603mm</Width>
+      <Width>211.72687mm</Width>
       <Page>
         <PageHeader>
-          <Height>22.59541mm</Height>
+          <Height>21.53708mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -12571,7 +12571,6 @@ Order by Criterio</CommandText>
                     <TextRun>
                       <Value>BIENESTAR ESTUDIANTIL - SERVICIO MÉDICO		</Value>
                       <Style>
-                        <FontFamily />
                         <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -12586,7 +12585,6 @@ Order by Criterio</CommandText>
                     <TextRun>
                       <Value>RESUMEN HISTORIA CLINICA</Value>
                       <Style>
-                        <FontFamily />
                         <FontSize>11pt</FontSize>
                         <FontWeight>Bold</FontWeight>
                       </Style>
@@ -12718,7 +12716,7 @@ Order by Criterio</CommandText>
               <Top>1.76389mm</Top>
               <Left>3.15227mm</Left>
               <Height>6.35mm</Height>
-              <Width>78.76466mm</Width>
+              <Width>195.35652mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>

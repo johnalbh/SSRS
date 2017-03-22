@@ -51,7 +51,7 @@ AS BEGIN
 /* Cuando la persona que se busca es un Estudiante */
 	SELECT	
 
-       DOC.Descripcion AS TipoDocumento
+       DOC.Descripcion AS TipoIdentificacion
       ,PR.NumeroIdentificacion
       ,LEFT(CONVERT(varchar, PR.FechaNacimiento, 120), 10) AS FechaNac
       ,dbo.F_SGS_CalcularEdadAniosMeses(PR.FechaNacimiento) AS Edad
@@ -63,7 +63,7 @@ AS BEGIN
       ,CUR.Nombre AS NombreCurso
       ,EST.Casa
       ,PR.Celular
-      ,PR.Genero
+      ,GEN.Descripcion AS Genero
       ,PR.UserName AS Email   
       ,EST.CodigoEstudiante
       ,ESTC.Estado
@@ -95,6 +95,9 @@ AS BEGIN
 		INNER JOIN Dominio AS DOC ON
 			DOC.Dominio = 'TipoDocumento'
 			AND DOC.Valor = PR.TipoIdentificacion
+		INNER JOIN Dominio AS GEN ON
+			GEN.Dominio = 'Genero'
+			AND GEN.Valor = PR.Genero
 		INNER JOIN Dominio AS DOM ON
 			DOM.Dominio = 'EPS'
 			AND DOM.Valor = IM.IdEPS
@@ -112,7 +115,7 @@ AS BEGIN
   /*Cuando la persona que se busca es Empleado */
     SELECT
 
-       PR.TipoIdentificacion
+       DOC.Descripcion AS TipoIdentificacion
       ,PR.NumeroIdentificacion
       ,LEFT(CONVERT(varchar, PR.FechaNacimiento, 120), 10) AS FechaNac
 	  ,dbo.F_SGS_CalcularEdadAniosMeses(PR.FechaNacimiento) AS Edad
@@ -121,7 +124,7 @@ AS BEGIN
       ,ISNULL(PR.PrimerNombre, ' ') + ' ' + ISNULL(PR.SegundoNombre, ' ')  AS NombreCompleto
       ,NAC.Descripcion AS LugarNacimiento
       ,PR.Celular
-      ,PR.Genero
+      ,GEN.Descripcion AS Genero
       ,PR.UserName AS Email
 	  ,IM.InstitucionCasoEmergencia
 	  ,IM.MedicaTratante
@@ -138,6 +141,9 @@ AS BEGIN
 		INNER JOIN Dominio AS DOC ON
 			DOC.Dominio = 'TipoDocumento'
 			AND DOC.Valor = PR.TipoIdentificacion
+		INNER JOIN Dominio AS GEN ON
+			GEN.Dominio = 'Genero'
+			AND GEN.Valor = PR.Genero
 		LEFT JOIN INFORMACIONMEDICA AS IM ON
 			PR.TipoIdentificacion = IM.TipoIdentificacion
 			AND PR.NumeroIdentificacion = IM.NumeroIdentificacion
@@ -148,8 +154,7 @@ AS BEGIN
 			DOM.Dominio = 'MedicinaPrepagada' 		
 			AND DOM.Valor = IM.IdMedicinaPrepagada
     WHERE 
-		PR.TipoIdentificacion = 'cc'
-		AND PR.NumeroIdentificacion = '1022347504'
+		PR.TipoIdentificacion = @idP_TipoDocumentoPersona
+		AND PR.NumeroIdentificacion = @ndP_NumeroDocumentoPersona
 
 END 
-
