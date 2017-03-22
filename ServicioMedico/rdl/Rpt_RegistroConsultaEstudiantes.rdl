@@ -1559,6 +1559,12 @@ Order By CR.idCurso
                         <FontFamily />
                       </Style>
                     </TextRun>
+                    <TextRun>
+                      <Value xml:space="preserve"> </Value>
+                      <Style>
+                        <FontFamily />
+                      </Style>
+                    </TextRun>
                   </TextRuns>
                   <Style>
                     <TextAlign>Center</TextAlign>
@@ -1604,7 +1610,7 @@ Order By CR.idCurso
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>10.37167mm</Height>
+          <Height>9.31334mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1668,15 +1674,15 @@ Order By CR.idCurso
   <ReportParameters>
     <ReportParameter Name="pFechaInicio">
       <DataType>DateTime</DataType>
-      <Prompt>p Fecha Inicio</Prompt>
+      <Prompt>Fecha Inicio</Prompt>
     </ReportParameter>
     <ReportParameter Name="pFechaFin">
       <DataType>DateTime</DataType>
-      <Prompt>p Fecha Fin</Prompt>
+      <Prompt>Fecha Fin</Prompt>
     </ReportParameter>
     <ReportParameter Name="idp_PeriodoLectivo">
       <DataType>String</DataType>
-      <Prompt>idp Periodo Lectivo</Prompt>
+      <Prompt>Periodo Lectivo</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>PeriodoLectivo</DataSetName>
@@ -1687,7 +1693,7 @@ Order By CR.idCurso
     </ReportParameter>
     <ReportParameter Name="idP_Seccion">
       <DataType>String</DataType>
-      <Prompt>Sección:</Prompt>
+      <Prompt>Sección</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Seccion</DataSetName>
