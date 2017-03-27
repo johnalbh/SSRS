@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -98,28 +98,29 @@
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
-	 NVM.Fecha1 AS FechaCapturaPerinatales
+	 CONVERT (varchar(10),NVM.Fecha1,103) AS FechaCapturaPerinatales
 	,NVM.CampoTexto2 AS NumTotalEmbarazosMadrea
 	,NVM.CampoTexto3 AS EdadMadreparto 
 	,NVM.CampoTexto4 AS DuracionEmbarazo
 	,NVM.CampoTexto5 AS TipoParto
-	,NVM.Checkbox6   AS ProblemasDurantegestacion
+	,CASE WHEN NVM.Checkbox6   = 'True' THEN 'Si' ELSE 'No' END AS ProblemasDurantegestacion
 	,NVM.CampoTexto6 AS CualPDG
-	,NVM.Checkbox7   AS ProblemasDuranteParto
+	,CASE WHEN NVM.Checkbox7   = 'True' THEN 'Si' ELSE 'No' END AS ProblemasDuranteParto
 	,NVM.CampoTexto7 AS CualPDP
-FROM NovedadMedica  AS NVM
-INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
-ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
-
+FROM NovedadMedica AS NVM
+	INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
+	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
-    NVM.IdTipoNovedad = 33
-   AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion</CommandText>
+	NVM.IdTipoNovedad = 33
+	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+ORDER BY 
+	NVM.Fecha1 DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="FechaCapturaPerinatales">
           <DataField>FechaCapturaPerinatales</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NumTotalEmbarazosMadrea">
           <DataField>NumTotalEmbarazosMadrea</DataField>
@@ -139,7 +140,7 @@ WHERE
         </Field>
         <Field Name="ProblemasDurantegestacion">
           <DataField>ProblemasDurantegestacion</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CualPDG">
           <DataField>CualPDG</DataField>
@@ -147,7 +148,7 @@ WHERE
         </Field>
         <Field Name="ProblemasDuranteParto">
           <DataField>ProblemasDuranteParto</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CualPDP">
           <DataField>CualPDP</DataField>
@@ -167,7 +168,7 @@ WHERE
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
-	 NVMP.Fecha1 AS FechaCapturaDesarrollo
+	 CONVERT (varchar(10),NVMP.Fecha1,103) AS FechaCapturaDesarrollo
 	,NVMP.CampoTexto2 AS SostuvolaCabeza
 	,NVMP.CampoTexto3 AS Sesento 
 	,NVMP.CampoTexto4 AS Gateo
@@ -175,18 +176,19 @@ WHERE
 	,NVMP.CampoTexto6 AS ControlEsfinteresDiurno
 	,NVMP.CampoTexto7 AS ControlEsfinteresNocturno
 FROM NovedadMedica  AS NVMP
-INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
-ON NVMP.IdNovedadMedica = PNM.IdNovedadMedica
-
+	INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
+	ON NVMP.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
-    NVMP.IdTipoNovedad = 34
-   AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion</CommandText>
+	NVMP.IdTipoNovedad = 34
+	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+ORDER BY 
+	NVMP.Fecha1 DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="FechaCapturaDesarrollo">
           <DataField>FechaCapturaDesarrollo</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="SostuvolaCabeza">
           <DataField>SostuvolaCabeza</DataField>
@@ -226,26 +228,27 @@ WHERE
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
-                 NVM.NombreNovedad AS NombreNovedad
+     NVM.NombreNovedad AS NombreNovedad
 	,NVM.Descripcion AS DescripcionDesarrolloLenguaje
-	,NVM.Fecha1 AS FechaCapturaLenguaje
+	,CONVERT (varchar(10),NVM.Fecha1,103) AS FechaCapturaLenguaje
 	,NVM.CampoTexto2 AS Inicioelbalbuceo
 	,NVM.CampoTexto3 AS Dijoprimeraspalabras 
 	,NVM.CampoMemo3 AS Observaciones
 
 FROM NovedadMedica  AS NVM
-INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
-ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
-
+	INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
+	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
-    NVM.IdTipoNovedad = 35
-   AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion</CommandText>
+	NVM.IdTipoNovedad = 35
+	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+ORDER BY 
+	NVM.Fecha1 DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="FechaCapturaLenguaje">
           <DataField>FechaCapturaLenguaje</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreNovedad">
           <DataField>NombreNovedad</DataField>
@@ -281,19 +284,20 @@ WHERE
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
-                NVM.NombreNovedad AS NombreNovedad 
-               ,NVM.ValorDominio AS Categoría	
-               ,NVM.Descripcion AS DescripcionProcesoTerapeuticoAnterior
-               ,NVM.Fecha1 AS FechaCapturaProcesoTerapeutico
+	 NVM.NombreNovedad AS NombreNovedad 
+	,NVM.ValorDominio AS Categoría	
+	,NVM.Descripcion AS DescripcionProcesoTerapeuticoAnterior
+	,CONVERT (varchar(10),NVM.Fecha1,103) AS FechaCapturaProcesoTerapeutico
 
 FROM NovedadMedica  AS NVM
-INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
-ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
-
+	INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
+	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
-    NVM.IdTipoNovedad = 36
-   AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion</CommandText>
+	NVM.IdTipoNovedad = 36
+	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+ORDER BY 
+	NVM.Fecha1 DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="DescripcionProcesoTerapeuticoAnterior">
@@ -310,7 +314,7 @@ WHERE
         </Field>
         <Field Name="FechaCapturaProcesoTerapeutico">
           <DataField>FechaCapturaProcesoTerapeutico</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -326,32 +330,31 @@ WHERE
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
-
 	 NVM.NombreNovedad AS NombreNovedad 
 	,NVM.Descripcion AS DescripcionAntecedentesPatologicos
-	,NVM.Fecha1 AS FechaAntecedentesPatologicos
-	,NVM.Checkbox2   AS ASMA
-	,NVM.Checkbox3   AS Diabetes
-	,NVM.Checkbox4   AS Epilepsia
-	,NVM.Checkbox5   AS Faringoamigdalitis
-	,NVM.Checkbox6   AS HepatitisA
-	,NVM.Checkbox7   AS Hipoglicemia
-	,NVM.Checkbox8   AS Infecciónurinaria
-	,NVM.Checkbox9   AS Meningitis
-	,NVM.Checkbox10  AS Migraña
-	,NVM.Checkbox11  AS OtitisMedia
-	,NVM.Checkbox12  AS Paperas
-	,NVM.Checkbox13  AS Rinitis
+	,CONVERT (varchar(10),NVM.Fecha1,103) AS FechaAntecedentesPatologicos
+	,CASE WHEN NVM.Checkbox2  = 'True' THEN 'Si' ELSE 'No' END AS ASMA
+	,CASE WHEN NVM.Checkbox3  = 'True' THEN 'Si' ELSE 'No' END AS Diabetes
+	,CASE WHEN NVM.Checkbox4  = 'True' THEN 'Si' ELSE 'No' END AS Epilepsia
+	,CASE WHEN NVM.Checkbox5  = 'True' THEN 'Si' ELSE 'No' END AS Faringoamigdalitis
+	,CASE WHEN NVM.Checkbox6  = 'True' THEN 'Si' ELSE 'No' END AS HepatitisA
+	,CASE WHEN NVM.Checkbox7  = 'True' THEN 'Si' ELSE 'No' END AS Hipoglicemia
+	,CASE WHEN NVM.Checkbox8  = 'True' THEN 'Si' ELSE 'No' END AS Infecciónurinaria
+	,CASE WHEN NVM.Checkbox9  = 'True' THEN 'Si' ELSE 'No' END AS Meningitis
+	,CASE WHEN NVM.Checkbox10 = 'True' THEN 'Si' ELSE 'No' END AS Migraña
+	,CASE WHEN NVM.Checkbox11 = 'True' THEN 'Si' ELSE 'No' END AS OtitisMedia
+	,CASE WHEN NVM.Checkbox12 = 'True' THEN 'Si' ELSE 'No' END AS Paperas
+	,CASE WHEN NVM.Checkbox13 = 'True' THEN 'Si' ELSE 'No' END AS Rinitis
 	,NVM.CampoMemo3  AS OtrasCuáles
-
 FROM NovedadMedica  AS NVM
-INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
-ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
-
+	INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
+	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
    NVM.IdTipoNovedad = 1
    AND  PNM.TipoIdentificacionPersona = @TipoIdentificacion
-   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion</CommandText>
+   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+ORDER BY 
+	NVM.Fecha1 DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="NombreNovedad">
@@ -364,55 +367,55 @@ WHERE
         </Field>
         <Field Name="FechaAntecedentesPatologicos">
           <DataField>FechaAntecedentesPatologicos</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ASMA">
           <DataField>ASMA</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Diabetes">
           <DataField>Diabetes</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Epilepsia">
           <DataField>Epilepsia</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Faringoamigdalitis">
           <DataField>Faringoamigdalitis</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="HepatitisA">
           <DataField>HepatitisA</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Hipoglicemia">
           <DataField>Hipoglicemia</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Infecciónurinaria">
           <DataField>Infecciónurinaria</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Meningitis">
           <DataField>Meningitis</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Migraña">
           <DataField>Migraña</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="OtitisMedia">
           <DataField>OtitisMedia</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Paperas">
           <DataField>Paperas</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Rinitis">
           <DataField>Rinitis</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="OtrasCuáles">
           <DataField>OtrasCuáles</DataField>
@@ -423,21 +426,30 @@ WHERE
     <DataSet Name="AntecedentesQuirurgicos">
       <Query>
         <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@TipoIdentificacion">
+            <Value>=Parameters!TipoIdentificacion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@NumeroIdentificacion">
+            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>SELECT 
-
 	 NVM.NombreNovedad AS NombreNovedad 
 	,NVM.ValorDominio AS Categoria
 	,NVM.Descripcion AS DescripcionAntecedentesQuirurgicos
-	,NVM.Fecha1 AS FechaAntecedentesQuirurgicos
+	,CONVERT (varchar(10),NVM.Fecha1,103) AS FechaAntecedentesQuirurgicos
 	,NVM.CampoTexto2 AS Cuál
-	,NVM.Fecha2  AS Fecha
-
+	,CONVERT (varchar(10),NVM.Fecha2,103)  AS Fecha
 FROM NovedadMedica  AS NVM
-INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
-ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
-
+	INNER JOIN PersonaNovedadMedica AS PNM WITH(NOLOCK)
+	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
-    NVM.IdTipoNovedad = 5</CommandText>
+	NVM.IdTipoNovedad = 5
+	AND  PNM.TipoIdentificacionPersona = @TipoIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+ORDER BY 
+	NVM.Fecha1 DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="NombreNovedad">
@@ -454,7 +466,7 @@ WHERE
         </Field>
         <Field Name="FechaAntecedentesQuirurgicos">
           <DataField>FechaAntecedentesQuirurgicos</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Cuál">
           <DataField>Cuál</DataField>
@@ -462,7 +474,7 @@ WHERE
         </Field>
         <Field Name="Fecha">
           <DataField>Fecha</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1980,7 +1992,7 @@ WHERE
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>Antencentes</Value>
+                          <Value>Antencentes Paciente</Value>
                           <Style>
                             <FontSize>11pt</FontSize>
                             <FontWeight>Bold</FontWeight>
@@ -2014,7 +2026,7 @@ WHERE
               <Top>3.937mm</Top>
               <Left>4.05639mm</Left>
               <Height>19.01118mm</Height>
-              <Width>200.59569mm</Width>
+              <Width>200.5957mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
