@@ -174,8 +174,8 @@ order by Criterio</CommandText>
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>select * from periodoLectivo
-order by AnioInicial</CommandText>
+        <CommandText>SELECT * FROM PERIODOLECTIVO
+ORDER BY ANIOINICIAL DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="Id">

@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -16,62 +16,25 @@
     <DataSet Name="QueryResponsableTributario">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT 
-	 ED.CodigoEstudiante
-	,PR.PrimerApellido +' '+ PR.SegundoApellido + ' ' + PR.PrimerNombre + ' '+ Pr.SegundoNombre AS NombreEstudiante
-	,PR.TipoIdentificacion +' '+ PR.NumeroIdentificacion AS IdentificacionEstudiante
-	,DC.TelefonoDireccion AS TeléfonoCasa
-	,DC.Barrio AS Barrio
-	,DC.Direccion AS Direccion
-	,PSP.PrimerApellido +' '+ PSP.SegundoApellido + ' ' + PSP.PrimerNombre + ' '+ PSP.SegundoNombre AS NombrePadre
-	,PDP.Titulo AS ProfesionPadre
-	,PDP.TelefonoOficina AS TelefonoOficinaPadre
-	,PSP.Celular AS CelularPadre
-	,PDP.Empresa AS EmpresaPadre
-	,PSP.USERNAME AS CorreoPadre
-	,PSM.PrimerApellido +' '+ PSM.SegundoApellido + ' ' + PSM.PrimerNombre + ' '+ PSM.SegundoNombre AS NombreMadre
-	,PDM.Titulo AS ProfesionMadre
-	,PDM.TelefonoOficina AS TelefonoOficinaMadre
-	,PSM.Celular AS CelularMadre
-	,PDM.Empresa AS EmpresaMadre
-	,PSM.USERNAME AS CorreoMadre
-	,PSA.PrimerApellido +' '+ PSA.SegundoApellido + ' ' + PSA.PrimerNombre + ' '+ PSA.SegundoNombre AS NombreAcudiente
-	,PSA.Celular AS CelularAcudiente
-FROM PERSONA AS PR WITH (NOLOCK)
-	
-	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
-	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION AND
-	ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
-	
-	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK) ON
-	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION AND
-	GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
-	
-	JOIN DIRECCION AS DC WITH (NOLOCK) ON
-	DC.IDGRUPOFAMILIAR = GF.IDFAMILIA AND DIRECCIONPRINCIPAL = 1
-	
-	JOIN FAMILIA AS FM WITH (NOLOCK) ON
-	FM.IDFAMILIA = GF.IDFAMILIA 
-
-	JOIN PERSONA AS PSA WITH (NOLOCK) ON
-	PSA.TIPOIDENTIFICACION = ED.TIPOIDENTIFICACIONACUDIENTE AND
-	PSA.NUMEROIDENTIFICACION = ED.NUMEROIDENTIFICACIONACUDIENTE
-
-	JOIN PERSONA AS PSP WITH (NOLOCK) ON
-	PSP.TIPOIDENTIFICACION = FM.TIPODOCUMENTOPADRE AND
-	PSP.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOPADRE
-	
-	JOIN PADRE AS PDP WITH (NOLOCK) ON
-	PDP.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDP.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-
-	JOIN PERSONA AS PSM WITH (NOLOCK) ON
-	PSM.TIPOIDENTIFICACION = FM.TIPODOCUMENTOMADRE AND
-	PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
-
-	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Estudiantes">
+            <Value>=Parameters!Estudiantes.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_DatosPersonalesEstudiante</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -103,12 +66,36 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>NombrePadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="EstadoEstudiante">
+          <DataField>EstadoEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Curso">
+          <DataField>Curso</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="ProfesionPadre">
           <DataField>ProfesionPadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ResponsablePago">
+          <DataField>ResponsablePago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtroResponsable">
+          <DataField>OtroResponsable</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="TelefonoOficinaPadre">
           <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CelularPadre">
@@ -121,6 +108,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
         </Field>
         <Field Name="CorreoPadre">
           <DataField>CorreoPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionPadre">
+          <DataField>IdentificacionPadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreMadre">
@@ -151,8 +142,157 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>NombreAcudiente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="IdentificacionMadre">
+          <DataField>IdentificacionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="CelularAcudiente">
           <DataField>CelularAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionAcudiente">
+          <DataField>IdentificacionAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PeriodoLectivo">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT * 
+FROM PERIODOLECTIVO
+ORDER BY AnioInicial desc</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioFinal">
+          <DataField>AnioFinal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AnioActivo">
+          <DataField>AnioActivo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="AnioAdmision">
+          <DataField>AnioAdmision</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FechaInicioPeriodo">
+          <DataField>FechaInicioPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FechaFinPeriodo">
+          <DataField>FechaFinPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT  * FROM
+SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@Seccion)</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE  PL.Id = @Periolectivo AND CR.IdNivel in (@Nivel) </CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Estudiantes">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT 
+ EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion
+,PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
+FROM EstudianteCurso AS EC
+INNER JOIN PERSONA AS PR
+ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
+AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+
+WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+ORDER BY PR.PrimerApellido ASC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreEstudiante">
+          <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -166,27 +306,27 @@ FROM PERSONA AS PR WITH (NOLOCK)
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.17459cm</Width>
+                  <Width>1.88762cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.65772cm</Width>
+                  <Width>6.67044cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.24522cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>3.27894cm</Width>
+                  <Width>2.86371cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>3.27894cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.99331cm</Width>
+                  <Width>2.66091cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.36409cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.12007cm</Height>
+                  <Height>1.09361cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -244,8 +384,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.37041cm</Top>
-                              <Left>11.37956cm</Left>
+                              <Top>0.17197cm</Top>
+                              <Left>11.56569cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.0685cm</Width>
                               <ZIndex>1</ZIndex>
@@ -279,8 +419,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.34396cm</Top>
-                              <Left>13.35647cm</Left>
+                              <Top>0.14552cm</Top>
+                              <Left>13.5426cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.15669cm</Width>
                               <ZIndex>2</ZIndex>
@@ -314,8 +454,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.34396cm</Top>
-                              <Left>15.31573cm</Left>
+                              <Top>0.14552cm</Top>
+                              <Left>15.50186cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.50065cm</Width>
                               <ZIndex>3</ZIndex>
@@ -349,8 +489,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.3175cm</Top>
-                              <Left>17.76006cm</Left>
+                              <Top>0.11906cm</Top>
+                              <Left>17.94619cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.85758cm</Width>
                               <ZIndex>4</ZIndex>
@@ -367,8 +507,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             </Textbox>
                             <Rectangle Name="Rectangle6">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.34395cm</Top>
-                              <Left>19.79403cm</Left>
+                              <Top>0.14551cm</Top>
+                              <Left>19.98016cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>5</ZIndex>
@@ -400,8 +540,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             </Rectangle>
                             <Rectangle Name="Rectangle7">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.34395cm</Top>
-                              <Left>16.92469cm</Left>
+                              <Top>0.14551cm</Top>
+                              <Left>17.11082cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>6</ZIndex>
@@ -433,8 +573,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             </Rectangle>
                             <Rectangle Name="Rectangle8">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.34395cm</Top>
-                              <Left>14.58619cm</Left>
+                              <Top>0.14551cm</Top>
+                              <Left>14.77232cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>7</ZIndex>
@@ -466,8 +606,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             </Rectangle>
                             <Rectangle Name="Rectangle9">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.34395cm</Top>
-                              <Left>12.62693cm</Left>
+                              <Top>0.14551cm</Top>
+                              <Left>12.81306cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>8</ZIndex>
@@ -516,7 +656,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.58019cm</Height>
+                  <Height>0.46302cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -533,7 +673,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox2</rd:DefaultName>
@@ -542,7 +684,6 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -579,7 +720,6 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -612,7 +752,6 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -624,7 +763,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.77009cm</Height>
+                  <Height>0.69827cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -769,7 +908,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.77619cm</Height>
+                  <Height>0.57208cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -797,7 +936,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -815,7 +954,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.61134cm</Height>
+                  <Height>0.77764cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -839,8 +978,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -851,26 +996,38 @@ FROM PERSONA AS PR WITH (NOLOCK)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox45">
+                        <Textbox Name="EmpresaPadre">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Switch(
+         Fields!ResponsablePago.Value = "PA",Fields!NombrePadre.Value
+        ,Fields!ResponsablePago.Value = "MA", Fields!NombreMadre.Value
+        ,Fields!ResponsablePago.Value = "AC", Fields!NombreAcudiente.Value
+        ,Fields!ResponsablePago.Value = "PAMA",Fields!NombrePadre.Value
+        ,Fields!ResponsablePago.Value = "OT", Fields!OtroResponsable.Value 
+ )</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox45</rd:DefaultName>
+                          <rd:DefaultName>EmpresaPadre</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -901,8 +1058,19 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -920,7 +1088,12 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Switch (
+         Fields!ResponsablePago.Value = "PA",Fields!IdentificacionPadre.Value
+        ,Fields!ResponsablePago.Value = "MA", Fields!IdentificacionMadre.Value
+        ,Fields!ResponsablePago.Value = "AC", Fields!IdentificacionAcudiente.Value
+        ,Fields!ResponsablePago.Value = "PAMA",Fields!IdentificacionPadre.Value
+        )</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -931,8 +1104,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -963,8 +1142,19 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -982,7 +1172,12 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Switch (
+         Fields!ResponsablePago.Value = "PA",Fields!CelularPadre.Value
+        ,Fields!ResponsablePago.Value = "PAMA",Fields!CelularPadre.Value
+        ,Fields!ResponsablePago.Value = "MA", Fields!CelularMadre.Value
+        ,Fields!ResponsablePago.Value = "AC", Fields!CelularAcudiente.Value
+        )</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -993,8 +1188,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1006,7 +1207,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.47905cm</Height>
+                  <Height>0.77764cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1030,8 +1231,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1049,7 +1256,11 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Switch (
+         Fields!ResponsablePago.Value = "PA",Fields!EmpresaPadre.Value
+        ,Fields!ResponsablePago.Value = "PAMA",Fields!EmpresaPadre.Value
+        ,Fields!ResponsablePago.Value = "MA", Fields!EmpresaMadre.Value
+        )</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1060,8 +1271,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1081,6 +1298,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 <TextRun>
                                   <Value>Teléfono Oficina:</Value>
                                   <Style>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1092,8 +1310,19 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1111,7 +1340,11 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Switch (
+         Fields!ResponsablePago.Value = "PA",Fields!TelefonoOficinaPadre.Value
+        ,Fields!ResponsablePago.Value = "MA", Fields!TelefonoOficinaPadre.Value
+        ,Fields!ResponsablePago.Value = "PAMA", Fields!TelefonoOficinaPadre.Value
+        )</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1122,8 +1355,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1143,6 +1382,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 <TextRun>
                                   <Value>Otro Teléfono:</Value>
                                   <Style>
+                                    <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1154,8 +1394,19 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1184,8 +1435,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -1197,7 +1454,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>4.52717cm</Height>
+                  <Height>3.89973cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1210,7 +1467,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Mediante la información aquí consignada se realizará el certificado anual de pagos por concepto de educación así como los reportes a la DIAN en medios magnéticos por el año gravable ________.</Value>
+                                      <Value>Mediante la información aquí consignada se realizará el certificado anual de pagos por concepto de educación así como los reportes a la DIAN en medios magnéticos por el año gravable .__________</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontSize>9pt</FontSize>
@@ -1224,10 +1481,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox52</rd:DefaultName>
-                              <Top>3.35469cm</Top>
-                              <Left>0.18521cm</Left>
+                              <Top>2.48157cm</Top>
+                              <Left>2.43417cm</Left>
                               <Height>1.0024cm</Height>
-                              <Width>20.26781cm</Width>
+                              <Width>16.2726cm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -1257,10 +1514,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox53</rd:DefaultName>
-                              <Top>1.45851cm</Top>
+                              <Top>1.49379cm</Top>
                               <Left>6.49246cm</Left>
                               <Height>0.635cm</Height>
-                              <Width>7.77875cm</Width>
+                              <Width>8.20683cm</Width>
                               <ZIndex>1</ZIndex>
                               <Style>
                                 <Border>
@@ -1288,6 +1545,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                           <KeepTogether>true</KeepTogether>
                           <Style>
                             <Border>
+                              <Color>LightGrey</Color>
                               <Style>None</Style>
                             </Border>
                           </Style>
@@ -1335,10 +1593,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>QueryResponsableTributario</DataSetName>
-            <Top>0.46385cm</Top>
-            <Left>0.13863cm</Left>
-            <Height>8.8641cm</Height>
-            <Width>20.62872cm</Width>
+            <Top>0.21248cm</Top>
+            <Left>0.04162cm</Left>
+            <Height>8.28201cm</Height>
+            <Width>20.72571cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1366,7 +1624,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>9.32795cm</Height>
+        <Height>8.73732cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1410,25 +1668,11 @@ FROM PERSONA AS PR WITH (NOLOCK)
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>GESTIÓN FINANCIERA</Value>
+                      <Value>
+GESTIÓN FINANCIERA</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value />
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Segoe UI</FontFamily>
                         <FontWeight>Bold</FontWeight>
                         <TextDecoration>None</TextDecoration>
                         <Color>#000000</Color>
@@ -1445,6 +1689,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                       <Value>RESPONSABLE TRIBUTARIO</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
+                        <FontFamily>Segoe UI</FontFamily>
                         <FontWeight>Bold</FontWeight>
                         <TextDecoration>None</TextDecoration>
                         <Color>#000000</Color>
@@ -1458,9 +1703,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.14083cm</Top>
-              <Left>13.58422cm</Left>
+              <Left>12.23009cm</Left>
               <Height>2.39917cm</Height>
-              <Width>7.18312cm</Width>
+              <Width>8.53725cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1507,7 +1752,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>1.76389mm</Top>
+              <Top>1.41111mm</Top>
               <Left>6.84742mm</Left>
               <Height>6.35mm</Height>
               <Width>51.09633mm</Width>
@@ -1528,17 +1773,86 @@ FROM PERSONA AS PR WITH (NOLOCK)
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>14.8cm</PageHeight>
-        <PageWidth>21.59cm</PageWidth>
-        <LeftMargin>0.3cm</LeftMargin>
-        <RightMargin>0.3cm</RightMargin>
-        <TopMargin>0.5cm</TopMargin>
-        <BottomMargin>0.5cm</BottomMargin>
+        <PageHeight>139mm</PageHeight>
+        <PageWidth>216mm</PageWidth>
+        <InteractiveHeight>0cm</InteractiveHeight>
+        <InteractiveWidth>21.59cm</InteractiveWidth>
+        <LeftMargin>3mm</LeftMargin>
+        <RightMargin>3mm</RightMargin>
+        <TopMargin>3mm</TopMargin>
+        <BottomMargin>3mm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Periolectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>String</DataType>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Curso">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Estudiantes">
+      <DataType>String</DataType>
+      <Prompt>Estudiantes</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>NombreEstudiante</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="SGS">
       <MIMEType>image/png</MIMEType>

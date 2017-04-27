@@ -13,13 +13,42 @@ PARÁMETROS ENTRADA:	No Aplica
 EXCEPCIONES:		No Aplica
 ------------------------------------------------------------------------------------------   
 *******************************************************************************************/
-CREATE PROCEDURE 
+ALTER PROCEDURE 
 	 [dbo].[PR_SGS_DatosPersonalesEstudiante] 
-	 /* Espacio parametros */
 
+	 /* Espacio Parametros */
 
+		 @Periolectivo INT 
+		,@Seccion VARCHAR (max)
+		,@Nivel VARCHAR(max)
+		,@Curso VARCHAR (max)
+		,@Estudiantes VARCHAR (max)
 AS
 BEGIN
+/* Tabla Temporal para filtrar por curso */
+
+DECLARE @Cursos TABLE 
+	(
+		IdCursoSeleccionado varchar(60)
+
+	)
+INSERT INTO @Cursos
+SELECT CR.Valor 
+FROM F_SGS_Split(@Curso, ',') AS CR
+
+/* Tabla Temporal para filtrar por Estudiante */
+
+DECLARE @Estudiante TABLE 
+	(
+		IdEstudianteSeleccionado varchar(60)
+
+	)
+INSERT INTO @Estudiante
+SELECT CR.Valor 
+FROM F_SGS_Split(@Estudiantes, ',') AS CR
+
+
+/* Consulta Principal*/
 
 SELECT 
 	 PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
@@ -52,10 +81,10 @@ SELECT
 	,PSA.PrimerApellido +' '+ isNull(PSA.SegundoApellido,'') + ' ' + PSA.PrimerNombre + ' '+ isNull(PSA.SegundoNombre,'') AS NombreAcudiente
 	,PSA.TipoIdentificacion +' '+ PSA.NumeroIdentificacion AS IdentificacionAcudiente
 	,PSA.Celular AS CelularAcudiente
-	/** Información Transporte */
-	,BRTA.DominioNombreRuta AS Ruta
+
 FROM PERSONA AS PR WITH (NOLOCK) 
 	/* Información Academica */
+
 	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
 	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION 
 	AND ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
@@ -72,7 +101,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
 
 	JOIN SECCION AS SE WITH (NOLOCK) 
 	ON NV.IdSeccion = SE.IdSeccion
+
 	/* Datos Personal e Información Familiar */
+
 	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK)
 	ON 	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION 
 	AND GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
@@ -101,29 +132,26 @@ FROM PERSONA AS PR WITH (NOLOCK)
 	AND PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
 
 	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION 
-	AND PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
+	PDM.TIPOIDENTIFICACION = PSM.TIPOIDENTIFICACION 
+	AND PDM.NUMEROIDENTIFICACION = PSM.NUMEROIDENTIFICACION 
+	
+	/* Información Curso */
 
-	/* Información Transporte */
+	INNER JOIN dbo.Curso AS C WITH(NOLOCK) 
+	ON  EC.IdCurso = C.IdCurso
 
-	JOIN PersonaRuta AS PRT WITH (NOLOCK)
-	ON PR.TipoIdentificacion = PRT.TipoIdentificacionPasajero
-	AND PR.NumeroIdentificacion = PRT.NumeroIdentificacionPasajero
+	INNER JOIN @Cursos AS CURS
+	ON C.IdCurso = CURS.IdCursoSeleccionado
 
-	JOIN BusRuta AS BRTA WITH (NOLOCK)
-	ON PRT.IdBusRuta = BRTA.IdBusRuta
-
-	LEFT JOIN PreRuta AS PRE WITH (NOLOCK)
-	ON PRE.IdPersonaRuta = PRT.IdPersonaRuta
-
-    LEFT JOIN vw_ServiciosTransporte  AS ST on 
-	st.CodigoServicio = BRTA.DominioJornada
+	INNER JOIN @Estudiante AS ESTEM
+	ON ED.NumeroIdentificacion = ESTEM.IdEstudianteSeleccionado
 
 WHERE 
-	EC.Estado <> 'Retirado'
-	AND PR.TipoIdentificacion = 'TI'
-	AND PR.NumeroIdentificacion = '1188213685'
-	AND CR.AnioAcademico = 2
-	AND FechaCalendario = '19000101' 
-	AND PRT.Estado = 'Activo'
-END 
+ 	EC.Estado <> 'Retirado'
+
+ORDER BY PR.PrimerApellido ASC
+
+END
+
+
+

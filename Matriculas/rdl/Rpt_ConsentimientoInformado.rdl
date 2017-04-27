@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -16,47 +16,25 @@
     <DataSet Name="QueryConsentimiento">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT 
-	 ED.CodigoEstudiante
-	,PR.PrimerApellido +' '+ PR.SegundoApellido + ' ' + PR.PrimerNombre + ' '+ Pr.SegundoNombre AS NombreEstudiante
-	,PSP.PrimerApellido +' '+ PSP.SegundoApellido + ' ' + PSP.PrimerNombre + ' '+ PSP.SegundoNombre AS NombrePadre
-	,PSP.TipoIdentificacion +' '+ PSP.NumeroIdentificacion AS NumeroIdentificacionPadre
-	,PSM.PrimerApellido +' '+ PSM.SegundoApellido + ' ' + PSM.PrimerNombre + ' '+ PSM.SegundoNombre AS NombreMadre
-	,PSM.TipoIdentificacion +' '+ PSP.NumeroIdentificacion AS NumeroIdentificacionMadre
-	,PSA.PrimerApellido +' '+ PSA.SegundoApellido + ' ' + PSA.PrimerNombre + ' '+ PSA.SegundoNombre AS NombreAcudiente
-	,PSA.Tipoidentificacion +' '+ PSA.NumeroIdentificacion AS NumeroIdentificacionAcudiente
-FROM PERSONA AS PR WITH (NOLOCK)
-	
-	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
-	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION AND
-	ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
-	
-	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK) ON
-	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION AND
-	GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
-	
-	JOIN FAMILIA AS FM WITH (NOLOCK) ON
-	FM.IDFAMILIA = GF.IDFAMILIA 
-
-	JOIN PERSONA AS PSA WITH (NOLOCK) ON
-	PSA.TIPOIDENTIFICACION = ED.TIPOIDENTIFICACIONACUDIENTE AND
-	PSA.NUMEROIDENTIFICACION = ED.NUMEROIDENTIFICACIONACUDIENTE
-
-	JOIN PERSONA AS PSP WITH (NOLOCK) ON
-	PSP.TIPOIDENTIFICACION = FM.TIPODOCUMENTOPADRE AND
-	PSP.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOPADRE
-	
-	JOIN PADRE AS PDP WITH (NOLOCK) ON
-	PDP.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDP.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-
-	JOIN PERSONA AS PSM WITH (NOLOCK) ON
-	PSM.TIPOIDENTIFICACION = FM.TIPODOCUMENTOMADRE AND
-	PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
-
-	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Estudiantes">
+            <Value>=Parameters!Estudiantes.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_DatosPersonalesEstudiante</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -68,28 +46,253 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="IdentificacionEstudiante">
+          <DataField>IdentificacionEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NombrePadre">
           <DataField>NombrePadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionPadre">
-          <DataField>NumeroIdentificacionPadre</DataField>
+        <Field Name="TeléfonoCasa">
+          <DataField>TeléfonoCasa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Barrio">
+          <DataField>Barrio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreMadre">
           <DataField>NombreMadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionMadre">
-          <DataField>NumeroIdentificacionMadre</DataField>
+        <Field Name="Direccion">
+          <DataField>Direccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EstadoEstudiante">
+          <DataField>EstadoEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreAcudiente">
           <DataField>NombreAcudiente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionAcudiente">
-          <DataField>NumeroIdentificacionAcudiente</DataField>
+        <Field Name="Curso">
+          <DataField>Curso</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ResponsablePago">
+          <DataField>ResponsablePago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtroResponsable">
+          <DataField>OtroResponsable</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionPadre">
+          <DataField>IdentificacionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionPadre">
+          <DataField>ProfesionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaPadre">
+          <DataField>EmpresaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaPadre">
+          <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularPadre">
+          <DataField>CelularPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoPadre">
+          <DataField>CorreoPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionMadre">
+          <DataField>IdentificacionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionMadre">
+          <DataField>ProfesionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaMadre">
+          <DataField>EmpresaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaMadre">
+          <DataField>TelefonoOficinaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularMadre">
+          <DataField>CelularMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoMadre">
+          <DataField>CorreoMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionAcudiente">
+          <DataField>IdentificacionAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularAcudiente">
+          <DataField>CelularAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PeriodoLectivo">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT * 
+FROM PERIODOLECTIVO
+ORDER BY AnioInicial desc</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioFinal">
+          <DataField>AnioFinal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AnioActivo">
+          <DataField>AnioActivo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="AnioAdmision">
+          <DataField>AnioAdmision</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FechaInicioPeriodo">
+          <DataField>FechaInicioPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FechaFinPeriodo">
+          <DataField>FechaFinPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT  * FROM
+SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@Seccion)</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE  PL.Id = @Periolectivo AND CR.IdNivel in (@Nivel) </CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Estudiantes">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT 
+ EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion
+,PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
+FROM EstudianteCurso AS EC
+INNER JOIN PERSONA AS PR
+ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
+AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+
+WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+ORDER BY PR.PrimerApellido ASC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreEstudiante">
+          <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -103,22 +306,22 @@ FROM PERSONA AS PR WITH (NOLOCK)
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.96139cm</Width>
+                  <Width>2.82028cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.78843cm</Width>
+                  <Width>3.48857cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.25847cm</Width>
+                  <Width>3.11736cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.72204cm</Width>
+                  <Width>3.71322cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.43231cm</Width>
+                  <Width>3.2912cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.31751cm</Width>
+                  <Width>3.1764cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -171,6 +374,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   <Value>=Today()</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>dddd, d 'de' MMMM 'de' yyyy</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -336,7 +540,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>5.55077cm</Height>
+                  <Height>5.68306cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -347,7 +551,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>Apreciados padres de familia:</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -360,7 +564,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Dando cumplimiento a la normatividad vigente para la atención de los estudiantes por parte del Servicio Médico del Colegio, es necesario contar con su autorización para que en caso de ser necesario, podamos brindar a su hijo(a) la atención médica prioritaria requerida, en el marco de las actividades que componen nuestra oferta de servicio, para lo cual se hace imprescindible haber enviado el formato de antecedentes médicos diligenciado por el pediatra o médico tratante.</Value>
+                                  <Value>
+Dando cumplimiento a la normatividad vigente para la atención de los estudiantes por parte del Servicio Médico del Colegio, es necesario contar con su autorización para que en caso de ser necesario, podamos brindar a su hijo(a) la atención médica prioritaria requerida, en el marco de las actividades que componen nuestra oferta de servicio, para lo cual se hace imprescindible haber enviado el formato de antecedentes médicos diligenciado por el pediatra o médico tratante.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -373,7 +578,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>
+Es de gran importancia que los padres lean y comprendan la información que encontrarán a continuación, pues de esta manera podrán contar con los elementos necesarios para dar su autorización para la prestación del servicio.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -386,7 +592,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Es de gran importancia que los padres lean y comprendan la información que encontrarán a continuación, pues de esta manera podrán contar con los elementos necesarios para dar su autorización para la prestación del servicio.</Value>
+                                  <Value>
+El Servicio Médico del Colegio, está conformado por una médica general y una auxiliar de enfermería y se encuentra habilitado ante la Secretaría Distrital de Salud como un servicio de baja complejidad. A continuación encontrará la descripción de los procedimientos que se realizan como producto de la consulta médica prioritaria ofrecida a los estudiantes:</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -394,39 +601,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>El Servicio Médico del Colegio, está conformado por una médica general y una auxiliar de enfermería y se encuentra habilitado ante la Secretaría Distrital de Salud como un servicio de baja complejidad. A continuación encontrará la descripción de los procedimientos que se realizan como producto de la consulta médica prioritaria ofrecida a los estudiantes:</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
+                              <Style />
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -789,7 +964,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.01231cm</Height>
+                  <Height>1.11273cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -914,7 +1089,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.01231cm</Height>
+                  <Height>1.53606cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1039,7 +1214,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.01231cm</Height>
+                  <Height>1.58898cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1164,7 +1339,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.01231cm</Height>
+                  <Height>1.43023cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1442,7 +1617,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>2.71667cm</Height>
+                  <Height>11.0775cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1453,23 +1628,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Si un estudiante requiere que durante la jornada escolar se le administre un medicamento producto de un tratamiento, es </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>indispensable</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>Underline</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value> presentar la fórmula médica, de lo contrario no será posible realizar la administración del medicamento incluso si se envía nota en la agenda escolar por parte de los padres. Para los casos en los que el estudiante requiera procedimientos que no se realizan, el Servicio Médico brindará la atención inmediata y se procederá a remitirlo a la Institución Prestadora de Servicios de Salud acordada con los padres. Los procedimientos que NO se realizan son:</Value>
+                                  <Value>Si un estudiante requiere que durante la jornada escolar se le administre un medicamento producto de un tratamiento, es indispensable presentar la fórmula médica, de lo contrario no será posible realizar la administración del medicamento incluso si se envía nota en la agenda escolar por parte de los padres. </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -1481,39 +1640,6 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox2</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>6</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>13.06489cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox56">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -1522,12 +1648,27 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <ListLevel>1</ListLevel>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Para los casos en los que el estudiante requiera procedimientos que no se realizan, el Servicio Médico brindará la atención inmediata y se procederá a remitirlo a la Institución Prestadora de Servicios de Salud acordada con los padres. Los procedimientos que NO se realizan son:</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -1537,12 +1678,12 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <ListLevel>1</ListLevel>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -1558,7 +1699,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               </TextRuns>
                               <ListStyle>Bulleted</ListStyle>
                               <ListLevel>1</ListLevel>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -1716,6 +1859,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                               </TextRuns>
+                              <ListLevel>1</ListLevel>
                               <Style>
                                 <TextAlign>Left</TextAlign>
                               </Style>
@@ -1787,22 +1931,39 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                 <TextAlign>General</TextAlign>
                               </Style>
                             </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>6</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>7.82261cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox56">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -1815,9 +1976,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
+                              <Style />
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -1922,7 +2081,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!NumeroIdentificacionPadre.Value</Value>
+                                  <Value>=Fields!IdentificacionPadre.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -1950,7 +2109,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!NumeroIdentificacionMadre.Value</Value>
+                                  <Value>=Fields!IdentificacionMadre.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -1978,71 +2137,24 @@ FROM PERSONA AS PR WITH (NOLOCK)
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!NumeroIdentificacionAcudiente.Value</Value>
+                                  <Value>=Fields!IdentificacionAcudiente.Value</Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
-                                  <Value>, manifestamos que hemos leído y comprendido la información reportada en el presente documento y en consecuencia:</Value>
+                                  <Value>, manifestamos que hemos leído y comprendido la información reportada en el presente documento y autorizamos al Servicio Médico del Colegio San Jorge de Inglaterra, para realizar la atención médica prioritaria de mi hijo (a): </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
                                     <TextDecoration>None</TextDecoration>
                                   </Style>
                                 </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
+                                  <Value>=Fields!NombreEstudiante.Value</Value>
+                                  <Style />
                                 </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
+                                  <Value> en caso de ser requerido, en el marco de los
+lineamientos aquí referidos.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -2077,11 +2189,11 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.88566cm</Height>
+                  <Height>2.08221cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox373">
+                        <Textbox Name="Textbox3">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2089,129 +2201,56 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               <TextRuns>
                                 <TextRun>
                                   <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <Color>#000000</Color>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox373</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox374">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Autorizo</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <Color>#000000</Color>
-                                  </Style>
+                                  <Value>__________________________</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox374</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Rectangle Name="Rectangle15">
-                          <ReportItems>
-                            <Rectangle Name="Rectangle16">
-                              <KeepTogether>true</KeepTogether>
-                              <Top>0.17879cm</Top>
-                              <Left>1.27272cm</Left>
-                              <Height>0.37042cm</Height>
-                              <Width>0.66146cm</Width>
                               <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <TopBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </TopBorder>
-                                <BottomBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </BottomBorder>
-                                <LeftBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </LeftBorder>
-                                <RightBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </RightBorder>
+                                <TextAlign>Center</TextAlign>
                               </Style>
-                            </Rectangle>
-                          </ReportItems>
-                          <KeepTogether>true</KeepTogether>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Rectangle>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox376">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
+                            </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>No Autorizo</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <Color>#000000</Color>
-                                  </Style>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!NombrePadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma Padre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox376</rd:DefaultName>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2222,57 +2261,13 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle17">
-                          <ReportItems>
-                            <Rectangle Name="Rectangle18">
-                              <KeepTogether>true</KeepTogether>
-                              <Top>0.20525cm</Top>
-                              <Left>1.41091cm</Left>
-                              <Height>0.34396cm</Height>
-                              <Width>0.68792cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                                <TopBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </TopBorder>
-                                <BottomBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </BottomBorder>
-                                <LeftBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </LeftBorder>
-                                <RightBorder>
-                                  <Color>Black</Color>
-                                  <Style>Solid</Style>
-                                  <Width>1pt</Width>
-                                </RightBorder>
-                              </Style>
-                            </Rectangle>
-                          </ReportItems>
-                          <KeepTogether>true</KeepTogether>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Rectangle>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox378">
+                        <Textbox Name="Textbox4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2280,17 +2275,48 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               <TextRuns>
                                 <TextRun>
                                   <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <Color>#000000</Color>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>__________________________ </Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombreMadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma Madre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox378</rd:DefaultName>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2301,34 +2327,62 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>1.22749cm</Height>
-                  <TablixCells>
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox379">
+                        <Textbox Name="Textbox5">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>al Servicio Médico del Colegio San Jorge de Inglaterra, para realizar la atención médica prioritaria de mi hijo (a) en caso de ser requerido, en el marco de los lineamentos aquí referidos. </Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
+                                  <Value />
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>__________________________</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombreAcudiente.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma Acudiente</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox379</rd:DefaultName>
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -2339,241 +2393,6 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>6</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>3.19346cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Rectangle Name="Rectangle2">
-                          <ReportItems>
-                            <Textbox Name="Textbox45">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombrePadre.Value</Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma Padre</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>1.97489cm</Top>
-                              <Left>0.37042cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>5.49685cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line2">
-                              <Top>1.7985cm</Top>
-                              <Left>0.37042cm</Left>
-                              <Height>0cm</Height>
-                              <Width>5.7879cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
-                          <KeepTogether>true</KeepTogether>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Rectangle>
-                        <ColSpan>2</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Rectangle Name="Rectangle11">
-                          <ReportItems>
-                            <Textbox Name="Textbox44">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombreMadre.Value</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma Madre</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>1.97489cm</Top>
-                              <Left>0.32022cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>6.33976cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line3">
-                              <Top>1.7985cm</Top>
-                              <Left>0.40512cm</Left>
-                              <Height>0cm</Height>
-                              <Width>6.25486cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
-                          <KeepTogether>true</KeepTogether>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Rectangle>
-                        <ColSpan>2</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Rectangle Name="Rectangle3">
-                          <ReportItems>
-                            <Textbox Name="Textbox43">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombreAcudiente.Value</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma Acudiente</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>1.97489cm</Top>
-                              <Left>0.39433cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>5.83705cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line4">
-                              <Top>1.7985cm</Top>
-                              <Left>0.39433cm</Left>
-                              <Height>0cm</Height>
-                              <Width>5.76884cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
-                          <KeepTogether>true</KeepTogether>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Rectangle>
                         <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -2597,12 +2416,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
                 <TablixMember>
                   <Group Name="Details2">
                     <PageBreak>
-                      <BreakLocation>End</BreakLocation>
+                      <BreakLocation>Between</BreakLocation>
                     </PageBreak>
                   </Group>
                   <TablixMembers>
-                    <TablixMember />
-                    <TablixMember />
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
@@ -2622,12 +2439,11 @@ FROM PERSONA AS PR WITH (NOLOCK)
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <KeepTogether>true</KeepTogether>
             <DataSetName>QueryConsentimiento</DataSetName>
             <Top>0.29104cm</Top>
-            <Left>0.42016cm</Left>
-            <Height>41.61504cm</Height>
-            <Width>20.48015cm</Width>
+            <Left>1.29328cm</Left>
+            <Height>39.26024cm</Height>
+            <Width>19.60702cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -2655,14 +2471,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>45.05461cm</Height>
+        <Height>40.05399cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>21.27073cm</Width>
+      <Width>21.1649cm</Width>
       <Page>
         <PageHeader>
           <Height>26.34116mm</Height>
@@ -2674,9 +2490,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
               <Value>BlancoSGS</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.37042cm</Top>
-              <Left>0.42016cm</Left>
+              <Left>1.29328cm</Left>
               <Height>2.06375cm</Height>
-              <Width>10.76042cm</Width>
+              <Width>9.8873cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2809,13 +2625,80 @@ BIENESTAR ESTUDIANTIL - SERVICIO MÉDICO</Value>
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>27.94cm</PageHeight>
+        <PageHeight>35.5cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
+        <InteractiveHeight>0cm</InteractiveHeight>
+        <InteractiveWidth>21.59cm</InteractiveWidth>
+        <LeftMargin>2mm</LeftMargin>
+        <RightMargin>2mm</RightMargin>
+        <TopMargin>2mm</TopMargin>
+        <BottomMargin>2mm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Periolectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>String</DataType>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Curso">
+      <DataType>String</DataType>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Estudiantes">
+      <DataType>String</DataType>
+      <Prompt>Estudiantes</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>NombreEstudiante</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="SGS">
       <MIMEType>image/png</MIMEType>

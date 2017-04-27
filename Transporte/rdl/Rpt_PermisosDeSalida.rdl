@@ -20,6 +20,9 @@
           <QueryParameter Name="@fP_Fechas">
             <Value>=Parameters!fP_Fechas.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@idP_Seccion">
+            <Value>=Parameters!idP_Seccion.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
         <CommandText>PR_SGS_Rpt_PermisosDeSalida</CommandText>
@@ -67,6 +70,23 @@
         </Field>
         <Field Name="Ruta">
           <DataField>Ruta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT  * FROM
+SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -1088,7 +1108,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Teléfono de contacto: </Value>
+                                  <Value>Número de teléfono para confirmación: </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -1202,7 +1222,7 @@
             <Top>0.17639cm</Top>
             <Left>0.32725cm</Left>
             <Height>4.62731cm</Height>
-            <Width>18.75612cm</Width>
+            <Width>18.75613cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1213,7 +1233,7 @@
         <Height>2.03213in</Height>
         <Style />
       </Body>
-      <Width>7.77393in</Width>
+      <Width>7.61768in</Width>
       <Page>
         <PageHeader>
           <Height>2.54cm</Height>
@@ -1228,7 +1248,7 @@
                   <TextRuns>
                     <TextRun>
                       <Value>
-SERVICIO DE TRANSPORTE</Value>
+Gestión Administrativa - Seguridad</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontSize>13pt</FontSize>
@@ -1301,6 +1321,7 @@ SERVICIO DE TRANSPORTE</Value>
         </PageHeader>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
+        <LeftMargin>1cm</LeftMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
@@ -1310,6 +1331,24 @@ SERVICIO DE TRANSPORTE</Value>
     <ReportParameter Name="fP_Fechas">
       <DataType>DateTime</DataType>
       <Prompt>Fecha:</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="idP_Seccion">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>

@@ -71,7 +71,8 @@
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM PERIODOLECTIVO</CommandText>
+        <CommandText>SELECT * FROM PERIODOLECTIVO
+ORDER BY ANIOINICIAL DESC</CommandText>
       </Query>
       <Fields>
         <Field Name="Descripcion">

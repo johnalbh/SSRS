@@ -71,7 +71,9 @@
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM PERIODOLECTIVO</CommandText>
+        <CommandText>SELECT * FROM PERIODOLECTIVO
+ORDER BY AnioInicial DESC</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="Descripcion">

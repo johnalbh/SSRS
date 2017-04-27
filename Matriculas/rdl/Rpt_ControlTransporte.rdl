@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -16,64 +16,25 @@
     <DataSet Name="QuerySolicitudTransporte">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT 
-	 ED.CodigoEstudiante
-	,PR.PrimerApellido +' '+ PR.SegundoApellido + ' ' + PR.PrimerNombre + ' '+ Pr.SegundoNombre AS NombreEstudiante
-	,PR.TipoIdentificacion +' '+ PR.NumeroIdentificacion AS IdentificacionEstudiante
-	,CR.Nombre as Curso
-	,DC.TelefonoDireccion AS TeléfonoCasa
-	,DC.Barrio AS Barrio
-	,DC.Direccion AS Direccion
-	,PSP.PrimerApellido +' '+ PSP.SegundoApellido + ' ' + PSP.PrimerNombre + ' '+ PSP.SegundoNombre AS NombrePadre
-
-	,PSM.PrimerApellido +' '+ PSM.SegundoApellido + ' ' + PSM.PrimerNombre + ' '+ PSM.SegundoNombre AS NombreMadre
-
-FROM PERSONA AS PR WITH (NOLOCK)
-	
-	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
-	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION AND
-	ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
-
-	JOIN ESTUDIANTECURSO AS ESC WITH (NOLOCK) ON
-	ESC.TIPOIDENTIFICACIONESTUDIANTE = ED.TIPOIDENTIFICACION AND
-	ESC.NUMEROIDENTIFICACIONESTUDIANTE = ED.NUMEROIDENTIFICACION
-	
-	JOIN CURSO AS CR WITH (NOLOCK) ON
-	CR.IDCURSO = ESC.IDCURSO AND
-	ANIOACADEMICO = 2
-
-	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK) ON
-	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION AND
-	GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
-	
-	JOIN DIRECCION AS DC WITH (NOLOCK) ON
-	DC.IDGRUPOFAMILIAR = GF.IDFAMILIA AND DIRECCIONPRINCIPAL = 1
-	
-	JOIN FAMILIA AS FM WITH (NOLOCK) ON
-	FM.IDFAMILIA = GF.IDFAMILIA 
-
-	JOIN PERSONA AS PSA WITH (NOLOCK) ON
-	PSA.TIPOIDENTIFICACION = ED.TIPOIDENTIFICACIONACUDIENTE AND
-	PSA.NUMEROIDENTIFICACION = ED.NUMEROIDENTIFICACIONACUDIENTE
-
-	JOIN PERSONA AS PSP WITH (NOLOCK) ON
-	PSP.TIPOIDENTIFICACION = FM.TIPODOCUMENTOPADRE AND
-	PSP.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOPADRE
-	
-	JOIN PADRE AS PDP WITH (NOLOCK) ON
-	PDP.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDP.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-
-	JOIN PERSONA AS PSM WITH (NOLOCK) ON
-	PSM.TIPOIDENTIFICACION = FM.TIPODOCUMENTOMADRE AND
-	PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
-
-	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION
-	
-
-	ORDER BY CR.IDCURSO ASC</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Estudiantes">
+            <Value>=Parameters!Estudiantes.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_DatosPersonalesEstudiante</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -101,6 +62,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>Barrio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="EstadoEstudiante">
+          <DataField>EstadoEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Direccion">
           <DataField>Direccion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -109,8 +74,225 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>NombrePadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ResponsablePago">
+          <DataField>ResponsablePago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NombreMadre">
           <DataField>NombreMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtroResponsable">
+          <DataField>OtroResponsable</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionPadre">
+          <DataField>IdentificacionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionPadre">
+          <DataField>ProfesionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaPadre">
+          <DataField>EmpresaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaPadre">
+          <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularPadre">
+          <DataField>CelularPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoPadre">
+          <DataField>CorreoPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionMadre">
+          <DataField>IdentificacionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionMadre">
+          <DataField>ProfesionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaMadre">
+          <DataField>EmpresaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaMadre">
+          <DataField>TelefonoOficinaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularMadre">
+          <DataField>CelularMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoMadre">
+          <DataField>CorreoMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreAcudiente">
+          <DataField>NombreAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionAcudiente">
+          <DataField>IdentificacionAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularAcudiente">
+          <DataField>CelularAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PeriodoLectivo">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT * 
+FROM PERIODOLECTIVO
+ORDER BY AnioInicial desc</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioFinal">
+          <DataField>AnioFinal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AnioActivo">
+          <DataField>AnioActivo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="AnioAdmision">
+          <DataField>AnioAdmision</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FechaInicioPeriodo">
+          <DataField>FechaInicioPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FechaFinPeriodo">
+          <DataField>FechaFinPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT  * FROM
+SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@Seccion)</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE  PL.Id = @Periolectivo AND CR.IdNivel in (@Nivel) </CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Estudiantes">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT 
+ EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion
+,PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
+FROM EstudianteCurso AS EC
+INNER JOIN PERSONA AS PR
+ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
+AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+
+WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+ORDER BY PR.PrimerApellido ASC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreEstudiante">
+          <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -124,22 +306,22 @@ FROM PERSONA AS PR WITH (NOLOCK)
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>4.2321cm</Width>
+                  <Width>4.188cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5702cm</Width>
+                  <Width>2.5261cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.99486cm</Width>
+                  <Width>3.95076cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.13102cm</Width>
+                  <Width>3.08692cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.88226cm</Width>
+                  <Width>2.83816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.72955cm</Width>
+                  <Width>3.68545cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -761,14 +943,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Curso">
+                        <Textbox Name="Nivel">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Curso.Value</Value>
+                                  <Value>=Fields!Nivel.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -777,7 +959,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Curso</rd:DefaultName>
+                          <rd:DefaultName>Nivel</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1697,67 +1879,67 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle22">
-                          <ReportItems>
-                            <Textbox Name="NombrePadre">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!NombrePadre.Value</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value> - Padre</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>NombrePadre</rd:DefaultName>
-                              <Top>1.57389cm</Top>
-                              <Left>0.66146cm</Left>
-                              <Height>0.61195cm</Height>
-                              <Width>9.2075cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line1">
-                              <Top>1.4416cm</Top>
-                              <Left>0.68792cm</Left>
-                              <Height>0cm</Height>
-                              <Width>9.18104cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
+                        <Textbox Name="Textbox3">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>_______________________________________________</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombrePadre.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value> - Padre</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Rectangle>
+                        </Textbox>
                         <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -1765,67 +1947,67 @@ FROM PERSONA AS PR WITH (NOLOCK)
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle25">
-                          <ReportItems>
-                            <Textbox Name="Textbox80">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=Fields!NombreMadre.Value</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value> - Madre</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox79</rd:DefaultName>
-                              <Top>1.57389cm</Top>
-                              <Left>0.41627cm</Left>
-                              <Height>0.61195cm</Height>
-                              <Width>9.2075cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line2">
-                              <Top>1.3975cm</Top>
-                              <Left>0.44273cm</Left>
-                              <Height>0cm</Height>
-                              <Width>9.18104cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
+                        <Textbox Name="Textbox4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>_______________________________________________</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombreMadre.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value> - Madre</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Rectangle>
+                        </Textbox>
                         <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -1850,7 +2032,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                 <TablixMember>
                   <Group Name="Details2">
                     <PageBreak>
-                      <BreakLocation>End</BreakLocation>
+                      <BreakLocation>Between</BreakLocation>
                     </PageBreak>
                   </Group>
                   <TablixMembers>
@@ -1868,12 +2050,11 @@ FROM PERSONA AS PR WITH (NOLOCK)
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <KeepTogether>true</KeepTogether>
             <DataSetName>QuerySolicitudTransporte</DataSetName>
             <Top>0.41781cm</Top>
             <Left>0.31432cm</Left>
             <Height>8.88598cm</Height>
-            <Width>20.53999cm</Width>
+            <Width>20.27541cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1901,17 +2082,17 @@ FROM PERSONA AS PR WITH (NOLOCK)
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>9.3038cm</Height>
+        <Height>9.46255cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>21.56869cm</Width>
+      <Width>20.90723cm</Width>
       <Page>
         <PageHeader>
-          <Height>28.45783mm</Height>
+          <Height>26.34116mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1919,10 +2100,10 @@ FROM PERSONA AS PR WITH (NOLOCK)
               <Source>Embedded</Source>
               <Value>BlancoSGS</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.10583cm</Top>
-              <Left>0.68474cm</Left>
+              <Top>0.07647cm</Top>
+              <Left>0.31432cm</Left>
               <Height>2.43417cm</Height>
-              <Width>11.36896cm</Width>
+              <Width>11.73938cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1993,9 +2174,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.14083cm</Top>
-              <Left>12.47297cm</Left>
+              <Left>12.33216cm</Left>
               <Height>2.39917cm</Height>
-              <Width>7.18312cm</Width>
+              <Width>8.25757cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2063,13 +2244,86 @@ FROM PERSONA AS PR WITH (NOLOCK)
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>14.8cm</PageHeight>
-        <PageWidth>21.59cm</PageWidth>
+        <PageHeight>139mm</PageHeight>
+        <PageWidth>216mm</PageWidth>
+        <InteractiveHeight>0mm</InteractiveHeight>
+        <InteractiveWidth>216mm</InteractiveWidth>
+        <LeftMargin>3mm</LeftMargin>
+        <RightMargin>3mm</RightMargin>
+        <TopMargin>3mm</TopMargin>
+        <BottomMargin>3mm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Periolectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>String</DataType>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Curso">
+      <DataType>String</DataType>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Estudiantes">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Estudiantes</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>NombreEstudiante</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="SGS">
       <MIMEType>image/png</MIMEType>

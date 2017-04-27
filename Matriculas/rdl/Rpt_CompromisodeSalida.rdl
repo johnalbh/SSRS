@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -16,57 +16,25 @@
     <DataSet Name="QueryConsentimiento">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT 
-	 ED.CodigoEstudiante
-	,PR.PrimerApellido +' '+ PR.SegundoApellido + ' ' + PR.PrimerNombre + ' '+ Pr.SegundoNombre AS NombreEstudiante
-	,PR.TipoIdentificacion +' '+ PR.NumeroIdentificacion AS IdentificacionEstudiante
-	,NV.Nombre as NivelIngreso
-	,PSP.PrimerApellido +' '+ PSP.SegundoApellido + ' ' + PSP.PrimerNombre + ' '+ PSP.SegundoNombre AS NombrePadre
-	,PSP.TipoIdentificacion +' '+ PSP.NumeroIdentificacion AS NumeroIdentificacionPadre
-	,PSM.PrimerApellido +' '+ PSM.SegundoApellido + ' ' + PSM.PrimerNombre + ' '+ PSM.SegundoNombre AS NombreMadre
-	,PSM.TipoIdentificacion +' '+ PSP.NumeroIdentificacion AS NumeroIdentificacionMadre
-	,PSA.PrimerApellido +' '+ PSA.SegundoApellido + ' ' + PSA.PrimerNombre + ' '+ PSA.SegundoNombre AS NombreAcudiente
-	,PSA.Tipoidentificacion +' '+ PSA.NumeroIdentificacion AS NumeroIdentificacionAcudiente
-
-FROM PERSONA AS PR WITH (NOLOCK)
-	
-	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
-	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION AND
-	ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
-
-	JOIN NIVEL AS NV WITH (NOLOCK) ON 
-	NV.IDNIVEL = ED.NIVELINGRESO 
-	
-	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK) ON
-	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION AND
-	GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
-	
-	JOIN DIRECCION AS DC WITH (NOLOCK) ON
-	DC.IDGRUPOFAMILIAR = GF.IDFAMILIA AND DIRECCIONPRINCIPAL = 1
-	
-	JOIN FAMILIA AS FM WITH (NOLOCK) ON
-	FM.IDFAMILIA = GF.IDFAMILIA 
-
-	JOIN PERSONA AS PSA WITH (NOLOCK) ON
-	PSA.TIPOIDENTIFICACION = ED.TIPOIDENTIFICACIONACUDIENTE AND
-	PSA.NUMEROIDENTIFICACION = ED.NUMEROIDENTIFICACIONACUDIENTE
-
-	JOIN PERSONA AS PSP WITH (NOLOCK) ON
-	PSP.TIPOIDENTIFICACION = FM.TIPODOCUMENTOPADRE AND
-	PSP.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOPADRE
-	
-	JOIN PADRE AS PDP WITH (NOLOCK) ON
-	PDP.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDP.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-
-	JOIN PERSONA AS PSM WITH (NOLOCK) ON
-	PSM.TIPOIDENTIFICACION = FM.TIPODOCUMENTOMADRE AND
-	PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
-
-	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Estudiantes">
+            <Value>=Parameters!Estudiantes.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_DatosPersonalesEstudiante</CommandText>
       </Query>
       <Fields>
         <Field Name="CodigoEstudiante">
@@ -81,32 +49,249 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>IdentificacionEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NivelIngreso">
-          <DataField>NivelIngreso</DataField>
+        <Field Name="TeléfonoCasa">
+          <DataField>TeléfonoCasa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Barrio">
+          <DataField>Barrio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombrePadre">
           <DataField>NombrePadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionPadre">
-          <DataField>NumeroIdentificacionPadre</DataField>
+        <Field Name="Direccion">
+          <DataField>Direccion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreMadre">
           <DataField>NombreMadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionMadre">
-          <DataField>NumeroIdentificacionMadre</DataField>
+        <Field Name="EstadoEstudiante">
+          <DataField>EstadoEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Curso">
+          <DataField>Curso</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ResponsablePago">
+          <DataField>ResponsablePago</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreAcudiente">
           <DataField>NombreAcudiente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionAcudiente">
-          <DataField>NumeroIdentificacionAcudiente</DataField>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtroResponsable">
+          <DataField>OtroResponsable</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionPadre">
+          <DataField>IdentificacionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionPadre">
+          <DataField>ProfesionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaPadre">
+          <DataField>EmpresaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaPadre">
+          <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularPadre">
+          <DataField>CelularPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoPadre">
+          <DataField>CorreoPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionMadre">
+          <DataField>IdentificacionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionMadre">
+          <DataField>ProfesionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaMadre">
+          <DataField>EmpresaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaMadre">
+          <DataField>TelefonoOficinaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularMadre">
+          <DataField>CelularMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoMadre">
+          <DataField>CorreoMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionAcudiente">
+          <DataField>IdentificacionAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularAcudiente">
+          <DataField>CelularAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PeriodoLectivo">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT * 
+FROM PERIODOLECTIVO
+ORDER BY AnioInicial desc</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioFinal">
+          <DataField>AnioFinal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AnioActivo">
+          <DataField>AnioActivo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="AnioAdmision">
+          <DataField>AnioAdmision</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FechaInicioPeriodo">
+          <DataField>FechaInicioPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FechaFinPeriodo">
+          <DataField>FechaFinPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT  * FROM
+SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@Seccion)</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE  PL.Id = @Periolectivo AND CR.IdNivel in (@Nivel) </CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Estudiantes">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT 
+ EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion
+,PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
+FROM EstudianteCurso AS EC
+INNER JOIN PERSONA AS PR
+ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
+AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+
+WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+ORDER BY PR.PrimerApellido ASC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreEstudiante">
+          <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -120,22 +305,22 @@ FROM PERSONA AS PR WITH (NOLOCK)
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.0611cm</Width>
+                  <Width>3.06551cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.61988cm</Width>
+                  <Width>3.62429cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.41798cm</Width>
+                  <Width>3.42239cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.29122cm</Width>
+                  <Width>4.29563cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.60426cm</Width>
+                  <Width>1.60867cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.87159cm</Width>
+                  <Width>4.876cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -407,14 +592,14 @@ FROM PERSONA AS PR WITH (NOLOCK)
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="NivelIngreso">
+                        <Textbox Name="Nivel">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!NivelIngreso.Value</Value>
+                                  <Value>=Fields!Nivel.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -423,7 +608,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>NivelIngreso</rd:DefaultName>
+                          <rd:DefaultName>Nivel</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -486,7 +671,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>25.20133cm</Height>
+                  <Height>24.80446cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -497,22 +682,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Una forma de integrar a la comunidad del Colegio, compartir con amigos y conocer nuevos sitios y culturas, es a través de las salidas pedagógicas (para todos los estudiantes dentro de la ciudad o sus alrededores) o excursiones (opcionales fuera de la ciudad). Con el fin de llevar a cabo este tipo de actividades de manera exitosa y dejar una buena impresión en todos los lugares que visitemos, requerimos el compromiso y responsabilidad de todos los asistentes. Por esto, a continuación se mencionan los aspectos más importantes con los que debe cumplir el estudiante en el momento de participar de una salida pedagógica o excursión.</Value>
+                                  <Value>Una forma de integrar a la comunidad del Colegio, compartir con amigos y conocer nuevos sitios y culturas, es a través de las salidas pedagógicas (para todos los estudiantes dentro de la ciudad o sus alrededores) o excursiones (opcionales fuera de la ciudad). Con el fin de
+llevar a cabo este tipo de actividades de manera exitosa y dejar una buena impresión en todos los lugares que visitemos, requerimos el compromiso y responsabilidad de todos los asistentes. Por esto, a continuación se mencionan los aspectos más importantes con los que
+debe cumplir el estudiante en el momento de participar de una salida pedagógica o excursión.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -561,7 +733,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El Manual de Convivencia del Colegio (ver agenda) se aplica durante las salidas pedagógicas o excursiones, por lo que las normas de comportamiento serán las mismas que aplican al interior del Colegio.</Value>
+                                  <Value>El Manual de Convivencia del Colegio (ver agenda) se aplica durante las salidas pedagógicas o excursiones, por lo que las normas
+de comportamiento serán las mismas que aplican al interior del Colegio.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -579,7 +752,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Los estudiantes son representantes de la imagen y buen nombre del Colegio, por lo que el uso de un vocabulario adecuado y de un comportamiento respetuoso, son la mejor manera de darse a conocer a sí mismos y a nuestro Colegio.</Value>
+                                  <Value>Los estudiantes son representantes de la imagen y buen nombre del Colegio, por lo que el uso de un vocabulario adecuado y de un
+comportamiento respetuoso, son la mejor manera de darse a conocer a sí mismos y a nuestro Colegio.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -597,7 +771,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Si el estudiante tiene una dieta especial o una necesidad médica particular, debe comunicarlo inmediatamente a los profesores.</Value>
+                                  <Value>Si el estudiante tiene una dieta especial o una necesidad médica particular, debe comunicarlo con anterioridad a los profesores.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -633,7 +807,9 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El estudiante es el responsable del cuidado del dinero y los elementos electrónicos que lleve consigo en caso de ser permitidos (iPods, celulares, cámaras, etc.). El Colegio y la empresa contratada para la gestión de la salida no pueden responsabilizarse por la pérdida de este tipo de artículos personales.</Value>
+                                  <Value>El estudiante es el responsable del cuidado del dinero y los elementos electrónicos que lleve consigo en caso de ser permitidos
+(Computadores, celulares, cámaras, etc.). El Colegio y la empresa contratada para la gestión de la salida no pueden
+responsabilizarse por la pérdida de este tipo de artículos personales.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -669,7 +845,8 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Los guías son personas con experiencia, capacitados y conocedores de las actividades y posibles peligros, por lo que deben escucharse de manera atenta sus instrucciones y seguirlas con respeto. Los estudiantes deben permanecer con su grupo en todo momento, por su seguridad, es necesario que permanezcan en la actividad programada y no se separen de su grupo.</Value>
+                                  <Value>Los guías son personas con experiencia, capacitados y conocedores de las actividades y posibles peligros, por lo que deben escucharse de manera atenta sus instrucciones y seguirlas con respeto. Los estudiantes deben permanecer con su grupo en todo
+momento, por su seguridad, es necesario que permanezcan en la actividad programada y no se separen de su grupo</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -721,7 +898,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Los estudiantes llegarán al sitio de la salida en las rutas del Colegio y regresarán de la misma manera. No está permitido que los padres de familia lleven a los niños al sitio de la salida o los recojan allí.</Value>
+                                  <Value>Los estudiantes llegarán al sitio de la salida en las rutas del Colegio y regresarán de la misma manera. No está permitido que los
+padres de familia lleven a los niños al sitio de la salida o los recojan allí.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -739,7 +917,10 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El desprendible para la autorización del estudiante a la salida, debe entregarse en la fecha especificada en la circular informativa de cada salida. Sin este desprendible, no será posible permitir la asistencia del estudiante; tenga en cuenta que no se reciben autorizaciones por fax o llamadas telefónicas ni desprendibles entregados en fechas distintas a las establecidas, ya que esto impide la organización adecuada de la actividad.</Value>
+                                  <Value>El desprendible para la autorización del estudiante a la salida, debe entregarse en la fecha especificada en la circular informativa de
+cada salida. Sin este desprendible, no será posible permitir la asistencia del estudiante; tenga en cuenta que no se reciben
+autorizaciones por fax o llamadas telefónicas ni desprendibles entregados en fechas distintas a las establecidas, ya que esto impide
+la organización adecuada de la actividad.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -757,7 +938,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Con el fin de asegurar la participación y comodidad de los estudiantes durante la actividad, es necesario seguir las instrucciones que se reportan en la circular de cada salida.</Value>
+                                  <Value>Con el fin de asegurar la participación y comodidad de los estudiantes durante la actividad, es necesario seguir las instrucciones que
+se reportan en la circular de cada salida.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -775,7 +957,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Es necesario que el estudiante lleve y guarde cuidadosamente la fotocopia de su documento de identificación (a partir de 2º) y el carnet del Colegio.</Value>
+                                  <Value>Es necesario que el estudiante lleve y guarde cuidadosamente la fotocopia de su documento de identificación ( a partir de 2º), el
+carne del Colegio y carne EPS o prepagada.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -843,7 +1026,7 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El estudiante deberá llegar al Colegio a la hora indicada para la salida, el transporte no puede esperar.</Value>
+                                  <Value>El estudiante deberá llegar al Colegio o al punto de encuentro establecido a la hora indicada para la salida.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -861,7 +1044,9 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Es importante tener en cuenta que en caso de presentarse el incumplimiento de alguna de las normas establecidas en el Manual de Convivencia durante el viaje, el estudiante será devuelto a casa y la familia asumirá los costos adicionales en los que se incurra por este concepto.</Value>
+                                  <Value>Es importante tener en cuenta que en caso de presentarse el incumplimiento de alguna de las normas establecidas en el Manual de
+Convivencia durante el viaje, el estudiante será devuelto a casa y la familia asumirá los costos adicionales en los que se incurra por
+este concepto.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -879,7 +1064,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Es necesario que el estudiante lleve y guarde cuidadosamente el original de su documento de identificación (a partir de 2º), el carnetdel colegio, y los carnets de la EPS y medicina prepagada si la tiene.</Value>
+                                  <Value>Es necesario que el estudiante lleve y guarde cuidadosamente el original de su documento de identificación (a partir de 2º), el carné
+del Colegio, y los carnés de la EPS y medicina prepagada si la tiene.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -897,7 +1083,9 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Para que las actividades puedan llevarse a cabo de manera organizada, es necesario que los estudiantes lleguen a cada actividad de manera puntual, ya que no se dará inicio a una actividad hasta que el grupo esté completo. Por otra parte, usualmente los hoteles no sirven las comidas hasta que la totalidad de los niños se encuentran ubicados en el comedor.</Value>
+                                  <Value>Para que las actividades puedan llevarse a cabo de manera organizada, es necesario que los estudiantes lleguen a cada actividad de
+manera puntual, ya que no se dará inicio a una actividad hasta que el grupo esté completo. Por otra parte, usualmente los hoteles no
+sirven las comidas hasta que la totalidad de los niños se encuentran ubicados en el comedor.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -915,7 +1103,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El estudiante debe dirigirse a la habitación y apagar la luz a la hora establecida por los profesores, evitando hacer ruidos que incomoden a los demás huéspedes.</Value>
+                                  <Value>El estudiante debe dirigirse a la habitación y apagar la luz a la hora establecida por los profesores, evitando hacer ruidos que
+incomoden a los demás huéspedes.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -933,7 +1122,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El estudiante debe dormir solamente en la cama asignada por los profesores. No está permitido mover camas o colchones sin la autorización del hotel y de los profesores.</Value>
+                                  <Value>El estudiante debe dormir solamente en la cama asignada por los profesores. No está permitido mover camas o colchones sin la
+autorización del hotel y de los profesores.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -951,7 +1141,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Para el desarrollo de las actividades que requieran el uso de implementos de seguridad como chaleco y casco, es obligatorio su uso, de lo contrario, el estudiante no podrá participar en la actividad.</Value>
+                                  <Value>Para el desarrollo de las actividades que requieran el uso de implementos de seguridad como chaleco y casco, es obligatorio su uso,
+de lo contrario, el estudiante no podrá participar en la actividad.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -969,7 +1160,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Los espacios naturales que se visitarán, dependen del respeto y cuidado que los visitantes proporcionen para poder conservarse, por lo que no está permitido arrancar plantas o mover animales de su hábitat. “Dejar sólo huellas, tomar sólo fotos”.</Value>
+                                  <Value>Los espacios naturales que se visitarán, dependen del respeto y cuidado que los visitantes proporcionen para poder conservarse, por
+lo que no está permitido arrancar plantas o mover animales de su hábitat. “Dejar sólo huellas, tomar sólo fotos”.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -987,7 +1179,8 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Por su seguridad, los estudiantes no deben salir a explorar solos, todo el tiempo deben permanecer en los sitios asignados para las actividades.</Value>
+                                  <Value>Por su seguridad, los estudiantes no deben salir a explorar solos, todo el tiempo deben permanecer en los sitios asignados para las
+actividades.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -998,20 +1191,6 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                               </TextRuns>
                               <ListStyle>Bulleted</ListStyle>
                               <ListLevel>1</ListLevel>
-                              <Style />
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
                               <Style>
                                 <TextAlign>Left</TextAlign>
                               </Style>
@@ -1071,8 +1250,7 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                           <rd:DefaultName>Textbox1</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1091,74 +1269,70 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.98614cm</Height>
+                  <Height>1.80092cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle2">
-                          <ReportItems>
-                            <Textbox Name="Textbox43">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value />
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma del Padre / Madre</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>0.63247cm</Top>
-                              <Left>0.34504cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>9.40887cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line1">
-                              <Top>0.45608cm</Top>
-                              <Left>0.31641cm</Left>
-                              <Height>0cm</Height>
-                              <Width>9.4375cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
+                        <Textbox Name="Textbox4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>______________________________________________</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombrePadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma del Padre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Rectangle>
+                        </Textbox>
                         <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -1166,78 +1340,195 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                     <TablixCell />
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle1">
-                          <ReportItems>
-                            <Textbox Name="Textbox45">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombreEstudiante.Value</Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma del Estudiante</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>0.63247cm</Top>
-                              <Left>0.67175cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>9.40887cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line2">
-                              <Top>0.45608cm</Top>
-                              <Left>0.59129cm</Left>
-                              <Height>0cm</Height>
-                              <Width>9.48933cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
+                        <Textbox Name="Textbox5">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>______________________________________________ </Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombreMadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma del Padre Madre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Rectangle>
+                        </Textbox>
+                        <ColSpan>3</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>1.86297cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox3">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>______________________________________________</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!NombreEstudiante.Value</Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma del Estudiante</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>3</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>______________________________________________</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
                         <ColSpan>3</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -1257,7 +1548,7 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Fecha:</Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1279,21 +1570,21 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox19">
+                        <Textbox Name="Textbox16">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Today()</Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox19</rd:DefaultName>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1315,7 +1606,7 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>Fecha:</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1344,7 +1635,7 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>____________________</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1441,10 +1732,11 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                 <TablixMember>
                   <Group Name="Details2">
                     <PageBreak>
-                      <BreakLocation>End</BreakLocation>
+                      <BreakLocation>Between</BreakLocation>
                     </PageBreak>
                   </Group>
                   <TablixMembers>
+                    <TablixMember />
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
@@ -1456,12 +1748,11 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <KeepTogether>true</KeepTogether>
             <DataSetName>QueryConsentimiento</DataSetName>
             <Top>0.14111cm</Top>
-            <Left>0.39696cm</Left>
-            <Height>30.19904cm</Height>
-            <Width>20.86603cm</Width>
+            <Left>0.07946cm</Left>
+            <Height>31.47991cm</Height>
+            <Width>20.89249cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1489,17 +1780,17 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>31.25061cm</Height>
+        <Height>31.8856cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>21.57722cm</Width>
+      <Width>21.15389cm</Width>
       <Page>
         <PageHeader>
-          <Height>26.02789mm</Height>
+          <Height>23.64664mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1574,7 +1865,7 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
               <Top>0.14083cm</Top>
               <Left>12.19481cm</Left>
               <Height>2.05166cm</Height>
-              <Width>9.06817cm</Width>
+              <Width>8.77714cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1642,13 +1933,80 @@ INSTRUCCIONES PARA LAS SALIDAS PEDAGÓGICAS (Preescolar, Primaria y Bachillerato
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>35.56cm</PageHeight>
+        <PageHeight>35.5cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
+        <InteractiveHeight>0cm</InteractiveHeight>
+        <InteractiveWidth>21.59cm</InteractiveWidth>
+        <LeftMargin>2mm</LeftMargin>
+        <RightMargin>2mm</RightMargin>
+        <TopMargin>2mm</TopMargin>
+        <BottomMargin>2mm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Periolectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>String</DataType>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Curso">
+      <DataType>String</DataType>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Estudiantes">
+      <DataType>String</DataType>
+      <Prompt>Estudiantes</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>NombreEstudiante</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="SGS">
       <MIMEType>image/png</MIMEType>

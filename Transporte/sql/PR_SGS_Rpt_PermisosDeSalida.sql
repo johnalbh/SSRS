@@ -20,12 +20,22 @@ MODIFICACIÓN:			Se hace la adapatación de la consulta a SP
 AUTOR:					John Alberto López Hernández	
 FECHA:					2017-04-05
 ****************************************************************************/
-CREATE PROCEDURE [dbo].[PR_SGS_Rpt_PermisosDeSalida] 
+ALTER PROCEDURE [dbo].[PR_SGS_Rpt_PermisosDeSalida] 
 	
-		@fP_Fechas DATETIME
+		 @fP_Fechas DATETIME
+		,@idP_Seccion VARCHAR (max)
 
 AS
 BEGIN
+/* Tabla Temporal para filtrar por curso */
+DECLARE @Seccion TABLE 
+	(
+		IdSeccion VARCHAR (max)
+
+	)
+INSERT INTO @Seccion
+SELECT SEC.Valor 
+FROM F_SGS_Split(@idP_Seccion, ',') AS SEC
 SELECT  
 	 FORMAT(fct.fechaseleccionada, 'dd/MM/yyyy') AS FechaSeleccionada
 	,C.nombre AS Curso
@@ -59,6 +69,12 @@ FROM SolicitudTransporte AS ST
 	INNER JOIN Curso AS C 
 	ON C.IdCurso = EC.IdCurso 
 
+	INNER JOIN Nivel AS NVL
+	ON C.IdNivel = NVL.IdNivel
+
+	INNER JOIN Seccion AS SECC
+	ON NVL.IdSeccion = SECC.IdSeccion
+
 	INNER JOIN PeriodoLectivo AS PL 
 	ON PL.AnioActivo = 1 
 	AND PL.Id = C.AnioAcademico
@@ -84,9 +100,13 @@ FROM SolicitudTransporte AS ST
 	ON R.Dominio = 'Ruta' 
 	AND R.Valor = BR.DominioNombreRuta
 
+	INNER JOIN @Seccion AS TSEC
+	ON SECC.IdSeccion = TSEC.IdSeccion
+
 	LEFT JOIN Dominio AS MR 
 	ON MR.Dominio = 'MotivoRechazo' 
 	AND CAST (ST.MotivoRechazo AS Varchar) = MR.Valor
+
 
 WHERE 
 	TST.IdTipoSolicitudTransporte in (1,14)

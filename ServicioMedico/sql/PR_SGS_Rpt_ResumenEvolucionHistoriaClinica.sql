@@ -15,8 +15,16 @@ AUTOR:					John Alberto López Hernández
 EMPRESA:				Saint George´s School  
 FECHA DE CREACIÓN:		2017-03-17
 ----------------------------------------------------------------------------
+MODIFICACIÓN:			Se incluye ORDER By para mostrar las evoluciones de la 
+						más reciente a la más antigua, también el usuario que cierra 
+						la evolución con su número de Registro Profesional.
+						----------------------------------------------------
+						Se añade la función STUFF para incluir los diagnóstico
+						en una sola línea. 
+AUTO:					John Alberto López Hernández
+FECHA DE CREACIÓN:		2017-03-27
 ****************************************************************************/
-CREATE PROCEDURE 
+ALTER PROCEDURE 
 	 [dbo].[PR_SGS_Rpt_ResumenEvolucionHistoriaClinica] 
 	 	 
 	 @idP_TipoDocumentoPersona varchar(30)
@@ -25,7 +33,7 @@ AS
 BEGIN
 
 SELECT 
-	ROW_NUMBER()Over(Order By NewId()) AS NumEvolucion
+	ROW_NUMBER()Over(Order By FechaIngreso DESC) AS NumEvolucion
 	,CONVERT (varchar(10),EV.FechaIngreso,103) AS FechaIngreso
 	,EV.HoraInicio AS HoraInicio
 	,EV.HoraFin AS HorarioFin
@@ -236,8 +244,6 @@ SELECT
 		ELSE CONVERT(VARCHAR(30),EV.EstNeurologico)
 		END AS EstNeurologico
 	,EV.ObsNeurologico AS ObsNeurologico
-	,DG.CodigoCIE10 AS CodigoCIE10
-	,CIE.Descripcion AS DescripcionCIE10
 	,EV.Tratamiento AS Tratamiento
 	,EV.Recomendaciones AS Recomendaciones
 	,EV.SignosAlarma AS SignosAlarma
@@ -250,14 +256,35 @@ SELECT
 	,EV.TratamientoRealizado AS TratamientoRealizado
 	,EV.MotivoRemision AS MotivoRemision
 	,EV.ExamenFisicoReferencia AS ExamenFisicoReferencia
+	,USU.displayName AS UsuarioCierreEvolucion
+	,Dom.Descripcion  AS NumeroRegistroProfesional
+	,isnull (STUFF(
+			 (
+				SELECT DISTINCT ', ' + cie.codigo +' '+cie.Descripcion  
+				FROM CIE10  AS CIE
+					INNER JOIN Diagnostico AS DG
+					ON cie.Codigo = dg.CodigoCIE10
+					INNER JOIN EVOLUCION  AS EVO
+					ON EVO.Id = dg.IdEvolucion
+
+				WHERE EVO.TipoIdentificacion = @idP_TipoDocumentoPersona
+				AND EVO.NumeroIdentificacion = @ndP_NumeroDocumentoPersona
+				AND EV.Id = EVO.Id
+			 
+			  FOR XML PATH (''))
+			  , 1, 1, ''),'')  AS ResumenDiagnosticos
+
 FROM 
 	EVOLUCION  AS EV
-	INNER JOIN DIAGNOSTICO AS DG ON
-	EV.Id = DG.IdEvolucion
-	INNER JOIN CIE10 AS CIE ON
-	DG.CodigoCIE10 = CIE.Codigo
+	INNER JOIN Dominio AS DOM 
+	ON DOM.Dominio = 'RegistroMedico' 
+	AND EV.UsuarioCierra = DOM.Valor
+	INNER JOIN Usuario AS USU
+	ON EV.UsuarioCierra = USU.Mail
 WHERE 
 	EV.TipoIdentificacion = @idP_TipoDocumentoPersona
 	AND EV.NumeroIdentificacion = @ndP_NumeroDocumentoPersona
-
+                                                                                                                                    
+ORDER BY 
+	EV.FechaIngreso DESC
 END

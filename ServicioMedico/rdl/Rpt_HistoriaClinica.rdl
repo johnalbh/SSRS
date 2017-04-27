@@ -60,20 +60,12 @@
           <DataField>LugarNacimiento</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IdCurso">
-          <DataField>IdCurso</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="Celular">
+          <DataField>Celular</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreCurso">
           <DataField>NombreCurso</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Casa">
-          <DataField>Casa</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Celular">
-          <DataField>Celular</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Genero">
@@ -108,16 +100,60 @@
           <DataField>EPS</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="MedicinaPrepagada">
-          <DataField>MedicinaPrepagada</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="UrlFoto">
           <DataField>UrlFoto</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TipoPaciente">
           <DataField>TipoPaciente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TeléfonoCasa">
+          <DataField>TeléfonoCasa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Barrio">
+          <DataField>Barrio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Direccion">
+          <DataField>Direccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombrePadre">
+          <DataField>NombrePadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CiudadDireccion">
+          <DataField>CiudadDireccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Padre">
+          <DataField>Padre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaPadre">
+          <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Madre">
+          <DataField>Madre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularPadre">
+          <DataField>CelularPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreMadre">
+          <DataField>NombreMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaMadre">
+          <DataField>TelefonoOficinaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularMadre">
+          <DataField>CelularMadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -144,7 +180,7 @@
         </Field>
         <Field Name="FechaIngreso">
           <DataField>FechaIngreso</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="HoraInicio">
           <DataField>HoraInicio</DataField>
@@ -156,7 +192,7 @@
         </Field>
         <Field Name="Edad">
           <DataField>Edad</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Talla">
           <DataField>Talla</DataField>
@@ -422,14 +458,6 @@
           <DataField>ObsNeurologico</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CodigoCIE10">
-          <DataField>CodigoCIE10</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DescripcionCIE10">
-          <DataField>DescripcionCIE10</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="Tratamiento">
           <DataField>Tratamiento</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -474,8 +502,20 @@
           <DataField>MotivoRemision</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ResumenDiagnosticos">
+          <DataField>ResumenDiagnosticos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="ExamenFisicoReferencia">
           <DataField>ExamenFisicoReferencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UsuarioCierreEvolucion">
+          <DataField>UsuarioCierreEvolucion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumeroRegistroProfesional">
+          <DataField>NumeroRegistroProfesional</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -1845,7 +1885,7 @@ Order by Criterio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Fechad de Nacimiendo</Value>
+                                  <Value>Fechad de Nacimiento</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                   </Style>
@@ -2057,6 +2097,292 @@ Order by Criterio</CommandText>
                     </TablixCell>
                   </TablixCells>
                 </TablixRow>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox49">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Dirección Residencia</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox49</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox53">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Barrio</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox51</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="CiudadDireccion">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Ciudad</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>CiudadDireccion</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox52">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Teléfono</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox52</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Direccion">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Direccion.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Direccion</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Barrio">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Barrio.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Barrio</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="CiudadDireccion1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CiudadDireccion.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>CiudadDireccion1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="TeléfonoCasa">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!TeléfonoCasa.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>TeléfonoCasa</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
@@ -2080,6 +2406,8 @@ Order by Criterio</CommandText>
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
                   </TablixMembers>
                 </TablixMember>
               </TablixMembers>
@@ -2087,7 +2415,7 @@ Order by Criterio</CommandText>
             <DataSetName>HistoriaClinica</DataSetName>
             <Top>9.59678mm</Top>
             <Left>2.83714mm</Left>
-            <Height>41.77396mm</Height>
+            <Height>53.77396mm</Height>
             <Width>205.9904mm</Width>
             <Style>
               <Border>
@@ -2301,7 +2629,7 @@ Order by Criterio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!MedicinaPrepagada.Value</Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2411,8 +2739,8 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>HistoriaClinica</DataSetName>
-            <Top>54.19793mm</Top>
-            <Left>2.83714mm</Left>
+            <Top>92.29793mm</Top>
+            <Left>2.83711mm</Left>
             <Height>12.78324mm</Height>
             <Width>205.9904mm</Width>
             <ZIndex>1</ZIndex>
@@ -3579,7 +3907,7 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesPatologicos</DataSetName>
-            <Top>68.84702mm</Top>
+            <Top>110.12202mm</Top>
             <Left>3.15237mm</Left>
             <Height>50.73127mm</Height>
             <Width>205.67523mm</Width>
@@ -3995,7 +4323,7 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesTraumaticos</DataSetName>
-            <Top>120.3498mm</Top>
+            <Top>161.6248mm</Top>
             <Left>3.15231mm</Left>
             <Height>31.80521mm</Height>
             <Width>205.67523mm</Width>
@@ -4049,16 +4377,16 @@ Order by Criterio</CommandText>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>46.57664mm</Width>
+                  <Width>46.49783mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>52.01634mm</Width>
+                  <Width>51.93753mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>46.1431mm</Width>
+                  <Width>46.06429mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>61.25435mm</Width>
+                  <Width>61.17554mm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -4301,10 +4629,10 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesFarmacologicos</DataSetName>
-            <Top>153.32078mm</Top>
-            <Left>2.83711mm</Left>
+            <Top>194.59578mm</Top>
+            <Left>3.15237mm</Left>
             <Height>21.875mm</Height>
-            <Width>205.99043mm</Width>
+            <Width>205.67517mm</Width>
             <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
@@ -5777,7 +6105,7 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesFamiliares</DataSetName>
-            <Top>176.07493mm</Top>
+            <Top>217.34993mm</Top>
             <Left>3.15231mm</Left>
             <Height>55.40834mm</Height>
             <Width>205.67523mm</Width>
@@ -6244,7 +6572,7 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesQuirurgicos</DataSetName>
-            <Top>232.43119mm</Top>
+            <Top>273.70619mm</Top>
             <Left>3.15231mm</Left>
             <Height>32.73125mm</Height>
             <Width>205.67523mm</Width>
@@ -6988,7 +7316,7 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesGinecologicos</DataSetName>
-            <Top>266.29785mm</Top>
+            <Top>307.57285mm</Top>
             <Left>3.15227mm</Left>
             <Height>41.29167mm</Height>
             <Width>205.67527mm</Width>
@@ -7388,7 +7716,7 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>AntecedentesHospitalarios</DataSetName>
-            <Top>313.12911mm</Top>
+            <Top>354.40411mm</Top>
             <Left>3.15231mm</Left>
             <Height>25.67292mm</Height>
             <Width>205.67523mm</Width>
@@ -7426,7 +7754,7 @@ Order by Criterio</CommandText>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>8.38125mm</Height>
+                  <Height>8.47844mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -7437,7 +7765,7 @@ Order by Criterio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>RESUMEN EVOLUCION:  </Value>
+                                  <Value>EVOLUCIÓN CLÍNICA:  </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -7479,7 +7807,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>8.33438mm</Height>
+                  <Height>8.43157mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -7688,7 +8016,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -7734,7 +8062,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6.26459mm</Height>
+                  <Height>6.36178mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -7967,7 +8295,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8197,7 +8525,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8401,7 +8729,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8447,7 +8775,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8519,7 +8847,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8591,7 +8919,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8663,7 +8991,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8708,7 +9036,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8754,7 +9082,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8870,7 +9198,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -8980,7 +9308,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9090,7 +9418,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9200,7 +9528,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9310,7 +9638,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9420,7 +9748,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9530,7 +9858,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9640,7 +9968,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9750,7 +10078,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9860,7 +10188,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -9970,7 +10298,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10080,7 +10408,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10201,7 +10529,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10212,7 +10540,7 @@ Order by Criterio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>REVISIÓN POR ORGANOS</Value>
+                                  <Value>EXAMEN FÍSICO</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
@@ -10247,7 +10575,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10363,7 +10691,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10473,7 +10801,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10583,7 +10911,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10693,7 +11021,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10803,7 +11131,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -10913,7 +11241,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11023,7 +11351,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11133,7 +11461,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11243,7 +11571,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11353,7 +11681,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11463,7 +11791,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11573,7 +11901,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11683,7 +12011,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11793,7 +12121,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11903,7 +12231,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -11914,7 +12242,7 @@ Order by Criterio</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Neruológico</Value>
+                                  <Value>Neurológico</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -12013,7 +12341,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -12059,7 +12387,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -12099,25 +12427,23 @@ Order by Criterio</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox396">
+                        <Textbox Name="ResumenDiagnosticos">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!CodigoCIE10.Value</Value>
+                                  <Value>=Fields!ResumenDiagnosticos.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
+                              <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox396</rd:DefaultName>
+                          <rd:DefaultName>ResumenDiagnosticos</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -12131,50 +12457,17 @@ Order by Criterio</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>5</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="EstNariz">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!DescripcionCIE10.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>EstNariz</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>White</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>4</ColSpan>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -12254,7 +12547,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -12334,7 +12627,7 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>6mm</Height>
+                  <Height>6.09719mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -12414,11 +12707,83 @@ Order by Criterio</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>4.94167mm</Height>
+                  <Height>19.22846mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox419">
+                        <Textbox Name="NumeroRegistroProfesional">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value xml:space="preserve">
+
+</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!UsuarioCierreEvolucion.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> 
+</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!NumeroRegistroProfesional.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>NumeroRegistroProfesional</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Dotted</Style>
+                            </BottomBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>6</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox32">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -12432,17 +12797,68 @@ Order by Criterio</CommandText>
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Center</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox419</rd:DefaultName>
+                          <rd:DefaultName>Textbox32</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Dotted</Style>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>LightGrey</Color>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>LightGrey</Color>
+                            </RightBorder>
+                            <BackgroundColor>White</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>6</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>5.03886mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
-                            <BackgroundColor>White</BackgroundColor>
-                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -12507,19 +12923,81 @@ Order by Criterio</CommandText>
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstAspectoGeneral.Value = "NE" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstAnexoPielOrgano.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstCabeza.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstOjos.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstNariz.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstOidos.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstBocaFaringe.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstCuello.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstTorax.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstAbdomen.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstGenitales.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstExtremidadesSuperiores.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstExtremidadesInferiores.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstColumnaVertebral.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>=IIf(Fields!EstNeurologico.Value = "No Explorado" , TRUE, FALSE)</Hidden>
+                      </Visibility>
+                    </TablixMember>
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
@@ -12533,14 +13011,429 @@ Order by Criterio</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>Evoluciones</DataSetName>
-            <Top>339.58744mm</Top>
+            <Top>380.86244mm</Top>
             <Left>3.15227mm</Left>
-            <Height>291.92189mm</Height>
+            <Height>321.81547mm</Height>
             <Width>205.67523mm</Width>
             <ZIndex>10</ZIndex>
-            <Visibility>
-              <Hidden>= Iif (CountRows() &gt; 0, false, true)</Hidden>
-            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+          <Tablix Name="Tablix12">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>68.66347mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>68.66347mm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>68.66347mm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>5.95312mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox118">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value> RESPONSABLES PACIENTE</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox118</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>WhiteSmoke</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>3</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>5.95312mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox120">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Nombre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox120</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox123">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Parentesco</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox123</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox133">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Teléfono</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox133</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="NombreMadre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombreMadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>NombreMadre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Madre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Madre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Madre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="CelularMadre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CelularMadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!TelefonoOficinaMadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>CelularMadre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>6mm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="NombrePadre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombrePadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>NombrePadre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Padre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Padre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Padre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="CelularPadre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!CelularPadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!TelefonoOficinaPadre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>CelularPadre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details10" />
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>HistoriaClinica</DataSetName>
+            <Top>66.27284mm</Top>
+            <Left>2.83711mm</Left>
+            <Height>23.90624mm</Height>
+            <Width>205.9904mm</Width>
+            <ZIndex>11</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -12548,7 +13441,7 @@ Order by Criterio</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>632.30308mm</Height>
+        <Height>706.38231mm</Height>
         <Style>
           <Border>
             <Style>None</Style>

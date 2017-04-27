@@ -16,47 +16,25 @@
     <DataSet Name="QuerySolidaridad">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT 
-	 ED.CodigoEstudiante
-	,PR.PrimerApellido +' '+ PR.SegundoApellido + ' ' + PR.PrimerNombre + ' '+ Pr.SegundoNombre AS NombreEstudiante
-	,PR.TipoIdentificacion +' '+ PR.NumeroIdentificacion AS IdentificacionEstudiante
-	,PSP.PrimerApellido +' '+ PSP.SegundoApellido + ' ' + PSP.PrimerNombre + ' '+ PSP.SegundoNombre AS NombrePadre
-	,PSM.PrimerApellido +' '+ PSM.SegundoApellido + ' ' + PSM.PrimerNombre + ' '+ PSM.SegundoNombre AS NombreMadre
-FROM PERSONA AS PR WITH (NOLOCK)
-	
-	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
-	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION AND
-	ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
-	
-	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK) ON
-	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION AND
-	GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
-	
-	JOIN DIRECCION AS DC WITH (NOLOCK) ON
-	DC.IDGRUPOFAMILIAR = GF.IDFAMILIA AND DIRECCIONPRINCIPAL = 1
-	
-	JOIN FAMILIA AS FM WITH (NOLOCK) ON
-	FM.IDFAMILIA = GF.IDFAMILIA 
-
-	JOIN PERSONA AS PSA WITH (NOLOCK) ON
-	PSA.TIPOIDENTIFICACION = ED.TIPOIDENTIFICACIONACUDIENTE AND
-	PSA.NUMEROIDENTIFICACION = ED.NUMEROIDENTIFICACIONACUDIENTE
-
-	JOIN PERSONA AS PSP WITH (NOLOCK) ON
-	PSP.TIPOIDENTIFICACION = FM.TIPODOCUMENTOPADRE AND
-	PSP.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOPADRE
-	
-	JOIN PADRE AS PDP WITH (NOLOCK) ON
-	PDP.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDP.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-
-	JOIN PERSONA AS PSM WITH (NOLOCK) ON
-	PSM.TIPOIDENTIFICACION = FM.TIPODOCUMENTOMADRE AND
-	PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
-
-	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Estudiantes">
+            <Value>=Parameters!Estudiantes.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_DatosPersonalesEstudiante</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -68,8 +46,16 @@ FROM PERSONA AS PR WITH (NOLOCK)
           <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="TeléfonoCasa">
+          <DataField>TeléfonoCasa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="IdentificacionEstudiante">
           <DataField>IdentificacionEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Barrio">
+          <DataField>Barrio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombrePadre">
@@ -78,6 +64,227 @@ FROM PERSONA AS PR WITH (NOLOCK)
         </Field>
         <Field Name="NombreMadre">
           <DataField>NombreMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Direccion">
+          <DataField>Direccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EstadoEstudiante">
+          <DataField>EstadoEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Curso">
+          <DataField>Curso</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionPadre">
+          <DataField>IdentificacionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionPadre">
+          <DataField>ProfesionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaPadre">
+          <DataField>EmpresaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaPadre">
+          <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularPadre">
+          <DataField>CelularPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoPadre">
+          <DataField>CorreoPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionMadre">
+          <DataField>IdentificacionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionMadre">
+          <DataField>ProfesionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaMadre">
+          <DataField>EmpresaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaMadre">
+          <DataField>TelefonoOficinaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularMadre">
+          <DataField>CelularMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoMadre">
+          <DataField>CorreoMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreAcudiente">
+          <DataField>NombreAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionAcudiente">
+          <DataField>IdentificacionAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularAcudiente">
+          <DataField>CelularAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PeriodoLectivo">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT * 
+FROM PERIODOLECTIVO
+ORDER BY AnioInicial desc</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioFinal">
+          <DataField>AnioFinal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AnioActivo">
+          <DataField>AnioActivo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="AnioAdmision">
+          <DataField>AnioAdmision</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FechaInicioPeriodo">
+          <DataField>FechaInicioPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FechaFinPeriodo">
+          <DataField>FechaFinPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT  * FROM
+SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@Seccion)</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE  PL.Id = @Periolectivo AND CR.IdNivel in (@Nivel) </CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Estudiantes">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT 
+ EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion
+,PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
+FROM EstudianteCurso AS EC
+INNER JOIN PERSONA AS PR
+ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
+AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+
+WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+ORDER BY PR.PrimerApellido ASC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreEstudiante">
+          <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -418,7 +625,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Usted puede seleccionar la forma en que desea vincularse a este programa, por medio de pagos mensuales que se incluirán en su talonario de pensiones y serán destinados a la “Fundación Cigarra” (ubicada en el barrio Puertas del Paraíso en Ciudad Bolívar); esta fundación brinda atención integral a 120 niños y niñas entre 3 meses y 12 años de edad, mediante apoyo nutricional y pedagógico.</Value>
+                                  <Value>Usted puede seleccionar la forma en que desea vincularse a este programa, por medio de pagos mensuales que se incluirán en su talonario de pensiones y serán destinados a la “Fundación Cigarra” (ubicada en el barrio Puertas del Paraíso en Ciudad Bolívar); esta fundación brinda atención integral a 192 niños y niñas entre 3 meses y 12 años de edad, mediante apoyo nutricional y pedagógico.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -500,7 +707,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>$35.000 mensuales Apadrina  1 niño</Value>
+                                  <Value>$45.000 mensuales Apadrina  1 niño</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -584,7 +791,7 @@ FROM PERSONA AS PR WITH (NOLOCK)
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>$65.000 mensuales</Value>
+                                  <Value>$75.000 mensuales</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -1112,6 +1319,87 @@ FROM PERSONA AS PR WITH (NOLOCK)
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Periolectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Curso">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Estudiantes">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Estudiantes</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>NombreEstudiante</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="SGS">
       <MIMEType>image/png</MIMEType>

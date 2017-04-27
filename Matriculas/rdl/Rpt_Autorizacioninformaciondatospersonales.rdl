@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -16,58 +16,25 @@
     <DataSet Name="QueryConsentimiento">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT 
-	 ED.CodigoEstudiante
-	,PR.PrimerApellido +' '+ PR.SegundoApellido + ' ' + PR.PrimerNombre + ' '+ Pr.SegundoNombre AS NombreEstudiante
-	,CR.Nombre as Curso
-	,PSP.PrimerApellido +' '+ PSP.SegundoApellido + ' ' + PSP.PrimerNombre + ' '+ PSP.SegundoNombre AS NombrePadre
-	,PSP.TipoIdentificacion +' '+ PSP.NumeroIdentificacion AS NumeroIdentificacionPadre
-	,PSM.PrimerApellido +' '+ PSM.SegundoApellido + ' ' + PSM.PrimerNombre + ' '+ PSM.SegundoNombre AS NombreMadre
-	,PSM.TipoIdentificacion +' '+ PSP.NumeroIdentificacion AS NumeroIdentificacionMadre
-	,PSA.PrimerApellido +' '+ PSA.SegundoApellido + ' ' + PSA.PrimerNombre + ' '+ PSA.SegundoNombre AS NombreAcudiente
-	,PSA.Tipoidentificacion +' '+ PSA.NumeroIdentificacion AS NumeroIdentificacionAcudiente
-FROM PERSONA AS PR WITH (NOLOCK)
-	
-	JOIN ESTUDIANTE AS ED WITH (NOLOCK) ON
-	ED.TIPOIDENTIFICACION =  PR.TIPOIDENTIFICACION AND
-	ED.NUMEROIDENTIFICACION = PR.NUMEROIDENTIFICACION
-
-	JOIN ESTUDIANTECURSO AS ESC WITH (NOLOCK) ON
-	ESC.TIPOIDENTIFICACIONESTUDIANTE = ED.TIPOIDENTIFICACION AND
-	ESC.NUMEROIDENTIFICACIONESTUDIANTE = ED.NUMEROIDENTIFICACION
-	
-	JOIN CURSO AS CR WITH (NOLOCK) ON
-	CR.IDCURSO = ESC.IDCURSO AND
-	ANIOACADEMICO = 2
-	
-	JOIN GRUPOFAMILIAR AS GF WITH (NOLOCK) ON
-	GF.TIPOIDENTIFICACIONMIEMBRO = PR.TIPOIDENTIFICACION AND
-	GF.NUMEROIDENTIFICACIONMIEMBRO = PR.NUMEROIDENTIFICACION
-	
-	JOIN FAMILIA AS FM WITH (NOLOCK) ON
-	FM.IDFAMILIA = GF.IDFAMILIA 
-
-	JOIN PERSONA AS PSA WITH (NOLOCK) ON
-	PSA.TIPOIDENTIFICACION = ED.TIPOIDENTIFICACIONACUDIENTE AND
-	PSA.NUMEROIDENTIFICACION = ED.NUMEROIDENTIFICACIONACUDIENTE
-
-	JOIN PERSONA AS PSP WITH (NOLOCK) ON
-	PSP.TIPOIDENTIFICACION = FM.TIPODOCUMENTOPADRE AND
-	PSP.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOPADRE
-	
-	JOIN PADRE AS PDP WITH (NOLOCK) ON
-	PDP.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDP.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION 
-
-	JOIN PERSONA AS PSM WITH (NOLOCK) ON
-	PSM.TIPOIDENTIFICACION = FM.TIPODOCUMENTOMADRE AND
-	PSM.NUMEROIDENTIFICACION = FM.NUMERODOCUMENTOMADRE
-
-	JOIN PADRE AS PDM WITH (NOLOCK) ON
-	PDM.TIPOIDENTIFICACION = PSP.TIPOIDENTIFICACION AND
-	PDM.NUMEROIDENTIFICACION = PSP.NUMEROIDENTIFICACION
-	
-ORDER BY CR.IDCURSO ASC</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Estudiantes">
+            <Value>=Parameters!Estudiantes.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_DatosPersonalesEstudiante</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -79,6 +46,14 @@ ORDER BY CR.IDCURSO ASC</CommandText>
           <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="IdentificacionEstudiante">
+          <DataField>IdentificacionEstudiante</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TeléfonoCasa">
+          <DataField>TeléfonoCasa</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NombrePadre">
           <DataField>NombrePadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -87,24 +62,229 @@ ORDER BY CR.IDCURSO ASC</CommandText>
           <DataField>Curso</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionPadre">
-          <DataField>NumeroIdentificacionPadre</DataField>
+        <Field Name="Barrio">
+          <DataField>Barrio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Direccion">
+          <DataField>Direccion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreMadre">
           <DataField>NombreMadre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionMadre">
-          <DataField>NumeroIdentificacionMadre</DataField>
+        <Field Name="EstadoEstudiante">
+          <DataField>EstadoEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreAcudiente">
           <DataField>NombreAcudiente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NumeroIdentificacionAcudiente">
-          <DataField>NumeroIdentificacionAcudiente</DataField>
+        <Field Name="Nivel">
+          <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Seccion">
+          <DataField>Seccion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionPadre">
+          <DataField>IdentificacionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionPadre">
+          <DataField>ProfesionPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaPadre">
+          <DataField>EmpresaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaPadre">
+          <DataField>TelefonoOficinaPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularPadre">
+          <DataField>CelularPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoPadre">
+          <DataField>CorreoPadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionMadre">
+          <DataField>IdentificacionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProfesionMadre">
+          <DataField>ProfesionMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="EmpresaMadre">
+          <DataField>EmpresaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoOficinaMadre">
+          <DataField>TelefonoOficinaMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularMadre">
+          <DataField>CelularMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoMadre">
+          <DataField>CorreoMadre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="IdentificacionAcudiente">
+          <DataField>IdentificacionAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CelularAcudiente">
+          <DataField>CelularAcudiente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="PeriodoLectivo">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT *
+FROM PERIODOLECTIVO
+ORDER BY AnioInicial desc</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="AnioFinal">
+          <DataField>AnioFinal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Descripcion">
+          <DataField>Descripcion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="AnioActivo">
+          <DataField>AnioActivo</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="AnioAdmision">
+          <DataField>AnioAdmision</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="FechaInicioPeriodo">
+          <DataField>FechaInicioPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="FechaFinPeriodo">
+          <DataField>FechaFinPeriodo</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Seccion">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <CommandText>SELECT * 
+FROM SECCION</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdSeccion">
+          <DataField>IdSeccion</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Nivel">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Seccion">
+            <Value>=Parameters!Seccion.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Select idNivel, Nombre From Nivel where idSeccion in (@Seccion)</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="idNivel">
+          <DataField>idNivel</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Curso">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Nivel">
+            <Value>=Parameters!Nivel.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Periolectivo">
+            <Value>=Parameters!Periolectivo.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT CR.IdCurso, CR.Nombre FROM CURSO AS CR
+INNER JOIN PERIODOLECTIVO AS PL
+ON CR.AnioAcademico = PL.Id
+WHERE  PL.Id = @Periolectivo AND CR.IdNivel in (@Nivel) </CommandText>
+      </Query>
+      <Fields>
+        <Field Name="IdCurso">
+          <DataField>IdCurso</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="Estudiantes">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Curso">
+            <Value>=Parameters!Curso.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT 
+ EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion
+,PR.PrimerApellido +' '+ isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' '+ isNull(PR.SegundoNombre,'') AS NombreEstudiante
+FROM EstudianteCurso AS EC
+INNER JOIN PERSONA AS PR
+ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
+AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+
+WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+ORDER BY PR.PrimerApellido ASC</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreEstudiante">
+          <DataField>NombreEstudiante</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -126,7 +306,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.55014cm</Height>
+                  <Height>0.80338cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -171,7 +351,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.60306cm</Height>
+                  <Height>0.8563cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -188,7 +368,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!Curso.Value</Value>
+                                  <Value>=Fields!Nivel.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -231,6 +411,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                                   <Value>=Today()</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>dddd, d 'de' MMMM 'de' yyyy</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -256,7 +437,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.85324cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -313,7 +494,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!NumeroIdentificacionPadre.Value</Value>
+                                  <Value>=Fields!IdentificacionPadre.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -341,7 +522,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>0.85324cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -398,7 +579,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
-                                  <Value>=Fields!NumeroIdentificacionMadre.Value</Value>
+                                  <Value>=Fields!IdentificacionMadre.Value</Value>
                                   <Style>
                                     <FontWeight>Normal</FontWeight>
                                   </Style>
@@ -426,7 +607,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.64876cm</Height>
+                  <Height>0.902cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -458,6 +639,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                               <Style>Solid</Style>
                             </Border>
                             <BackgroundColor>Gainsboro</BackgroundColor>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -471,7 +653,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>11.34515cm</Height>
+                  <Height>11.59839cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -482,23 +664,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>La presente solicitud para el TRATAMIENTO DE LA INFORMACIÓN CONSTITUTIVA DE DATOS PERSONALES es la manifestación expresa, previa e informada del consentimiento de los padres de familia y/o acudientes de manera personal y en representación de sus hijos, o de proveedores y trabajadores vinculados al servicio docente o administrativo de la institución educativa, para autorizar al Colegio San Jorge de Inglaterra a realizar cualquier operación o conjunto de operaciones sobre datos personales, tales como la recolección, almacenamiento, uso, actualización, circulación o supresión de los datos personales que voluntariamente suministre el Titular al diligenciar los formatos y/o formularios a los que acceda a través de la página web del Colegio San Jorge de Inglaterra.</Value>
+                                  <Value>La presente solicitud para el TRATAMIENTO DE LA INFORMACIÓN CONSTITUTIVA DE DATOS PERSONALES es la manifestación expresa, previa e informada del consentimiento de los padres de familia y/o acudientes de manera personal y en representación de sus hijos, o de proveedores y trabajadores vinculados al servicio docente o administrativo de la institución educativa, para autorizar al Colegio San Jorge de Inglaterra a realizar cualquier operación o conjunto de operaciones sobre datos personales, tales como la recolección, almacenamiento, uso, actualización, circulación o supresión de los datos personales que voluntariamente suministre el Titular.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -507,15 +673,13 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
+                              <Style />
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>
+El consentimiento se extiende a la solicitud de datos sensibles mínimos requeridos para cumplir los fines para los que será suministrada. No obstante los datos relativos a la salud, sexualidad y los biométricos que sean suministrados libremente serán los estrictamente necesarios para cumplir una función directamente relacionada con la actividad educativa, el bienestar de la comunicad educativa, salvaguardar el interés vital del Titular y la seguridad de la institución. En cualquier tratamiento de información sensible con finalidad histórica, estadística o científica se suprimirá la identidad de los titulares. También se extiende la autorización a la transferencia a terceros países que proporcionen niveles adecuados de protección de datos según los estándares fijados por la Superintendencia de Industria y Comercio sobre la materia y en particular el tratamiento de datos personales que se hace en aplicaciones en la nube (Phidias, Officce365, Acumen-Windows Azure), los cuales operan sus servicios en Estados Unidos y otros países.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -532,7 +696,8 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>El consentimiento se extiende a la solicitud de datos sensibles mínimos requeridos para cumplir los fines para los que será suministrada. No obstante los datos relativos a la salud, sexualidad y los biométricos que sean suministrados libremente serán los estrictamente necesarios para cumplir una función directamente relacionada con la actividad educativa, el bienestar de la comunicad educativa, salvaguardar el interés vital del Titular y la seguridad de la institución. En cualquier tratamiento de información sensible con finalidad histórica, estadística o científica se suprimirá la identidad de los titulares. También se extiende la autorización a la transferencia a terceros países que proporcionen niveles adecuados de protección de datos según los estándares fijados por la Superintendencia de Industria y Comercio sobre la materia.</Value>
+                                  <Value>
+Al expresar la aceptación con la Política de Tratamiento de la Información para la protección de datos personales en el Colegio San Jorge de Inglaterra y otorgar el consentimiento para el Tratamiento y manejo de la Información, el Titular de los datos personales autoriza a las personas y organizaciones que el Colegio designe como encargados de dicho tratamiento.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -549,7 +714,9 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>
+ACEPTO la Política de Tratamiento de la Información para la protección de datos personales en el Colegio San Jorge de Inglaterra
+OTORGO el consentimiento para el Tratamiento de mis datos personales y los de mis hijos, manifestando que los suministro de manera libre y voluntaria.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -566,7 +733,8 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Al expresar la aceptación con la Política de Tratamiento de la Información para la protección de datos personales en el Colegio San Jorge de Inglaterra y otorgar el consentimiento para el Tratamiento y manejo de la Información, el Titular de los datos personales autoriza a las personas que el Colegio designe como encargados y responsables de dicho tratamiento.</Value>
+                                  <Value>
+Nota: La autorización que Ud. otorga será registrada con su fecha y medio de otorgamiento, será conservada por el Colegio San Jorge de Inglaterra en cualquier medio que permita su consulta posterior y la expedición de copia al Titular en caso de ser requerida.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontSize>9pt</FontSize>
@@ -578,123 +746,6 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                               <Style>
                                 <TextAlign>Left</TextAlign>
                                 <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>ACEPTO la Política de Tratamiento de la Información para la protección de datos personales en el Colegio San Jorge de Inglaterra</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>OTORGO el consentimiento para el Tratamiento de mis datos personales, manifestando que los suministro de manera libre y voluntaria.</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Nota: La autorización que Ud. otorga será registrada con su fecha y medio de otorgamiento, será conservada por el Colegio San Jorge de Inglaterra en cualquier medio que permita su consulta posterior y la expedición de copia al Titular en caso de ser requerida.</Value>
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                                <LineHeight>13pt</LineHeight>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -716,7 +767,7 @@ ORDER BY CR.IDCURSO ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>3.19346cm</Height>
+                  <Height>3.4467cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -908,9 +959,9 @@ ORDER BY CR.IDCURSO ASC</CommandText>
             </TablixRowHierarchy>
             <KeepTogether>true</KeepTogether>
             <DataSetName>QueryConsentimiento</DataSetName>
-            <Top>0.29104cm</Top>
-            <Left>0.42016cm</Left>
-            <Height>17.54057cm</Height>
+            <Top>0.65115cm</Top>
+            <Left>0.69191cm</Left>
+            <Height>19.31325cm</Height>
             <Width>19.96172cm</Width>
             <Style>
               <Border>
@@ -939,14 +990,14 @@ ORDER BY CR.IDCURSO ASC</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>19.41649cm</Height>
+        <Height>20.17787cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>21.27073cm</Width>
+      <Width>21.13844cm</Width>
       <Page>
         <PageHeader>
           <Height>26.34116mm</Height>
@@ -995,7 +1046,7 @@ PROCESO MATRÍCULAS</Value>
               <Top>0.37042cm</Top>
               <Left>11.28641cm</Left>
               <Height>2.06375cm</Height>
-              <Width>9.09546cm</Width>
+              <Width>9.36005cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1011,9 +1062,9 @@ PROCESO MATRÍCULAS</Value>
               <Value>BlancoSGS</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.37042cm</Top>
-              <Left>0.44662cm</Left>
+              <Left>0.68474cm</Left>
               <Height>2.06375cm</Height>
-              <Width>10.45104cm</Width>
+              <Width>10.21292cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1084,6 +1135,91 @@ PROCESO MATRÍCULAS</Value>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Periolectivo">
+      <DataType>Integer</DataType>
+      <Prompt>Periodo Lectivo</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>Id</ValueField>
+          <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Seccion">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Sección</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Nivel">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Seccion</DataSetName>
+          <ValueField>IdSeccion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Nivel</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Curso">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Curso</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Curso</DataSetName>
+          <ValueField>IdCurso</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Estudiantes">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Estudiantes</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Estudiantes</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>NombreEstudiante</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="SGS">
       <MIMEType>image/png</MIMEType>
