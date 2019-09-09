@@ -154,22 +154,27 @@
           <DataField>IdentificacionAcudiente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="AnioInicial">
+          <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * 
-FROM PERIODOLECTIVO
+        <CommandText>SELECT 
+*
+FROM PERIODOLECTIVO AS PR
 ORDER BY AnioInicial desc</CommandText>
       </Query>
       <Fields>
-        <Field Name="Id">
-          <DataField>Id</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="AnioInicial">
           <DataField>AnioInicial</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="AnioFinal">
@@ -283,7 +288,7 @@ INNER JOIN PERSONA AS PR
 ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
 AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
 
-WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+WHERE EC.idCurso in(@Curso)
 ORDER BY PR.PrimerApellido ASC</CommandText>
       </Query>
       <Fields>
@@ -306,27 +311,27 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.88762cm</Width>
+                  <Width>1.71886cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.67044cm</Width>
+                  <Width>6.50168cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.86371cm</Width>
+                  <Width>2.69495cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.27894cm</Width>
+                  <Width>3.11018cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.66091cm</Width>
+                  <Width>2.49215cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.36409cm</Width>
+                  <Width>3.19533cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.09361cm</Height>
+                  <Height>1.42245cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -339,7 +344,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Seleccione quien será el responsable tributario para el año gravable _____   </Value>
+                                      <Value>Seleccione quien será el responsable tributario para el año gravable: </Value>
                                       <Style>
                                         <FontSize>9pt</FontSize>
                                       </Style>
@@ -351,9 +356,9 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox14</rd:DefaultName>
-                              <Top>0.3175cm</Top>
+                              <Top>0.11905cm</Top>
                               <Height>0.77611cm</Height>
-                              <Width>11.28959cm</Width>
+                              <Width>10.22254cm</Width>
                               <Style>
                                 <Border>
                                   <Style>None</Style>
@@ -384,8 +389,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.17197cm</Top>
-                              <Left>11.56569cm</Left>
+                              <Top>0.14551cm</Top>
+                              <Left>10.33844cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.0685cm</Width>
                               <ZIndex>1</ZIndex>
@@ -419,8 +424,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.14552cm</Top>
-                              <Left>13.5426cm</Left>
+                              <Top>0.11906cm</Top>
+                              <Left>12.31535cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.15669cm</Width>
                               <ZIndex>2</ZIndex>
@@ -454,8 +459,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.14552cm</Top>
-                              <Left>15.50186cm</Left>
+                              <Top>0.11906cm</Top>
+                              <Left>14.27461cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.50065cm</Width>
                               <ZIndex>3</ZIndex>
@@ -489,8 +494,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox54</rd:DefaultName>
-                              <Top>0.11906cm</Top>
-                              <Left>17.94619cm</Left>
+                              <Top>0.0926cm</Top>
+                              <Left>16.71894cm</Left>
                               <Height>0.72319cm</Height>
                               <Width>1.85758cm</Width>
                               <ZIndex>4</ZIndex>
@@ -507,8 +512,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                             </Textbox>
                             <Rectangle Name="Rectangle6">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.14551cm</Top>
-                              <Left>19.98016cm</Left>
+                              <Top>0.11905cm</Top>
+                              <Left>18.75291cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>5</ZIndex>
@@ -540,8 +545,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                             </Rectangle>
                             <Rectangle Name="Rectangle7">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.14551cm</Top>
-                              <Left>17.11082cm</Left>
+                              <Top>0.11905cm</Top>
+                              <Left>15.88357cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>6</ZIndex>
@@ -573,8 +578,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                             </Rectangle>
                             <Rectangle Name="Rectangle8">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.14551cm</Top>
-                              <Left>14.77232cm</Left>
+                              <Top>0.11905cm</Top>
+                              <Left>13.54507cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>7</ZIndex>
@@ -606,8 +611,8 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                             </Rectangle>
                             <Rectangle Name="Rectangle9">
                               <KeepTogether>true</KeepTogether>
-                              <Top>0.14551cm</Top>
-                              <Left>12.81306cm</Left>
+                              <Top>0.11905cm</Top>
+                              <Left>11.58581cm</Left>
                               <Height>0.69673cm</Height>
                               <Width>0.65898cm</Width>
                               <ZIndex>8</ZIndex>
@@ -656,7 +661,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.46302cm</Height>
+                  <Height>1.03471cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -684,6 +689,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -720,6 +726,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -752,6 +759,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -763,7 +771,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.69827cm</Height>
+                  <Height>1.02711cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -908,7 +916,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.57208cm</Height>
+                  <Height>0.90092cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -954,7 +962,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.77764cm</Height>
+                  <Height>1.10648cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1088,8 +1096,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Switch (
-         Fields!ResponsablePago.Value = "PA",Fields!IdentificacionPadre.Value
+                                  <Value>=Switch (Fields!ResponsablePago.Value = "PA",Fields!IdentificacionPadre.Value
         ,Fields!ResponsablePago.Value = "MA", Fields!IdentificacionMadre.Value
         ,Fields!ResponsablePago.Value = "AC", Fields!IdentificacionAcudiente.Value
         ,Fields!ResponsablePago.Value = "PAMA",Fields!IdentificacionPadre.Value
@@ -1207,7 +1214,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.77764cm</Height>
+                  <Height>1.10648cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1454,7 +1461,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>3.89973cm</Height>
+                  <Height>4.22857cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1467,7 +1474,17 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Mediante la información aquí consignada se realizará el certificado anual de pagos por concepto de educación así como los reportes a la DIAN en medios magnéticos por el año gravable .__________</Value>
+                                      <Value>Mediante la información aquí consignada se realizará el certificado anual de pagos por concepto de educación así como los reportes a la DIAN en medios magnéticos por el año gravable </Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!AnioInicial.Value</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontSize>9pt</FontSize>
@@ -1502,7 +1519,13 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Nombre del Responsable Tributario</Value>
+                                      <Value>=Switch(
+         Fields!ResponsablePago.Value = "PA",Fields!NombrePadre.Value
+        ,Fields!ResponsablePago.Value = "MA", Fields!NombreMadre.Value
+        ,Fields!ResponsablePago.Value = "AC", Fields!NombreAcudiente.Value
+        ,Fields!ResponsablePago.Value = "PAMA",Fields!NombrePadre.Value
+        ,Fields!ResponsablePago.Value = "OT", Fields!OtroResponsable.Value 
+ )</Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
@@ -1577,7 +1600,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                 <TablixMember>
                   <Group Name="Details">
                     <PageBreak>
-                      <BreakLocation>End</BreakLocation>
+                      <BreakLocation>Between</BreakLocation>
                     </PageBreak>
                   </Group>
                   <TablixMembers>
@@ -1593,10 +1616,13 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>QueryResponsableTributario</DataSetName>
+            <PageBreak>
+              <BreakLocation>Between</BreakLocation>
+            </PageBreak>
             <Top>0.21248cm</Top>
-            <Left>0.04162cm</Left>
-            <Height>8.28201cm</Height>
-            <Width>20.72571cm</Width>
+            <Left>0.33673cm</Left>
+            <Height>10.82669cm</Height>
+            <Width>19.71312cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1624,17 +1650,17 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>8.73732cm</Height>
+        <Height>11.30378cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>20.92609cm</Width>
+      <Width>20.31755cm</Width>
       <Page>
         <PageHeader>
-          <Height>27.92866mm</Height>
+          <Height>24.22449mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1642,10 +1668,10 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
               <Source>Embedded</Source>
               <Value>BlancoSGS</Value>
               <Sizing>FitProportional</Sizing>
-              <Top>0.10583cm</Top>
-              <Left>0.68474cm</Left>
-              <Height>2.43417cm</Height>
-              <Width>11.36896cm</Width>
+              <Top>0.16439cm</Top>
+              <Left>0.33673cm</Left>
+              <Height>2.08167cm</Height>
+              <Width>10.84932cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1668,8 +1694,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>
-GESTIÓN FINANCIERA</Value>
+                      <Value>GESTIÓN FINANCIERA</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Segoe UI</FontFamily>
@@ -1703,9 +1728,9 @@ GESTIÓN FINANCIERA</Value>
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.14083cm</Top>
-              <Left>12.23009cm</Left>
-              <Height>2.39917cm</Height>
-              <Width>8.53725cm</Width>
+              <Left>12.56753cm</Left>
+              <Height>2.08167cm</Height>
+              <Width>7.48232cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1773,14 +1798,14 @@ GESTIÓN FINANCIERA</Value>
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>139mm</PageHeight>
-        <PageWidth>216mm</PageWidth>
-        <InteractiveHeight>0cm</InteractiveHeight>
+        <PageHeight>35.56cm</PageHeight>
+        <PageWidth>21.59cm</PageWidth>
+        <InteractiveHeight>13.97cm</InteractiveHeight>
         <InteractiveWidth>21.59cm</InteractiveWidth>
-        <LeftMargin>3mm</LeftMargin>
-        <RightMargin>3mm</RightMargin>
-        <TopMargin>3mm</TopMargin>
-        <BottomMargin>3mm</BottomMargin>
+        <LeftMargin>0.3cm</LeftMargin>
+        <RightMargin>0.3cm</RightMargin>
+        <TopMargin>0.5cm</TopMargin>
+        <BottomMargin>0.5cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
@@ -1824,12 +1849,6 @@ GESTIÓN FINANCIERA</Value>
     </ReportParameter>
     <ReportParameter Name="Curso">
       <DataType>String</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>Curso</DataSetName>
-          <ValueField>IdCurso</ValueField>
-        </DataSetReference>
-      </DefaultValue>
       <Prompt>Curso</Prompt>
       <ValidValues>
         <DataSetReference>

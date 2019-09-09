@@ -1,0 +1,33 @@
+	SELECT EC.NumeroIdentificacionEstudiante AS NumeroIdentificacion, 
+		   PR.PrimerApellido + ' ' + ISNULL(PR.SegundoApellido, '') + ' ' + PR.PrimerNombre + ' ' + ISNULL(PR.SegundoNombre, '') AS NombreEstudiante
+	FROM PeriodoLectivo AS PL
+		 INNER JOIN CURSO CR ON PL.AnioActivo = 1
+								AND CR.AnioAcademico = PL.Id
+								AND CR.idCurso in (@Curso)
+		 INNER JOIN EstudianteCurso AS EC ON CR.IdCurso = EC.IdCurso
+		 INNER JOIN PERSONA AS PR ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion
+									 AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
+		 INNER JOIN ESTUDIANTE E ON EC.TipoIdentificacionEstudiante = E.TipoIdentificacion
+									AND EC.NumeroIdentificacionEstudiante = E.NumeroIdentificacion
+	WHERE PR.PrimerNombre + ' ' + ISNULL(PR.SegundoNombre, '') + ' ' + PR.PrimerApellido + ' ' + ISNULL(PR.SegundoApellido, '') + ' ' + CONVERT(VARCHAR(10), E.CodigoEstudiante) LIKE '%' + replace(@PNombreEstudiante, ' ', '%') + '%' COLLATE Latin1_General_CI_AI
+	ORDER BY PR.PrimerApellido ASC;
+
+
+
+    	/*IF (@TipoRolUsuario = @TipoRolDocente)
+	BEGIN
+		SELECT 
+			CR.IdCurso,
+			CR.Nombre
+		FROM dbo.MateriaCurso AS MC WITH(NOLOCK)
+		INNER JOIN  Curso AS CR ON
+		MC.IdCurso = CR.IdCurso 
+		AND CR.AnioAcademico = @iP_AnioAcademico
+		WHERE  MC.TipoDocumentoProfesor = @TipoIdentificacionUsuario
+				AND MC.NumeroDocumentoProfesor = @NumeroIdentificacionUsuario
+				/*AND	((LTRIM(RTRIM(T.Apellido + ' ' + ISNULL(LTRIM(RTRIM(T.Nombre1)),'')))) 
+		LIKE '%' + @PNombreEstudiante + '%' COLLATE Modern_Spanish_CI_AI OR @PNombreEstudiante IS NULL)
+		INNER JOIN @Cursos AS TCR ON T.IdCurso = TCR.IdCurso
+		ORDER BY T.Nombre*/
+		
+	END*/

@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=amarillo.cloudapp.net,57500</ConnectString>
+        <ConnectString>Data Source=naranja.cloudapp.net,57500</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -43,7 +43,7 @@
         </Field>
         <Field Name="RutaManana">
           <DataField>RutaManana</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="HoraManana">
           <DataField>HoraManana</DataField>
@@ -93,7 +93,10 @@
         <CommandText>SELECT *
 FROM
 BUSRUTA
-WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'</CommandText>
+WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'
+
+ORDER BY
+	CONVERT(INT,DominioNombreRuta)ASC</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -1430,16 +1433,33 @@ WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'</CommandText>
             <TablixRowHierarchy>
               <TablixMembers>
                 <TablixMember>
-                  <Group Name="Details" />
+                  <Group Name="RutaManana">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!RutaManana.Value</GroupExpression>
+                    </GroupExpressions>
+                    <PageBreak>
+                      <BreakLocation>Between</BreakLocation>
+                    </PageBreak>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!RutaManana.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
                   <TablixMembers>
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
-                    <TablixMember />
+                    <TablixMember>
+                      <Group Name="Details" />
+                      <TablixMembers>
+                        <TablixMember />
+                        <TablixMember />
+                        <TablixMember />
+                        <TablixMember />
+                        <TablixMember />
+                        <TablixMember />
+                        <TablixMember />
+                        <TablixMember />
+                      </TablixMembers>
+                    </TablixMember>
                   </TablixMembers>
                 </TablixMember>
               </TablixMembers>
@@ -1474,7 +1494,7 @@ WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'</CommandText>
           </Border>
         </Style>
       </Body>
-      <Width>195.71026mm</Width>
+      <Width>196.47862mm</Width>
       <Page>
         <PageHeader>
           <Height>19.7625mm</Height>
@@ -1667,6 +1687,7 @@ WHERE DominioJornada = '11' and FechaCalendario = '1900-01-01'</CommandText>
           <LabelField>DominioNombreRuta</LabelField>
         </DataSetReference>
       </ValidValues>
+      <MultiValue>true</MultiValue>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>

@@ -74,10 +74,13 @@ WHERE CONVERT (DATE, FechaInicio) = @parametro</CommandText>
         <CommandText>SELECT DISTINCT 
 	CONVERT (DATE, FechaInicio) AS DIA
 	,CONVERT(varchar(15),CAST(FechaInicio AS DATE),100)  AS FechaInicio
-FROM Programacion 
+FROM Programacion AS PR 
+INNER JOIN PeriodoLectivo AS PL
+ON PR.PeriodoLectivo_Id = PL.Id
 WHERE 
 	Evento_Id = '17' 
-	and PeriodoLectivo_Id = '12'</CommandText>
+	AND PL.AnioAdmision = 1
+</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>

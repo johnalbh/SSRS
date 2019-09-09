@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -17,11 +17,8 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
@@ -90,11 +87,8 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
@@ -112,8 +106,7 @@ FROM NovedadMedica AS NVM
 	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
 	NVM.IdTipoNovedad = 33
-	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @PEstudiante
 ORDER BY 
 	NVM.Fecha1 DESC</CommandText>
       </Query>
@@ -160,11 +153,8 @@ ORDER BY
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
@@ -180,8 +170,7 @@ FROM NovedadMedica  AS NVMP
 	ON NVMP.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
 	NVMP.IdTipoNovedad = 34
-	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @PEstudiante
 ORDER BY 
 	NVMP.Fecha1 DESC</CommandText>
       </Query>
@@ -220,11 +209,8 @@ ORDER BY
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
@@ -240,8 +226,7 @@ FROM NovedadMedica  AS NVM
 	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
 	NVM.IdTipoNovedad = 35
-	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @PEstudiante
 ORDER BY 
 	NVM.Fecha1 DESC</CommandText>
       </Query>
@@ -276,11 +261,8 @@ ORDER BY
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
@@ -294,8 +276,7 @@ FROM NovedadMedica  AS NVM
 	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
 	NVM.IdTipoNovedad = 36
-	AND PNM.TipoIdentificacionPersona = @TipoIdentificacion
-	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @PEstudiante
 ORDER BY 
 	NVM.Fecha1 DESC</CommandText>
       </Query>
@@ -322,11 +303,8 @@ ORDER BY
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
@@ -351,8 +329,7 @@ FROM NovedadMedica  AS NVM
 	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
    NVM.IdTipoNovedad = 1
-   AND  PNM.TipoIdentificacionPersona = @TipoIdentificacion
-   AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+   AND PNM.NumeroIdentificacionPersona = @PEstudiante
 ORDER BY 
 	NVM.Fecha1 DESC</CommandText>
       </Query>
@@ -427,11 +404,8 @@ ORDER BY
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@TipoIdentificacion">
-            <Value>=Parameters!TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@NumeroIdentificacion">
-            <Value>=Parameters!NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT 
@@ -446,8 +420,7 @@ FROM NovedadMedica  AS NVM
 	ON NVM.IdNovedadMedica = PNM.IdNovedadMedica
 WHERE 
 	NVM.IdTipoNovedad = 5
-	AND  PNM.TipoIdentificacionPersona = @TipoIdentificacion
-	AND PNM.NumeroIdentificacionPersona = @NumeroIdentificacion
+	AND PNM.NumeroIdentificacionPersona = @PEstudiante
 ORDER BY 
 	NVM.Fecha1 DESC</CommandText>
       </Query>
@@ -478,31 +451,25 @@ ORDER BY
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="TipoDocumento">
+    <DataSet Name="DatosEstudianteNombre">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM DOMINIO WHERE DOMINIO = 'TipoDocumento' </CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@PNombreEstudiante">
+            <Value>=Parameters!PNombreEstudiante.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_ConsultaEstudiantesPorNombre</CommandText>
       </Query>
       <Fields>
-        <Field Name="Dominio">
-          <DataField>Dominio</DataField>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Valor">
-          <DataField>Valor</DataField>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Criterio">
-          <DataField>Criterio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Activo">
-          <DataField>Activo</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -2099,20 +2066,20 @@ ORDER BY
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="TipoIdentificacion">
+    <ReportParameter Name="PNombreEstudiante">
       <DataType>String</DataType>
-      <Prompt>Tipo Identificacion</Prompt>
+      <Prompt>Ingrese Nombre Estudiante</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PEstudiante">
+      <DataType>String</DataType>
+      <Prompt>Seleccione Estudiante</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>TipoDocumento</DataSetName>
-          <ValueField>Valor</ValueField>
-          <LabelField>Descripcion</LabelField>
+          <DataSetName>DatosEstudianteNombre</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>
-    </ReportParameter>
-    <ReportParameter Name="NumeroIdentificacion">
-      <DataType>String</DataType>
-      <Prompt>Numero Identificacion</Prompt>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>

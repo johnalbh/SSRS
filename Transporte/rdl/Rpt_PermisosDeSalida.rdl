@@ -5,8 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
-        <Prompt>Specify a user name and password for data source SGS:</Prompt>
+        <ConnectString>Data Source="naranja.cloudapp.net, 57500";Initial Catalog=SGS</ConnectString>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>022032a0-3b04-44d8-b5eb-5c2167e62725</rd:DataSourceID>
@@ -498,8 +497,10 @@ SECCION</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Hora.Value</Value>
-                                  <Style />
+                                  <Value>=Format(CDate(IIF(Fields!Hora.Value = "NO CHANGE","00:00",Fields!Hora.Value)),"hh:mm tt")</Value>
+                                  <Style>
+                                    <Format>t</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -512,26 +513,6 @@ SECCION</CommandText>
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -756,7 +737,7 @@ SECCION</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.6cm</Height>
+                  <Height>1.73771cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -822,7 +803,9 @@ SECCION</CommandText>
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Observaciones.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -935,8 +918,10 @@ SECCION</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Autorizado.Value</Value>
-                                  <Style />
+                                  <Value>=UCase(Fields!Autorizado.Value)</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1221,7 +1206,7 @@ SECCION</CommandText>
             </SortExpressions>
             <Top>0.17639cm</Top>
             <Left>0.32725cm</Left>
-            <Height>4.62731cm</Height>
+            <Height>5.76502cm</Height>
             <Width>18.75613cm</Width>
             <Style>
               <Border>
@@ -1230,7 +1215,7 @@ SECCION</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>2.03213in</Height>
+        <Height>2.46963in</Height>
         <Style />
       </Body>
       <Width>7.61768in</Width>

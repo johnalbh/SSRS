@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=limon.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -17,11 +17,8 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@idP_TipoIdentificacion">
-            <Value>=Parameters!idP_TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@idP_NumeroIdentificacion">
-            <Value>=Parameters!idP_NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@idP_FechaInicio">
             <Value>=Parameters!idP_FechaInicio.Value</Value>
@@ -50,8 +47,16 @@
           <DataField>Edad</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="TipoIdentificacion">
+          <DataField>TipoIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="NombreNovedad">
           <DataField>NombreNovedad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NombreTipoNovedad">
@@ -84,34 +89,6 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="TipoDocumento">
-      <Query>
-        <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM DOMINIO WHERE DOMINIO = 'TipoDocumento' Order by  criterio asc</CommandText>
-      </Query>
-      <Fields>
-        <Field Name="Dominio">
-          <DataField>Dominio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Valor">
-          <DataField>Valor</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Criterio">
-          <DataField>Criterio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Activo">
-          <DataField>Activo</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
-        </Field>
-      </Fields>
-    </DataSet>
     <DataSet Name="EspecialidadCADI">
       <Query>
         <DataSourceName>SGS</DataSourceName>
@@ -140,6 +117,31 @@
         </Field>
       </Fields>
     </DataSet>
+    <DataSet Name="DatosEstudiante">
+      <Query>
+        <DataSourceName>SGS</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@PNombreEstudiante">
+            <Value>=Parameters!PNombreEstudiante.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@bP_incluirTodos">
+            <Value>=Parameters!bP_incluirTodos.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>PR_SGS_Rpt_ConsultaEstudiantesPorNombre</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
   </DataSets>
   <ReportSections>
     <ReportSection>
@@ -154,7 +156,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>24.89123mm</Height>
+                  <Height>30.89123mm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -167,10 +169,10 @@
                                     <Width>18.63968mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>15.84125mm</Width>
+                                    <Width>19.01625mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
-                                    <Width>31.20194mm</Width>
+                                    <Width>28.02694mm</Width>
                                   </TablixColumn>
                                   <TablixColumn>
                                     <Width>80.31201mm</Width>
@@ -333,6 +335,157 @@
                                     </TablixCells>
                                   </TablixRow>
                                   <TablixRow>
+                                    <Height>6mm</Height>
+                                    <TablixCells>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox4">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value>Tipo de Identificación : </Value>
+                                                    <Style>
+                                                      <FontWeight>Normal</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                  <TextRun>
+                                                    <Value>[TipoIdentificacion] [NumeroIdentificacion]</Value>
+                                                    <Style>
+                                                      <FontWeight>Bold</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox4</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                          <ColSpan>4</ColSpan>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell />
+                                      <TablixCell />
+                                      <TablixCell />
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox11">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value />
+                                                    <Style>
+                                                      <FontWeight>Normal</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox11</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox12">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value />
+                                                    <Style>
+                                                      <FontWeight>Normal</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox12</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                      <TablixCell>
+                                        <CellContents>
+                                          <Textbox Name="Textbox14">
+                                            <CanGrow>true</CanGrow>
+                                            <KeepTogether>true</KeepTogether>
+                                            <Paragraphs>
+                                              <Paragraph>
+                                                <TextRuns>
+                                                  <TextRun>
+                                                    <Value />
+                                                    <Style>
+                                                      <FontWeight>Normal</FontWeight>
+                                                    </Style>
+                                                  </TextRun>
+                                                </TextRuns>
+                                                <Style>
+                                                  <TextAlign>Left</TextAlign>
+                                                </Style>
+                                              </Paragraph>
+                                            </Paragraphs>
+                                            <rd:DefaultName>Textbox14</rd:DefaultName>
+                                            <Style>
+                                              <Border>
+                                                <Style>None</Style>
+                                              </Border>
+                                              <VerticalAlign>Middle</VerticalAlign>
+                                              <PaddingLeft>2pt</PaddingLeft>
+                                              <PaddingRight>2pt</PaddingRight>
+                                              <PaddingTop>2pt</PaddingTop>
+                                              <PaddingBottom>2pt</PaddingBottom>
+                                            </Style>
+                                          </Textbox>
+                                        </CellContents>
+                                      </TablixCell>
+                                    </TablixCells>
+                                  </TablixRow>
+                                  <TablixRow>
                                     <Height>10.77734mm</Height>
                                     <TablixCells>
                                       <TablixCell>
@@ -381,7 +534,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Número Sesión</Value>
+                                                    <Value>Nombre</Value>
                                                     <Style>
                                                       <FontSize>9pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -870,6 +1023,10 @@
                                     <RepeatOnNewPage>true</RepeatOnNewPage>
                                   </TablixMember>
                                   <TablixMember>
+                                    <KeepWithGroup>After</KeepWithGroup>
+                                    <RepeatOnNewPage>true</RepeatOnNewPage>
+                                  </TablixMember>
+                                  <TablixMember>
                                     <Group Name="Details" />
                                   </TablixMember>
                                 </TablixMembers>
@@ -878,7 +1035,7 @@
                               <DataSetName>Consulta_Atencion</DataSetName>
                               <Top>0mm</Top>
                               <Left>0mm</Left>
-                              <Height>24.89123mm</Height>
+                              <Height>30.89123mm</Height>
                               <Width>204.65209mm</Width>
                               <Style>
                                 <Border>
@@ -913,7 +1070,7 @@
             <DataSetName>Consulta_Atencion</DataSetName>
             <Top>1.76389mm</Top>
             <Left>3.175mm</Left>
-            <Height>24.89123mm</Height>
+            <Height>30.89123mm</Height>
             <Width>204.65209mm</Width>
             <Style>
               <Border>
@@ -922,7 +1079,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>28.24262mm</Height>
+        <Height>36.4447mm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -957,8 +1114,21 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>BIENESTAR ESTUDIANTIL 
- CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
+                      <Value>HISTORIA CLÍNICA</Value>
+                      <Style>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>BIENESTAR ESTUDIANTIL  - CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
                       <Style>
                         <FontSize>9pt</FontSize>
                         <FontWeight>Bold</FontWeight>
@@ -1056,7 +1226,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>8.25501mm</Height>
+          <Height>9.84251mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1067,13 +1237,13 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Fecha y Hora de Generación Reporte: </Value>
+                      <Value>Generado de Acumen: Fecha y Hora de Generación del Reporte: </Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=Globals!ExecutionTime</Value>
+                      <Value>=String.Format("{0:dd/MM/yyyy HH:mm:ss } ", Globals!ExecutionTime.AddHours(-5))</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -1085,10 +1255,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
-              <Top>0.70556mm</Top>
-              <Left>4.05639mm</Left>
-              <Height>7.54945mm</Height>
-              <Width>107.94999mm</Width>
+              <Top>1.41111mm</Top>
+              <Left>3.175mm</Left>
+              <Height>6.35mm</Height>
+              <Width>130.17499mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1120,21 +1290,6 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="idP_TipoIdentificacion">
-      <DataType>String</DataType>
-      <Prompt>Tipo Identificación:</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>TipoDocumento</DataSetName>
-          <ValueField>Valor</ValueField>
-          <LabelField>Descripcion</LabelField>
-        </DataSetReference>
-      </ValidValues>
-    </ReportParameter>
-    <ReportParameter Name="idP_NumeroIdentificacion">
-      <DataType>String</DataType>
-      <Prompt>Número Identificación:</Prompt>
-    </ReportParameter>
     <ReportParameter Name="idP_FechaInicio">
       <DataType>DateTime</DataType>
       <Prompt>Fecha Inicio:</Prompt>
@@ -1151,6 +1306,42 @@
           <DataSetName>EspecialidadCADI</DataSetName>
           <ValueField>Valor</ValueField>
           <LabelField>Descripcion</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="bP_incluirTodos">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Incluir</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>Estudiantes del año actual</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Estudiantes años anteriores</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="PNombreEstudiante">
+      <DataType>String</DataType>
+      <Prompt>Ingrese Nombre Estudiante</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PEstudiante">
+      <DataType>String</DataType>
+      <Prompt>Seleccione Estudiante</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DatosEstudiante</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>Nombre</LabelField>
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
@@ -1354,6 +1545,7 @@ ccLN/EzKWJgvh1Pzr0D9pPUPinq2r+NP2BP2A/GXxp8Q+J9OvtaP7QGveDNL/Z7+GHjBLfUP7OvJLfxZ
 uN7Z9SoooFcKKKKACiiigAooooAKKKKACiiigAooooAKKKKACv8AEG/4JO/8pTf+Caf/AGf/APBv/wBWL4coooA/2+aKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAP/9k=</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
+  <Language>es-ES</Language>
   <rd:ReportUnitType>Mm</rd:ReportUnitType>
   <rd:ReportID>0bfe13d7-9846-4726-817e-83b891b90c87</rd:ReportID>
 </Report>

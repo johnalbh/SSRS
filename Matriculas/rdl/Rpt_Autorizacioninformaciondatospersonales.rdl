@@ -34,7 +34,7 @@
           </QueryParameter>
         </QueryParameters>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>PR_SGS_DatosPersonalesEstudiante</CommandText>
+        <CommandText>PR_SGS_Rpt_DatosPersonalesEstudiante</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -82,8 +82,16 @@
           <DataField>NombreAcudiente</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ResponsablePago">
+          <DataField>ResponsablePago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Nivel">
           <DataField>Nivel</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="OtroResponsable">
+          <DataField>OtroResponsable</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Seccion">
@@ -151,8 +159,12 @@
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT *
-FROM PERIODOLECTIVO
+        <CommandText>DECLARE
+@PeriodoActual int = ( SELECT AnioInicial FROM PeriodoLectivo Where AnioActivo  = 1)
+SELECT 
+*
+FROM PERIODOLECTIVO AS PR
+WHERE anioinicial &gt;= @PeriodoActual 
 ORDER BY AnioInicial desc</CommandText>
       </Query>
       <Fields>
@@ -191,6 +203,10 @@ ORDER BY AnioInicial desc</CommandText>
         <Field Name="CodigoEstudiante">
           <DataField>CodigoEstudiante</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FechaAperturaAdmision">
+          <DataField>FechaAperturaAdmision</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -274,8 +290,7 @@ FROM EstudianteCurso AS EC
 INNER JOIN PERSONA AS PR
 ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
 AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
-
-WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+WHERE EC.idCurso in(@Curso)
 ORDER BY PR.PrimerApellido ASC</CommandText>
       </Query>
       <Fields>
@@ -351,7 +366,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.8563cm</Height>
+                  <Height>0.69755cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -405,6 +420,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                   <Value>Fecha: </Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
+                                    <Language>es-CO</Language>
                                   </Style>
                                 </TextRun>
                                 <TextRun>
@@ -412,6 +428,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                     <Format>dddd, d 'de' MMMM 'de' yyyy</Format>
+                                    <Language>es-CO</Language>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -437,7 +454,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.85324cm</Height>
+                  <Height>0.74741cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -522,7 +539,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.85324cm</Height>
+                  <Height>0.74741cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -673,7 +690,9 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>General</TextAlign>
+                              </Style>
                             </Paragraph>
                             <Paragraph>
                               <TextRuns>
@@ -689,7 +708,7 @@ El consentimiento se extiende a la solicitud de datos sensibles mínimos requeri
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>General</TextAlign>
                                 <LineHeight>13pt</LineHeight>
                               </Style>
                             </Paragraph>
@@ -707,7 +726,7 @@ Al expresar la aceptación con la Política de Tratamiento de la Información pa
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>General</TextAlign>
                                 <LineHeight>13pt</LineHeight>
                               </Style>
                             </Paragraph>
@@ -726,7 +745,7 @@ OTORGO el consentimiento para el Tratamiento de mis datos personales y los de mi
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>General</TextAlign>
                                 <LineHeight>13pt</LineHeight>
                               </Style>
                             </Paragraph>
@@ -744,7 +763,7 @@ Nota: La autorización que Ud. otorga será registrada con su fecha y medio de o
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>General</TextAlign>
                                 <LineHeight>13pt</LineHeight>
                               </Style>
                             </Paragraph>
@@ -771,160 +790,228 @@ Nota: La autorización que Ud. otorga será registrada con su fecha y medio de o
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle2">
-                          <ReportItems>
-                            <Textbox Name="Textbox45">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombrePadre.Value</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma Padre</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>1.97489cm</Top>
-                              <Left>0.37042cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>8.03685cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line2">
-                              <Top>1.7985cm</Top>
-                              <Left>0.37042cm</Left>
-                              <Height>0cm</Height>
-                              <Width>8.3279cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
+                        <Textbox Name="Textbox4">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>____________________________________________</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombrePadre.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma Padre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Rectangle>
+                        </Textbox>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Rectangle Name="Rectangle1">
-                          <ReportItems>
-                            <Textbox Name="Textbox46">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!NombreMadre.Value</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>Firma Madre</Value>
-                                      <Style />
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Center</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox43</rd:DefaultName>
-                              <Top>1.97489cm</Top>
-                              <Left>1.31821cm</Left>
-                              <Height>1.07746cm</Height>
-                              <Width>8.03685cm</Width>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <PaddingLeft>2pt</PaddingLeft>
-                                <PaddingRight>2pt</PaddingRight>
-                                <PaddingTop>2pt</PaddingTop>
-                                <PaddingBottom>2pt</PaddingBottom>
-                              </Style>
-                            </Textbox>
-                            <Line Name="Line3">
-                              <Top>1.7985cm</Top>
-                              <Left>1.00071cm</Left>
-                              <Height>0cm</Height>
-                              <Width>8.3279cm</Width>
-                              <ZIndex>1</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>Solid</Style>
-                                </Border>
-                              </Style>
-                            </Line>
-                          </ReportItems>
+                        <Textbox Name="Textbox5">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>____________________________________________</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!NombreMadre.Value</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                                <TextRun>
+                                  <Value xml:space="preserve"> </Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Firma Madre</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox5</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
                           </Style>
-                        </Rectangle>
+                        </Textbox>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -942,7 +1029,7 @@ Nota: La autorización que Ud. otorga será registrada con su fecha y medio de o
                 <TablixMember>
                   <Group Name="Details2">
                     <PageBreak>
-                      <BreakLocation>End</BreakLocation>
+                      <BreakLocation>Between</BreakLocation>
                     </PageBreak>
                   </Group>
                   <TablixMembers>
@@ -959,9 +1046,9 @@ Nota: La autorización que Ud. otorga será registrada con su fecha y medio de o
             </TablixRowHierarchy>
             <KeepTogether>true</KeepTogether>
             <DataSetName>QueryConsentimiento</DataSetName>
-            <Top>0.65115cm</Top>
-            <Left>0.69191cm</Left>
-            <Height>19.31325cm</Height>
+            <Top>0.10583cm</Top>
+            <Left>0.68474cm</Left>
+            <Height>18.94284cm</Height>
             <Width>19.96172cm</Width>
             <Style>
               <Border>
@@ -990,88 +1077,167 @@ Nota: La autorización que Ud. otorga será registrada con su fecha y medio de o
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>20.17787cm</Height>
+        <Height>19.38412cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>21.13844cm</Width>
+      <Width>20.97969cm</Width>
       <Page>
         <PageHeader>
-          <Height>26.34116mm</Height>
+          <Height>21.57866mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Textbox Name="Textbox13">
-              <CanGrow>true</CanGrow>
+            <Rectangle Name="Rectangle12">
+              <ReportItems>
+                <Line Name="Line2">
+                  <Top>0cm</Top>
+                  <Left>8.06132cm</Left>
+                  <Height>1.55814cm</Height>
+                  <Width>0cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>Solid</Style>
+                    </Border>
+                  </Style>
+                </Line>
+                <Line Name="Line3">
+                  <Top>0.80257cm</Top>
+                  <Left>8.06132cm</Left>
+                  <Height>0cm</Height>
+                  <Width>11.9004cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>Solid</Style>
+                    </Border>
+                  </Style>
+                </Line>
+                <Image Name="Escudo_SGS2">
+                  <Source>Embedded</Source>
+                  <Value>BlancoSGS</Value>
+                  <Sizing>FitProportional</Sizing>
+                  <Top>0cm</Top>
+                  <Left>0cm</Left>
+                  <Height>1.55814cm</Height>
+                  <Width>8.06132cm</Width>
+                  <ZIndex>2</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Image>
+                <Textbox Name="Textbox8">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>PROCESO MATRÍCULAS</Value>
+                          <Style>
+                            <FontStyle>Normal</FontStyle>
+                            <FontWeight>Bold</FontWeight>
+                            <TextDecoration>None</TextDecoration>
+                            <Color>#000000</Color>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox8</rd:DefaultName>
+                  <Top>0cm</Top>
+                  <Left>8.36118cm</Left>
+                  <Height>0.62618cm</Height>
+                  <Width>11.40736cm</Width>
+                  <ZIndex>3</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+                <Textbox Name="Textbox10">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>AUTORIZACIÓN DE TRATAMIENTO Y MANEJO DE  INFORMACIÓN PERSONAL</Value>
+                          <Style>
+                            <FontStyle>Normal</FontStyle>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                            <TextDecoration>None</TextDecoration>
+                            <Color>#000000</Color>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox8</rd:DefaultName>
+                  <Top>0.87312cm</Top>
+                  <Left>8.36118cm</Left>
+                  <Height>0.51181cm</Height>
+                  <Width>11.40736cm</Width>
+                  <ZIndex>4</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+              </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>
-PROCESO MATRÍCULAS</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>AUTORIZACIÓN DE TRATAMIENTO Y MANEJO DE  INFORMACIÓN PERSONAL</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox13</rd:DefaultName>
-              <Top>0.37042cm</Top>
-              <Left>11.28641cm</Left>
-              <Height>2.06375cm</Height>
-              <Width>9.36005cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Image Name="Image1">
-              <Source>Embedded</Source>
-              <Value>BlancoSGS</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>0.37042cm</Top>
+              <Top>0.43216cm</Top>
               <Left>0.68474cm</Left>
-              <Height>2.06375cm</Height>
-              <Width>10.21292cm</Width>
-              <ZIndex>1</ZIndex>
+              <Height>1.55814cm</Height>
+              <Width>19.96172cm</Width>
               <Style>
                 <Border>
-                  <Style>None</Style>
+                  <Style>Solid</Style>
                 </Border>
+                <TopBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </TopBorder>
+                <BottomBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </BottomBorder>
+                <LeftBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </RightBorder>
               </Style>
-            </Image>
+            </Rectangle>
           </ReportItems>
           <Style>
             <Border>
@@ -1130,6 +1296,7 @@ PROCESO MATRÍCULAS</Value>
         </PageFooter>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
+        <TopMargin>3cm</TopMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>
@@ -1169,8 +1336,8 @@ PROCESO MATRÍCULAS</Value>
       <DataType>String</DataType>
       <DefaultValue>
         <DataSetReference>
-          <DataSetName>Seccion</DataSetName>
-          <ValueField>IdSeccion</ValueField>
+          <DataSetName>Nivel</DataSetName>
+          <ValueField>idNivel</ValueField>
         </DataSetReference>
       </DefaultValue>
       <Prompt>Nivel</Prompt>
@@ -1203,12 +1370,6 @@ PROCESO MATRÍCULAS</Value>
     </ReportParameter>
     <ReportParameter Name="Estudiantes">
       <DataType>String</DataType>
-      <DefaultValue>
-        <DataSetReference>
-          <DataSetName>Estudiantes</DataSetName>
-          <ValueField>NumeroIdentificacion</ValueField>
-        </DataSetReference>
-      </DefaultValue>
       <Prompt>Estudiantes</Prompt>
       <ValidValues>
         <DataSetReference>

@@ -12,13 +12,12 @@ FECHA CREACIÓN:		12/10/2016
 PARÁMETROS ENTRADA:	@FechaInicio y @FechaFin
 EXCEPCIONES:		No Aplica
 ---------------------------------------------------------------------
-MODIFICACIÓN:
-AUTOR:
-REQUERIMIENTO:
-EMPRESA:
-FECHA MODIFICACIÓN:
+MODIFICACIÓN:       Se hace ajuste en la columnas de segundo apellido y segundo nombre
+					para que concatene si esos tiene valor null.
+AUTOR:				John Alberto		
+FECHA MODIFICACIÓN:  12 de Diciembre de 2017
 ********************************************************************/
-CREATE PROCEDURE 
+ALTER PROCEDURE 
 	 [dbo].[PR_SGS_Rpt_RegistroConsultaMedicaEmpleados] 
 
         @pFechaInicio as DateTime
@@ -30,7 +29,7 @@ BEGIN
        ,@FechaFin    as Date =  Convert( Date, @pFechaFin)
 SELECT 
 
-       PR.PrimerApellido + ' ' + isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' ' + PR.SegundoNombre AS NombreEmpleado
+		PR.PrimerApellido + ' ' + isNull(PR.SegundoApellido,'') + ' ' + PR.PrimerNombre + ' ' + isNull(PR.SegundoNombre,'') AS NombreEmpleado
        ,EVL.Edad AS Edad
        ,EVL.ClasificacionTriage AS Triage
              , isnull (STUFF(

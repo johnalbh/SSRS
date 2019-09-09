@@ -282,8 +282,7 @@ FROM EstudianteCurso AS EC
 INNER JOIN PERSONA AS PR
 ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
 AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
-
-WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+WHERE EC.idCurso in(@Curso)
 ORDER BY PR.PrimerApellido ASC</CommandText>
       </Query>
       <Fields>
@@ -1617,11 +1616,11 @@ El Servicio Médico del Colegio, está conformado por una médica general y una 
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>11.0775cm</Height>
+                  <Height>3.21938cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox2">
+                        <Textbox Name="Textbox6">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1659,6 +1658,54 @@ El Servicio Médico del Colegio, está conformado por una médica general y una 
                               <TextRuns>
                                 <TextRun>
                                   <Value>Para los casos en los que el estudiante requiera procedimientos que no se realizan, el Servicio Médico brindará la atención inmediata y se procederá a remitirlo a la Institución Prestadora de Servicios de Salud acordada con los padres. Los procedimientos que NO se realizan son:</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontWeight>Normal</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox6</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>6</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>7.79667cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontWeight>Normal</FontWeight>
@@ -1901,23 +1948,6 @@ El Servicio Médico del Colegio, está conformado por una médica general y una 
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontWeight>Normal</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <LeftIndent>1.27cm</LeftIndent>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
                                   <Value>En caso que el estudiante requiera ser trasladado a una Institución de Salud, el padre, madre o acudiente, deberá presentarse en las instalaciones del Servicio Médico para poder realizar el traslado, ya que si bien el seguro de accidentes de los estudiantes ofrece el servicio de transporte o ambulancia, es imperativo que el padre, madre o acudiente esté con el estudiante en el momento de ser trasladado.</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
@@ -1928,7 +1958,7 @@ El Servicio Médico del Colegio, está conformado por una médica general y una 
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>General</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -2417,9 +2447,11 @@ lineamientos aquí referidos.</Value>
                   <Group Name="Details2">
                     <PageBreak>
                       <BreakLocation>Between</BreakLocation>
+                      <ResetPageNumber>true</ResetPageNumber>
                     </PageBreak>
                   </Group>
                   <TablixMembers>
+                    <TablixMember />
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
@@ -2440,10 +2472,14 @@ lineamientos aquí referidos.</Value>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>QueryConsentimiento</DataSetName>
-            <Top>0.29104cm</Top>
-            <Left>1.29328cm</Left>
-            <Height>39.26024cm</Height>
-            <Width>19.60702cm</Width>
+            <PageBreak>
+              <BreakLocation>Between</BreakLocation>
+              <ResetPageNumber>true</ResetPageNumber>
+            </PageBreak>
+            <Top>0.15875cm</Top>
+            <Left>1.26682cm</Left>
+            <Height>39.19878cm</Height>
+            <Width>19.60703cm</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -2471,7 +2507,7 @@ lineamientos aquí referidos.</Value>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>40.05399cm</Height>
+        <Height>41.84462cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2481,7 +2517,7 @@ lineamientos aquí referidos.</Value>
       <Width>21.1649cm</Width>
       <Page>
         <PageHeader>
-          <Height>26.34116mm</Height>
+          <Height>21.57866mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -2491,8 +2527,8 @@ lineamientos aquí referidos.</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.37042cm</Top>
               <Left>1.29328cm</Left>
-              <Height>2.06375cm</Height>
-              <Width>9.8873cm</Width>
+              <Height>1.64042cm</Height>
+              <Width>9.42621cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2508,22 +2544,6 @@ lineamientos aquí referidos.</Value>
                     <TextRun>
                       <Value>
 BIENESTAR ESTUDIANTIL - SERVICIO MÉDICO</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value />
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontWeight>Bold</FontWeight>
@@ -2555,9 +2575,9 @@ BIENESTAR ESTUDIANTIL - SERVICIO MÉDICO</Value>
               </Paragraphs>
               <rd:DefaultName>Textbox13</rd:DefaultName>
               <Top>0.37042cm</Top>
-              <Left>11.28641cm</Left>
-              <Height>2.06375cm</Height>
-              <Width>9.09546cm</Width>
+              <Left>10.89588cm</Left>
+              <Height>1.64042cm</Height>
+              <Width>9.48599cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -2618,6 +2638,64 @@ BIENESTAR ESTUDIANTIL - SERVICIO MÉDICO</Value>
                 <PaddingBottom>2pt</PaddingBottom>
               </Style>
             </Textbox>
+            <Textbox Name="ExecutionTime2">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=Globals!PageNumber</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontSize>7pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#000000</Color>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> de </Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontSize>7pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#000000</Color>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!TotalPages</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontSize>7pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <TextDecoration>None</TextDecoration>
+                        <Color>#000000</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>ExecutionTime</rd:DefaultName>
+              <Top>0.70556mm</Top>
+              <Left>80.27633mm</Left>
+              <Height>6.35mm</Height>
+              <Width>51.09633mm</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
           </ReportItems>
           <Style>
             <Border>
@@ -2625,14 +2703,14 @@ BIENESTAR ESTUDIANTIL - SERVICIO MÉDICO</Value>
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>35.5cm</PageHeight>
+        <PageHeight>27.9cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
         <InteractiveHeight>0cm</InteractiveHeight>
         <InteractiveWidth>21.59cm</InteractiveWidth>
-        <LeftMargin>2mm</LeftMargin>
-        <RightMargin>2mm</RightMargin>
-        <TopMargin>2mm</TopMargin>
-        <BottomMargin>2mm</BottomMargin>
+        <LeftMargin>0.2cm</LeftMargin>
+        <RightMargin>0.2cm</RightMargin>
+        <TopMargin>0.2cm</TopMargin>
+        <BottomMargin>0.2cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>

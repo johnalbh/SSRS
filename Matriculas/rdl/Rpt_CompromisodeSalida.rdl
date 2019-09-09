@@ -281,8 +281,7 @@ FROM EstudianteCurso AS EC
 INNER JOIN PERSONA AS PR
 ON EC.TipoIdentificacionEstudiante = PR.TipoIdentificacion 
 AND EC.NumeroIdentificacionEstudiante = PR.NumeroIdentificacion
-
-WHERE EC.idCurso in(@Curso) and Estado = 'Asignado'
+WHERE EC.idCurso in(@Curso)
 ORDER BY PR.PrimerApellido ASC</CommandText>
       </Query>
       <Fields>
@@ -353,7 +352,6 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                               <Color>LightGrey</Color>
                               <Style>Solid</Style>
                             </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -625,53 +623,7 @@ ORDER BY PR.PrimerApellido ASC</CommandText>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.69862cm</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox413">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>DATOS FAMILIARES</Value>
-                                  <Style>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox413</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>Gainsboro</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>6</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>24.80446cm</Height>
+                  <Height>24.25953cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1215,23 +1167,6 @@ actividades.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontStyle>Normal</FontStyle>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <TextDecoration>None</TextDecoration>
-                                    <Color>#000000</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
                                   <Value>No está permitido consumir, comprar, vender ni portar bebidas alcohólicas, cigarrillos o cualquier tipo de sustancias psicoactivas. Cualquiera de estas situaciones generará un compromiso disciplinario a los estudiantes involucrados de acuerdo con lo establecido en el Manual de Convivencia. </Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
@@ -1269,7 +1204,7 @@ actividades.</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.80092cm</Height>
+                  <Height>1.53634cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1277,17 +1212,6 @@ actividades.</Value>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -1347,18 +1271,7 @@ actividades.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>______________________________________________ </Value>
+                                  <Value>________________________________________ </Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -1412,7 +1325,7 @@ actividades.</Value>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>1.86297cm</Height>
+                  <Height>1.57193cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1420,17 +1333,6 @@ actividades.</Value>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -1495,17 +1397,6 @@ actividades.</Value>
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
@@ -1606,11 +1497,19 @@ actividades.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Fecha:</Value>
+                                  <Value>Fecha: </Value>
                                   <Style />
                                 </TextRun>
+                                <TextRun>
+                                  <Value>=Now()</Value>
+                                  <Style>
+                                    <Format>d</Format>
+                                  </Style>
+                                </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox20</rd:DefaultName>
@@ -1618,43 +1517,17 @@ actividades.</Value>
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <VerticalAlign>Middle</VerticalAlign>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox21">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>____________________</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox21</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox22">
@@ -1743,7 +1616,6 @@ actividades.</Value>
                     <TablixMember />
                     <TablixMember />
                     <TablixMember />
-                    <TablixMember />
                   </TablixMembers>
                 </TablixMember>
               </TablixMembers>
@@ -1751,7 +1623,7 @@ actividades.</Value>
             <DataSetName>QueryConsentimiento</DataSetName>
             <Top>0.14111cm</Top>
             <Left>0.07946cm</Left>
-            <Height>31.47991cm</Height>
+            <Height>29.68075cm</Height>
             <Width>20.89249cm</Width>
             <Style>
               <Border>
@@ -1780,7 +1652,7 @@ actividades.</Value>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>31.8856cm</Height>
+        <Height>29.92768cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1790,93 +1662,112 @@ actividades.</Value>
       <Width>21.15389cm</Width>
       <Page>
         <PageHeader>
-          <Height>23.64664mm</Height>
+          <Height>15.97372mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
-            <Image Name="Escudo_SGS">
-              <Source>Embedded</Source>
-              <Value>BlancoSGS</Value>
-              <Sizing>FitProportional</Sizing>
-              <Top>0.10583cm</Top>
-              <Left>0.44879cm</Left>
-              <Height>2.08666cm</Height>
-              <Width>11.56964cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-              </Style>
-            </Image>
-            <Textbox Name="Textbox13">
-              <CanGrow>true</CanGrow>
+            <Rectangle Name="Rectangle1">
+              <ReportItems>
+                <Image Name="Escudo_SGS">
+                  <Source>Embedded</Source>
+                  <Value>BlancoSGS</Value>
+                  <Sizing>FitProportional</Sizing>
+                  <Left>0.13542in</Left>
+                  <Height>1.05478cm</Height>
+                  <Width>8.41886cm</Width>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                  </Style>
+                </Image>
+                <Textbox Name="Textbox13">
+                  <CanGrow>true</CanGrow>
+                  <KeepTogether>true</KeepTogether>
+                  <Paragraphs>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>PROCESO DE ENSEÑANZA / APRENDIZAJE</Value>
+                          <Style>
+                            <FontStyle>Normal</FontStyle>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                            <TextDecoration>None</TextDecoration>
+                            <Color>#000000</Color>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                    <Paragraph>
+                      <TextRuns>
+                        <TextRun>
+                          <Value>COMPROMISO ESTUDIANTIL PARA SALIDAS PEDAGÓGICAS Y EXCURSIONES</Value>
+                          <Style>
+                            <FontStyle>Normal</FontStyle>
+                            <FontSize>9pt</FontSize>
+                            <FontWeight>Bold</FontWeight>
+                            <TextDecoration>None</TextDecoration>
+                            <Color>#000000</Color>
+                          </Style>
+                        </TextRun>
+                      </TextRuns>
+                      <Style>
+                        <TextAlign>Center</TextAlign>
+                      </Style>
+                    </Paragraph>
+                  </Paragraphs>
+                  <rd:DefaultName>Textbox13</rd:DefaultName>
+                  <Top>0.035cm</Top>
+                  <Left>9.0991cm</Left>
+                  <Height>1.01978cm</Height>
+                  <Width>11.79339cm</Width>
+                  <ZIndex>1</ZIndex>
+                  <Style>
+                    <Border>
+                      <Style>None</Style>
+                    </Border>
+                    <PaddingLeft>2pt</PaddingLeft>
+                    <PaddingRight>2pt</PaddingRight>
+                    <PaddingTop>2pt</PaddingTop>
+                    <PaddingBottom>2pt</PaddingBottom>
+                  </Style>
+                </Textbox>
+              </ReportItems>
               <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value />
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>PROCESO DE ENSEÑANZA / APRENDIZAJE</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>COMPROMISO ESTUDIANTIL PARA SALIDAS PEDAGÓGICAS Y EXCURSIONES</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontWeight>Bold</FontWeight>
-                        <TextDecoration>None</TextDecoration>
-                        <Color>#000000</Color>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox13</rd:DefaultName>
-              <Top>0.14083cm</Top>
-              <Left>12.19481cm</Left>
-              <Height>2.05166cm</Height>
-              <Width>8.77714cm</Width>
-              <ZIndex>1</ZIndex>
+              <Top>0.26787cm</Top>
+              <Left>0.07946cm</Left>
+              <Height>1.1427cm</Height>
+              <Width>20.89249cm</Width>
               <Style>
                 <Border>
-                  <Style>None</Style>
+                  <Style>Solid</Style>
                 </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
+                <TopBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </TopBorder>
+                <BottomBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </BottomBorder>
+                <LeftBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </LeftBorder>
+                <RightBorder>
+                  <Color>Black</Color>
+                  <Style>Solid</Style>
+                  <Width>1pt</Width>
+                </RightBorder>
               </Style>
-            </Textbox>
+            </Rectangle>
           </ReportItems>
           <Style>
             <Border>
@@ -1885,7 +1776,7 @@ actividades.</Value>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>8.11389mm</Height>
+          <Height>7.32014mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1914,7 +1805,7 @@ actividades.</Value>
               <rd:DefaultName>ExecutionTime</rd:DefaultName>
               <Top>1.76389mm</Top>
               <Left>6.84742mm</Left>
-              <Height>6.35mm</Height>
+              <Height>3.70417mm</Height>
               <Width>51.09633mm</Width>
               <Style>
                 <Border>
@@ -1933,14 +1824,14 @@ actividades.</Value>
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>35.5cm</PageHeight>
+        <PageHeight>33.02cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
         <InteractiveHeight>0cm</InteractiveHeight>
         <InteractiveWidth>21.59cm</InteractiveWidth>
-        <LeftMargin>2mm</LeftMargin>
-        <RightMargin>2mm</RightMargin>
-        <TopMargin>2mm</TopMargin>
-        <BottomMargin>2mm</BottomMargin>
+        <LeftMargin>0.2cm</LeftMargin>
+        <RightMargin>0.2cm</RightMargin>
+        <TopMargin>0.2cm</TopMargin>
+        <BottomMargin>0.2cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>

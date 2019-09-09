@@ -27,12 +27,12 @@ ALTER PROCEDURE
 		,@idp_PeriodoLectivo VARCHAR (50)
 		,@idP_Seccion VARCHAR (60) 
 		,@idP_Nivel VARCHAR (60) 
-		,@idP_Curso VARCHAR (60)
+		,@idP_Curso VARCHAR (max)
 AS
 BEGIN
 DECLARE @Cursos TABLE 
 	(
-		 IdCursoSeleccionado VARCHAR(60)
+		 IdCursoSeleccionado VARCHAR(1000)
 	)
 INSERT INTO @Cursos
 SELECT CR.Valor 
@@ -50,8 +50,9 @@ SELECT
     ,EVL.HoraFin AS HoraFin
 	,EVL.FechaIngreso	AS FechaIngreso
     ,PR.TipoIdentificacion + ' ' + PR.NumeroIdentificacion AS NumeroIdentificacion
+	,CR.IdCurso AS IdCurso
     ,CR.Nombre	AS Curso
-    ,EVL.Edad	AS EDAD
+    ,EVL.Edad	AS Edad
 	, isnull (STUFF(
     (SELECT  ', ' + cie.Descripcion
             FROM DIAGNOSTICO AS DG

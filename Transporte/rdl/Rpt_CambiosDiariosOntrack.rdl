@@ -5,9 +5,10 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source=DESKTOP-ODR6JD4;Initial Catalog=SGS</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:SecurityType>Integrated</rd:SecurityType>
       <rd:DataSourceID>ed46beba-1b98-49c5-b3df-809ca942d3e0</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -25,8 +26,8 @@
       </Query>
       <Fields>
         <Field Name="codigo">
-          <DataField>codigo</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+          <DataField>Codigo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CategoriaNovedad">
           <DataField>CategoriaNovedad</DataField>
@@ -47,6 +48,10 @@
         <Field Name="detalle">
           <DataField>Detalle</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fecha">
+          <DataField>Fecha</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -2367,7 +2372,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Parameters!dP_Fecha.Value</Value>
+                                  <Value>=Fields!Fecha.Value</Value>
                                   <Style>
                                     <Format>yyyy-MM-dd</Format>
                                   </Style>

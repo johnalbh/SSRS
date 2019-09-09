@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=amarillo.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
+        <ConnectString>Data Source= limon.cloudapp.net,57500;Initial Catalog=SGS</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -17,11 +17,8 @@
       <Query>
         <DataSourceName>SGS</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@idP_TipoIdentificacion">
-            <Value>=Parameters!idP_TipoIdentificacion.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@idP_NumeroIdentificacion">
-            <Value>=Parameters!idP_NumeroIdentificacion.Value</Value>
+          <QueryParameter Name="@PEstudiante">
+            <Value>=Parameters!PEstudiante.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@idP_FechaInicio">
             <Value>=Parameters!idP_FechaInicio.Value</Value>
@@ -81,32 +78,30 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="TipoDocumento">
+    <DataSet Name="DatosBasicos">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>SELECT * FROM DOMINIO WHERE DOMINIO = 'TipoDocumento' Order by  criterio asc</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@PNombreEstudiante">
+            <Value>=Parameters!PNombreEstudiante.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+          <QueryParameter Name="@bP_incluirTodos">
+            <Value>=Parameters!bP_incluirTodos.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>PR_SGS_Rpt_ConsultaEstudiantesPorNombre @PNombreEstudiante, @bP_incluirTodos</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
-        <Field Name="Dominio">
-          <DataField>Dominio</DataField>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Valor">
-          <DataField>Valor</DataField>
+        <Field Name="NumeroIdentificacion">
+          <DataField>NumeroIdentificacion</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Descripcion">
-          <DataField>Descripcion</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Criterio">
-          <DataField>Criterio</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Activo">
-          <DataField>Activo</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -339,21 +334,7 @@
                                               <Paragraph>
                                                 <TextRuns>
                                                   <TextRun>
-                                                    <Value>Número</Value>
-                                                    <Style>
-                                                      <FontSize>8pt</FontSize>
-                                                      <FontWeight>Bold</FontWeight>
-                                                    </Style>
-                                                  </TextRun>
-                                                </TextRuns>
-                                                <Style>
-                                                  <TextAlign>Center</TextAlign>
-                                                </Style>
-                                              </Paragraph>
-                                              <Paragraph>
-                                                <TextRuns>
-                                                  <TextRun>
-                                                    <Value>Sesion</Value>
+                                                    <Value>Nombre</Value>
                                                     <Style>
                                                       <FontSize>8pt</FontSize>
                                                       <FontWeight>Bold</FontWeight>
@@ -1163,7 +1144,7 @@
       <Width>209.10421mm</Width>
       <Page>
         <PageHeader>
-          <Height>22.06624mm</Height>
+          <Height>20.47874mm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1174,9 +1155,9 @@
                   <Value>logoOficialSGSMed2</Value>
                   <Sizing>FitProportional</Sizing>
                   <Top>0mm</Top>
-                  <Left>0mm</Left>
-                  <Height>16.40416mm</Height>
-                  <Width>91.15065mm</Width>
+                  <Left>0.70556mm</Left>
+                  <Height>14.02291mm</Height>
+                  <Width>65.83884mm</Width>
                   <Style>
                     <Border>
                       <Style>None</Style>
@@ -1190,9 +1171,10 @@
                     <Paragraph>
                       <TextRuns>
                         <TextRun>
-                          <Value>BIENESTAR ESTUDIANTIL 
- CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
+                          <Value>HISTORIA CLÍNICA
+BIENESTAR ESTUDIANTIL  -  CENTRO DE APRENDIZAJE Y DESAROLLO INTEGRAL</Value>
                           <Style>
+                            <FontSize>9pt</FontSize>
                             <FontWeight>Bold</FontWeight>
                           </Style>
                         </TextRun>
@@ -1250,9 +1232,9 @@
                   <rd:WatermarkTextbox>Title</rd:WatermarkTextbox>
                   <rd:DefaultName>ReportTitle</rd:DefaultName>
                   <Top>0mm</Top>
-                  <Left>9.29145cm</Left>
-                  <Height>16.40416mm</Height>
-                  <Width>107.77903mm</Width>
+                  <Left>6.83083cm</Left>
+                  <Height>13.49374mm</Height>
+                  <Width>132.38524mm</Width>
                   <ZIndex>1</ZIndex>
                   <Style>
                     <Border>
@@ -1268,7 +1250,7 @@
               <KeepTogether>true</KeepTogether>
               <Top>3.937mm</Top>
               <Left>3.95844mm</Left>
-              <Height>16.40416mm</Height>
+              <Height>14.02291mm</Height>
               <Width>201.17702mm</Width>
               <Style>
                 <Border>
@@ -1295,13 +1277,13 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Fecha y Hora de Generación del Reporte: </Value>
+                      <Value>Generado de Acumen: Fecha y Hora de Generación del Reporte: </Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=Globals!ExecutionTime</Value>
+                      <Value>=String.Format("{0:dd/MM/yyyy HH:mm:ss } ", Globals!ExecutionTime.AddHours(-5))</Value>
                       <Style>
                         <FontSize>8pt</FontSize>
                       </Style>
@@ -1316,7 +1298,7 @@
               <Top>0.35278mm</Top>
               <Left>3.95844mm</Left>
               <Height>6.35mm</Height>
-              <Width>107.94999mm</Width>
+              <Width>130.17499mm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1348,28 +1330,49 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="idP_TipoIdentificacion">
-      <DataType>String</DataType>
-      <Prompt>Tipo Identificacion:</Prompt>
-      <ValidValues>
-        <DataSetReference>
-          <DataSetName>TipoDocumento</DataSetName>
-          <ValueField>Valor</ValueField>
-          <LabelField>Descripcion</LabelField>
-        </DataSetReference>
-      </ValidValues>
-    </ReportParameter>
-    <ReportParameter Name="idP_NumeroIdentificacion">
-      <DataType>String</DataType>
-      <Prompt>Número Identificación:</Prompt>
-    </ReportParameter>
     <ReportParameter Name="idP_FechaInicio">
       <DataType>DateTime</DataType>
-      <Prompt>Fecha Inicio:</Prompt>
+      <Prompt>Fecha Inicio</Prompt>
     </ReportParameter>
     <ReportParameter Name="idP_FechaFin">
       <DataType>DateTime</DataType>
-      <Prompt>Fecha Fin:</Prompt>
+      <Prompt>Fecha Fin</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="bP_incluirTodos">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Incluir</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>0</Value>
+            <Label>Estudiantes del año actual</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>1</Value>
+            <Label>Estudiantes años anteriores</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="PNombreEstudiante">
+      <DataType>String</DataType>
+      <Prompt>Ingrese Nombre Estudiante</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PEstudiante">
+      <DataType>String</DataType>
+      <Prompt>Seleccione Estudiante</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>DatosBasicos</DataSetName>
+          <ValueField>NumeroIdentificacion</ValueField>
+          <LabelField>Nombre</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>

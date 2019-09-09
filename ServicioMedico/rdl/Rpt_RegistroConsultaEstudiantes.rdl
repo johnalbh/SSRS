@@ -5,7 +5,7 @@
     <DataSource Name="SGS">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=naranja.cloudapp.net,57500</ConnectString>
+        <ConnectString>Data Source=amarillo.cloudapp.net,57500</ConnectString>
         <Prompt>Specify a user name and password for data source SGS:</Prompt>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
@@ -89,9 +89,9 @@
     <DataSet Name="PeriodoLectivo">
       <Query>
         <DataSourceName>SGS</DataSourceName>
-        <CommandText>select * 
-from periodolectivo
-where AnioActivo=1</CommandText>
+        <CommandText>select 
+*
+from periodolectivo where AnioInicial &gt;=  2015 and (AnioAdmision &lt;&gt; 'True' or AnioAdmision IS NULL)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -127,6 +127,14 @@ where AnioActivo=1</CommandText>
           <DataField>FechaFinPeriodo</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
+        <Field Name="CodigoEstudiante">
+          <DataField>CodigoEstudiante</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="FechaAperturaAdmision">
+          <DataField>FechaAperturaAdmision</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="Seccion">
@@ -153,14 +161,16 @@ where AnioActivo=1</CommandText>
           <QueryParameter Name="@idP_Nivel">
             <Value>=Parameters!idP_Nivel.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@idp_PeriodoLectivo">
+            <Value>=Parameters!idp_PeriodoLectivo.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT CR.IdCurso, CR.Nombre 
 FROM CURSO AS CR
 INNER JOIN PERIODOLECTIVO AS PL
 ON CR.AnioAcademico = PL.Id
-WHERE PL.AnioActivo = 1 AND CR.IdNivel in (@idP_Nivel)
-Order By CR.idCurso
-</CommandText>
+WHERE PL.Id =  @idp_PeriodoLectivo AND CR.IdNivel in (@idP_Nivel)
+Order By CR.idCurso</CommandText>
       </Query>
       <Fields>
         <Field Name="IdCurso">
@@ -204,10 +214,10 @@ Order By CR.idCurso
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.67576mm</Width>
+                  <Width>9.32159mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>20.53587mm</Width>
+                  <Width>19.47754mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>16.01197mm</Width>
@@ -231,7 +241,7 @@ Order By CR.idCurso
                   <Width>66.58769mm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>19.22727mm</Width>
+                  <Width>17.1106mm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>11.28977mm</Width>
@@ -478,7 +488,7 @@ Order By CR.idCurso
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Nombre Estudiante</Value>
+                                  <Value>Nombre Estudiantes</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -1474,7 +1484,7 @@ Order By CR.idCurso
             <Top>3.14324mm</Top>
             <Left>2.83714mm</Left>
             <Height>15.875mm</Height>
-            <Width>267.937mm</Width>
+            <Width>267.40783mm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1672,16 +1682,14 @@ Order By CR.idCurso
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="pFechaInicio">
-      <DataType>DateTime</DataType>
-      <Prompt>Fecha Inicio</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="pFechaFin">
-      <DataType>DateTime</DataType>
-      <Prompt>Fecha Fin</Prompt>
-    </ReportParameter>
     <ReportParameter Name="idp_PeriodoLectivo">
       <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>PeriodoLectivo</DataSetName>
+          <ValueField>AnioActivo</ValueField>
+        </DataSetReference>
+      </DefaultValue>
       <Prompt>Periodo Lectivo</Prompt>
       <ValidValues>
         <DataSetReference>
@@ -1726,6 +1734,14 @@ Order By CR.idCurso
         </DataSetReference>
       </ValidValues>
       <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="pFechaInicio">
+      <DataType>DateTime</DataType>
+      <Prompt>Fecha Inicio</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="pFechaFin">
+      <DataType>DateTime</DataType>
+      <Prompt>Fecha Fin</Prompt>
     </ReportParameter>
   </ReportParameters>
   <EmbeddedImages>
